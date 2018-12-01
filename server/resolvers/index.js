@@ -1,8 +1,7 @@
-import configs from './configResolver';
-console.log(configs)
+import service from './configResolver';
 const resolveFunctions = {
     Query: {
-        configs
+        service
     }
 }
 export default resolveFunctions
