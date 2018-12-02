@@ -2,9 +2,11 @@
   "name": "anura-client",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:4000",
   "dependencies": {
     "@material-ui/core": "^3.6.1",
     "@material-ui/icons": "^3.0.1",
+    "apollo-boost": "^0.1.22",
     "apollo-server": "^2.2.5",
     "babel-cli": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
@@ -12,6 +14,7 @@
     "graphql": "^14.0.2",
     "nodemon": "^1.18.7",
     "react": "^16.6.3",
+    "react-apollo": "^2.3.2",
     "react-dom": "^16.6.3",
     "react-scripts": "2.1.1"
   },
