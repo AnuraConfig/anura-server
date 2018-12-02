@@ -3,6 +3,7 @@ export default gql`
 
 type Service {
     name: String!
+    discretion: String
     id: ID!
     environments: [Environment]
 }
@@ -19,6 +20,6 @@ type Config {
 }
 
 type Query {
-    service: [Service]
+    service(isNew : Boolean): [Service]
 }
 `
