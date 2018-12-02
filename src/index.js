@@ -6,6 +6,13 @@ import * as serviceWorker from './serviceWorker';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import pink from '@material-ui/core/colors/pink';
 import green from '@material-ui/core/colors/green';
+import { ApolloProvider } from "react-apollo";
+
+import ApolloClient from "apollo-boost";
+
+const client = new ApolloClient({
+    uri: "/graphql"
+});
 
 const theme = createMuiTheme({
     palette: {
@@ -15,7 +22,9 @@ const theme = createMuiTheme({
 });
 ReactDOM.render(
     <MuiThemeProvider theme={theme}>
-        <App />
+        <ApolloProvider client={client}>
+            <App />
+        </ApolloProvider>
     </MuiThemeProvider>, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
