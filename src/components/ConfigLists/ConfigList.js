@@ -25,18 +25,8 @@ const query = gql`
 }`
 
 const styles = theme => ({
-    root: {
-        width: "80%",
-        margin: " 50px auto",
-        height: "100%"
-    },
-    grid: {
-        backgroundColor: theme.palette.background.paper,
-        flexGrow: 1,
-        width: "100%",
-    },
     gridItem: {
-        margin: "5px 50px"
+        margin: "5px 50px",
     },
     title: {
         padding: "30px"
