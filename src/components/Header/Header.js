@@ -8,10 +8,12 @@ import InputBase from '@material-ui/core/InputBase';
 import { withStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
-import styles from './HeaderStyle'
+import styles from './HeaderStyle';
+import { SearchContext } from '../../Context/Contexts';
 
 function SearchAppBar(props) {
   const { classes } = props;
+  console.log("header is re rrenderd")
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -27,13 +29,19 @@ function SearchAppBar(props) {
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-            />
+            <SearchContext.Consumer>
+              {({ text, changeText }) => (
+                <InputBase
+                  placeholder="Search…"
+                  value={text}
+                  onChange={(event) => changeText(event.target.value)}
+                  classes={{
+                    root: classes.inputRoot,
+                    input: classes.inputInput,
+                  }}
+                />
+              )}
+            </SearchContext.Consumer>
           </div>
         </Toolbar>
       </AppBar>
