@@ -9,6 +9,8 @@ import List from '@material-ui/core/List';
 import ServiceItem from './ServiceItem'
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
+import { SearchContext } from '../../Context/Contexts';
+import { configFilter, configSort } from '../../utils/configSearchHelpers';
 
 const query = gql`
 {
@@ -49,7 +51,6 @@ class ConfigList extends React.Component {
                 <Paper elevation={3} className={classes.container}>
                     <Query query={query}>
                         {({ loading, error, data }) => {
-                            console.log(data)
                             if (loading) return (<Typography className={classes.title} variant="h6" color="inherit" noWrap>
                                 Loading
                                   </Typography>)
@@ -61,9 +62,14 @@ class ConfigList extends React.Component {
                                 component="nav"
                                 subheader={<ListSubheader className={classes.subheader} component="div">Your Services</ListSubheader>}
                             >
-                                {data.service.map((service, key) => (
-                                    <ServiceItem service={service} key={key} />
-                                ))}
+                                <SearchContext.Consumer>
+                                    {({ text }) => {
+                                        return data.service.filter(configFilter(text)).sort(configSort(text)).map((service, key) => (
+                                            <ServiceItem service={service} key={key} />
+                                        ))
+                                    }}
+                                </SearchContext.Consumer>
+
                             </List>)
                         }}
                     </Query>
