@@ -65,7 +65,7 @@ class ConfigList extends React.Component {
                                 <SearchContext.Consumer>
                                     {({ text }) => {
                                         return data.service.filter(configFilter(text)).sort(configSort(text)).map((service, key) => (
-                                            <ServiceItem service={service} key={key} />
+                                            <ServiceItem service={service} key={key} searchText={text} />
                                         ))
                                     }}
                                 </SearchContext.Consumer>
