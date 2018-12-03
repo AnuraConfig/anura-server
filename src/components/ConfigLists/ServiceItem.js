@@ -20,13 +20,13 @@ class ServiceItem extends React.Component {
     };
 
     render() {
-        const { name, discretion, environments } = this.props.service
+        const { name, description , environments } = this.props.service
         return (<div>
             <ListItem button onClick={this.handleClick}>
                 <ListItemIcon>
                     <Apps />
                 </ListItemIcon>
-                <ListItemText inset primary={name} secondary={discretion} />
+                <ListItemText inset primary={name} secondary={description } />
                 {this.state.open ? <ExpandLess /> : <ExpandMore />}
             </ListItem>
             <EnvList open={this.state.open} environments={environments} />

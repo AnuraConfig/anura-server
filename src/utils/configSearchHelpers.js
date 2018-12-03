@@ -2,18 +2,18 @@ const NAME_MULTIPLAYER = 10;
 const DESCRIPTION_MULTIPLAYER = 1;
 
 export function configFilter(text) {
-    return function ({ name, discretion }) {
+    return function ({ name, description  }) {
         if (!text) return true
-        return (name.indexOf(text) !== -1 || discretion.indexOf(text) !== -1)
+        return (name.indexOf(text) !== -1 || description .indexOf(text) !== -1)
     }
 }
 
 function getItemScore(text, itemValue) {
     return itemValue.length - itemValue.indexOf(text)
 }
-function getScore(text, { name, discretion }) {
+function getScore(text, { name, description  }) {
     return NAME_MULTIPLAYER * getItemScore(text, name) +
-        DESCRIPTION_MULTIPLAYER * getItemScore(text, discretion)
+        DESCRIPTION_MULTIPLAYER * getItemScore(text, description )
 }
 
 export function configSort(text) {

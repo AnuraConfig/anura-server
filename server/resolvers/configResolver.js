@@ -2,7 +2,7 @@ export default function (obj, args) {
     return [
         {
             name: "service name",
-            discretion: "some discretion for your services",
+            description : "some description  for your services",
             id: "123465",
             environments: [
                 {
@@ -34,7 +34,7 @@ export default function (obj, args) {
         },
         {
             name: "other service",
-            discretion: "some  otuer discretion for your services",
+            description : "some  otuer description  for your services",
             id: "123",
             environments: [
                 {
@@ -66,7 +66,7 @@ export default function (obj, args) {
         },
         {
             name: "service name",
-            discretion: "some discretion for your services",
+            description : "some description  for your services",
             id: "123465",
             environments: [
                 {
@@ -98,7 +98,7 @@ export default function (obj, args) {
         },
         {
             name: "hen other service",
-            discretion: "some  otuer discretion for your services",
+            description : "some  otuer description  for your services",
             id: "123",
             environments: [
                 {

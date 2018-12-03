@@ -16,7 +16,7 @@ const query = gql`
 {
   service  {
     name
-    discretion
+    description 
     environments {
       name
       configs {

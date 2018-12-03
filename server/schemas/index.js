@@ -3,7 +3,7 @@ export default gql`
 
 type Service {
     name: String!
-    discretion: String
+    description : String
     id: ID!
     environments: [Environment]
 }
