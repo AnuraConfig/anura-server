@@ -13,7 +13,6 @@ import { SearchContext } from '../../Context/Contexts';
 
 function SearchAppBar(props) {
   const { classes } = props;
-  console.log("header is re rrenderd")
   return (
     <div className={classes.root}>
       <AppBar position="static">
