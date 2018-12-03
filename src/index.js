@@ -7,8 +7,8 @@ import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import pink from '@material-ui/core/colors/pink';
 import green from '@material-ui/core/colors/green';
 import { ApolloProvider } from "react-apollo";
-
 import ApolloClient from "apollo-boost";
+import ContextProvider from "./Context/ContextProvider"
 
 const client = new ApolloClient({
     uri: "/graphql"
@@ -23,7 +23,9 @@ const theme = createMuiTheme({
 ReactDOM.render(
     <MuiThemeProvider theme={theme}>
         <ApolloProvider client={client}>
-            <App />
+            <ContextProvider>
+                <App />
+            </ContextProvider>
         </ApolloProvider>
     </MuiThemeProvider>, document.getElementById('root'));
 
