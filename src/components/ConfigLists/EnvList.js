@@ -28,7 +28,7 @@ class EnvList extends React.Component {
                     disablePadding
                     subheader={<ListSubheader component="div">Environments</ListSubheader>}>
                     {
-                        environments.map((env, key) => (< ListItem button >
+                        environments.map((env, key) => (< ListItem key={key} button >
                             <ListItemIcon>
                                 <Description />
                             </ListItemIcon>
