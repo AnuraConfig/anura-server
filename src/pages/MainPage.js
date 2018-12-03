@@ -8,7 +8,8 @@ const styles = theme => ({
     root: {
         width: "80%",
         margin: " 50px auto",
-        height: "100%"
+        height: "80vh",
+        padding: "0 20px"
     },
     grid: {
         backgroundColor: theme.palette.background.paper,

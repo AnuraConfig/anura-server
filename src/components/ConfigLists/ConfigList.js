@@ -30,6 +30,14 @@ const styles = theme => ({
     },
     title: {
         padding: "30px"
+    },
+    container: {
+        maxHeight: "77vh",
+        overflowY: "auto"
+    },
+    subheader: {
+        backgroundColor: "#fff",
+        zIndex: 100
     }
 });
 
@@ -38,7 +46,7 @@ class ConfigList extends React.Component {
         const { classes } = this.props;
         return (
             <Grid item xs={6} sm={6}>
-                <Paper elevation={3}>
+                <Paper elevation={3} className={classes.container}>
                     <Query query={query}>
                         {({ loading, error, data }) => {
                             console.log(data)
@@ -51,7 +59,7 @@ class ConfigList extends React.Component {
                             return (<List
                                 className={classes.gridItem}
                                 component="nav"
-                                subheader={<ListSubheader component="div">Your Services</ListSubheader>}
+                                subheader={<ListSubheader className={classes.subheader} component="div">Your Services</ListSubheader>}
                             >
                                 {data.service.map((service, key) => (
                                     <ServiceItem service={service} key={key} />
