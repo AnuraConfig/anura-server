@@ -19,9 +19,6 @@ const query = gql`
     description 
     environments {
       name
-      configs {
-        data
-      }
     }
   }
 }`
