@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
 import SearchContext from './SearchContext'
+import SelectFileContextProvider from './SelectFileContext'
 
 export default class ContextProvider extends Component {
     render() {
         return (
-            <SearchContext>
-                {this.props.children}
-            </SearchContext>
+            <SelectFileContextProvider>
+                <SearchContext>
+                    {this.props.children}
+                </SearchContext>
+            </SelectFileContextProvider>
         )
     }
 }
