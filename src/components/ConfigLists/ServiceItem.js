@@ -3,6 +3,8 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import EnvList from './EnvList'
+import Divider from '@material-ui/core/Divider';
+
 // icons
 import Apps from '@material-ui/icons/Apps';
 import ExpandMore from '@material-ui/icons/ExpandMore';
@@ -42,6 +44,7 @@ class ServiceItem extends React.Component {
                 {this.state.open ? <ExpandLess /> : <ExpandMore />}
             </ListItem>
             <EnvList open={this.state.open} environments={environments} />
+            <Divider/>
         </div>)
     }
 }
