@@ -4,7 +4,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import EnvList from './EnvList'
 import Divider from '@material-ui/core/Divider';
-
+import { SelectFileContext } from '../../Context/Contexts'
 // icons
 import Apps from '@material-ui/icons/Apps';
 import ExpandMore from '@material-ui/icons/ExpandMore';
@@ -34,7 +34,7 @@ class ServiceItem extends React.Component {
 
     render() {
         const searchText = this.props.searchText
-        const { name, description, environments } = this.props.service
+        const { name, description, environments, id } = this.props.service
         return (<div>
             <ListItem button onClick={this.handleClick}>
                 <ListItemIcon>
@@ -43,8 +43,14 @@ class ServiceItem extends React.Component {
                 <ListItemText inset primary={generateTitle(searchText, name)} secondary={generateTitle(searchText, description)} />
                 {this.state.open ? <ExpandLess /> : <ExpandMore />}
             </ListItem>
-            <EnvList open={this.state.open} environments={environments} />
-            <Divider/>
+            <SelectFileContext.Consumer>
+                {({ clickFile }) => (
+                    <EnvList open={this.state.open}
+                        environments={environments}
+                        clickFile={(envName) => clickFile(id, envName)} />
+                )}
+            </SelectFileContext.Consumer>
+            <Divider />
         </div>)
     }
 }
