@@ -8,6 +8,7 @@ import { withStyles } from '@material-ui/core/styles';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import List from '@material-ui/core/List';
 import Description from '@material-ui/icons/Description';
+import AddItemListItem from './AddItemListItem';
 
 const styles = theme => ({
     nested: {
@@ -27,6 +28,7 @@ class EnvList extends React.Component {
                     className={classes.nested}
                     disablePadding
                     subheader={<ListSubheader component="div">Environments</ListSubheader>}>
+                    <AddItemListItem onClick={console.log} text={"Add New Environment"} />
                     {
                         environments.map(({ name }, key) => (
                             < ListItem key={key} button onClick={() => this.props.clickFile(name, 1)} >
