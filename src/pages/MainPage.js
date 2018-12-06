@@ -15,7 +15,6 @@ const styles = theme => ({
     grid: {
         backgroundColor: theme.palette.background.paper,
         flexGrow: 1,
-        width: "100%",
     }
 })
 
