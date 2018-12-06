@@ -6,7 +6,8 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-
+import VersionViewer from "./VersionViewer"
+import Paper from '@material-ui/core/Paper/Paper';
 
 const query = gql`
  query Env($serviceId: String, $envName: String){
@@ -22,7 +23,7 @@ const query = gql`
 const styles = theme => ({
   title: {
     padding: "30px"
-  },
+  }
 });
 
 class FileViewer extends Component {
@@ -30,22 +31,26 @@ class FileViewer extends Component {
     const { classes } = this.props
     return (
       <Grid item xs={6} sm={6}>
-        <SelectFileContext.Consumer>
-          {({ selectedService, selectedEnvironment }) => {
-            if (selectedService && selectedEnvironment)
-              return (<Query query={query} variables={{ serviceId: selectedService, envName: selectedEnvironment }}>
-                {({ loading, error, data }) => {
-                  if (loading) return (<Typography className={classes.title} variant="h6" color="inherit" noWrap>
-                    Loading
+        <Paper className={classes.root}>
+          < SelectFileContext.Consumer>
+            {({ selectedService, selectedEnvironment }) => {
+              if (selectedService && selectedEnvironment)
+                return (<Query query={query} variables={{ serviceId: selectedService, envName: selectedEnvironment }}>
+                  {({ loading, error, data }) => {
+                    if (loading) return (<Typography className={classes.title} variant="h6" color="inherit" noWrap>
+                      Loading
                   </Typography>)
-                  if (error) return (<Typography className={classes.title} variant="h6" color="inherit" noWrap>
-                    Error
+                    if (error) return (<Typography className={classes.title} variant="h6" color="inherit" noWrap>
+                      Error
               </Typography>)
-                  return (<div>yey</div>)
-                }}
-              </Query>)
-          }}
-        </SelectFileContext.Consumer>
+                    if (data.configs && data.configs.configs)
+                      return (<VersionViewer configs={data.configs.configs} />)
+                    return <div>No configs</div>
+                  }}
+                </Query>)
+            }}
+          </SelectFileContext.Consumer>
+        </Paper>
       </Grid>
     )
   }
