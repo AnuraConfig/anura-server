@@ -7,7 +7,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import JsonViewer from './JsonViewer';
 import Paper from '@material-ui/core/Paper/Paper';
-
+import { getMaxVersion, getMaxVersionIndex } from './VersionHelpers'
 const styles = theme => ({
     root: {
         flexGrow: 1,
@@ -27,39 +27,21 @@ const styles = theme => ({
 class VersionViewer extends React.PureComponent {
     constructor(props) {
         super(props)
-        const maxVersion = this.getMaxVersion(props.configs)
+        const maxVersion = getMaxVersion(props.configs)
         this.state = {
             maxVersion,
-            value: this.getMaxVersionIndex(maxVersion, props.configs),
+            value: getMaxVersionIndex(maxVersion, props.configs),
         };
     }
-    componentDidUpdate(newProps) {
-        if (newProps !== this.props) {
-            const maxVersion = this.getMaxVersion(newProps.configs)
+    componentDidUpdate(prevProps) {
+        if (prevProps !== this.props) {
+            const maxVersion = getMaxVersion(this.props.configs)
             this.setState({
                 maxVersion,
-                value: this.getMaxVersionIndex(maxVersion, newProps.configs),
+                value: getMaxVersionIndex(maxVersion, this.props.configs),
             })
         }
 
-    }
-
-    getMaxVersionIndex = (maxVersion, configs) => {
-        for (let index in configs) {
-            if (configs[index] && configs[index].version === maxVersion)
-                return parseInt(index)
-        }
-        return -1
-    }
-
-    getMaxVersion = (configs) => {
-        let max = 0
-        for (let config of configs) {
-            if (config.version > max) {
-                max = config.version
-            }
-        }
-        return parseInt(max)
     }
 
     handleChange = (event, value) => {
@@ -68,8 +50,8 @@ class VersionViewer extends React.PureComponent {
 
     render() {
         const { classes, configs } = this.props;
-        const { value, maxVersion } = this.state.value
-        const index = (value >= configs.length ? configs.length - 1 : value) || configs.length - 1
+        const { value, maxVersion } = this.state
+        const index = value >= configs.length ? configs.length - 1 : value
         return (
             <Paper className={classes.paperRoot} >
                 <Grid item xs={12} sm={12}>
@@ -84,7 +66,8 @@ class VersionViewer extends React.PureComponent {
                                 scrollButtons="auto"
                             >
                                 {configs.map((item, key) => (
-                                    <Tab key={key} label={maxVersion === item.version ? `newest (${item.version})` : `Version ${item.version}`} />
+                                    <Tab key={key} label={maxVersion === item.version ?
+                                        `newest (${item.version})` : `Version ${item.version}`} />
                                 ))}
                             </Tabs>
                         </AppBar>
