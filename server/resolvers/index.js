@@ -1,7 +1,10 @@
-import service from './configResolver';
+import service from './serviceResolver';
+import configs from './configResolver';
+
 const resolveFunctions = {
     Query: {
-        service
+        service,
+        configs
     }
 }
 export default resolveFunctions

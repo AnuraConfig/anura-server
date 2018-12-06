@@ -1,6 +1,6 @@
 import { gql } from 'apollo-server';
-export default gql`
 
+export default gql`
 type Service {
     name: String!
     description : String
@@ -11,7 +11,6 @@ type Service {
 type Environment {
     name: String!
     configs: [Config]
-    id: ID!
 }
 
 type Config {
@@ -21,5 +20,6 @@ type Config {
 
 type Query {
     service(isNew : Boolean): [Service]
+    configs(serviceId: String, environment: String): Environment
 }
 `

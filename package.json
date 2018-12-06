@@ -16,6 +16,7 @@
     "react": "^16.6.3",
     "react-apollo": "^2.3.2",
     "react-dom": "^16.6.3",
+    "react-json-view": "^1.19.1",
     "react-scripts": "2.1.1"
   },
   "scripts": {
