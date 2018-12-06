@@ -15,13 +15,11 @@ import { configFilter, configSort } from '../../utils/configSearchHelpers';
 const query = gql`
 {
   service  {
+    id
     name
     description 
     environments {
       name
-      configs {
-        data
-      }
     }
   }
 }`
@@ -69,7 +67,6 @@ class ConfigList extends React.Component {
                                         ))
                                     }}
                                 </SearchContext.Consumer>
-
                             </List>)
                         }}
                     </Query>

@@ -28,12 +28,13 @@ class EnvList extends React.Component {
                     disablePadding
                     subheader={<ListSubheader component="div">Environments</ListSubheader>}>
                     {
-                        environments.map((env, key) => (< ListItem key={key} button >
-                            <ListItemIcon>
-                                <Description />
-                            </ListItemIcon>
-                            <ListItemText inset primary={env.name} />
-                        </ListItem>))
+                        environments.map(({ name }, key) => (
+                            < ListItem key={key} button onClick={() => this.props.clickFile(name, 1)} >
+                                <ListItemIcon>
+                                    <Description />
+                                </ListItemIcon>
+                                <ListItemText inset primary={name} />
+                            </ListItem>))
                     }
                 </List>
             </Collapse>

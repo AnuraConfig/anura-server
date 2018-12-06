@@ -9,16 +9,19 @@ export default function (theme) {
             flexGrow: 1,
         },
         menuButton: {
+            color: '#fff',                        
             marginLeft: -12,
             marginRight: 20,
         },
         title: {
+            color: '#fff',            
             display: 'none',
             [theme.breakpoints.up('sm')]: {
                 display: 'block',
             },
         },
         search: {
+            color: '#fff',            
             position: 'relative',
             borderRadius: theme.shape.borderRadius,
             backgroundColor: fade(theme.palette.common.white, 0.15),
@@ -34,6 +37,7 @@ export default function (theme) {
         },
         searchIcon: {
             width: theme.spacing.unit * 9,
+            color: '#fff',                        
             height: '100%',
             position: 'absolute',
             pointerEvents: 'none',
