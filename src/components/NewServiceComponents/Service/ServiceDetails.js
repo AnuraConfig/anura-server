@@ -5,15 +5,19 @@ import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import classNames from 'classnames';
-import Select from './FormControl/BorderSelect'
+import Select from '../FormControl/BorderSelect'
 import Button from '@material-ui/core/Button';
-import { ServiceDetails as styles } from './styles'
-import { requestTypes } from '../../Constant/constants'
+import { ServiceDetails as styles } from '../styles'
+import { requestTypes } from '../../../Constant/constants'
 
 
 class ServiceDetails extends React.Component {
-    state = {
-        labelWidth: 0,
+    constructor(props) {
+        super(props)
+        this.state = {
+            ...props.service,
+            labelWidth: 0,
+        }
     }
 
     handleChange = name => event => {
@@ -21,6 +25,11 @@ class ServiceDetails extends React.Component {
             [name]: event.target.value,
         });
     };
+    handleClick = () => {
+        let service = this.state
+        delete service.labelWidth
+        this.props.addServiceCallback(service)
+    }
 
     render() {
         const { classes } = this.props;
@@ -70,7 +79,7 @@ class ServiceDetails extends React.Component {
                     variant="outlined"
                 />
                 <div className={classes.buttonContainer}>
-                    <Button onClick={() => this.props.addServiceCallback(this.state)}
+                    <Button onClick={this.handleClick}
                         variant="outlined" color="primary" className={classes.button}>
                         Create
                     </Button>

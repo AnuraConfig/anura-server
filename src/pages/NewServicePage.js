@@ -1,7 +1,8 @@
 import React from "react";
 import { withStyles } from '@material-ui/core/styles';
 import Steper from '../components/NewServiceComponents/Steper'
-import ServiceDetails from '../components/NewServiceComponents/ServiceDetails'
+import ServiceDetails from '../components/NewServiceComponents/Service/ServiceDetails'
+import ServiceDetailsComplete from '../components/NewServiceComponents/Service/ServiceDetailsComplete'
 
 const styles = theme => ({
     root: {
@@ -15,11 +16,22 @@ const styles = theme => ({
 })
 
 class NewServicePage extends React.Component {
+    state = {
+        service: {},
+        serviceComplete: false
+    }
+    handleAddService = (service) => {
+        this.setState({ service, serviceComplete: true })
+    }
     render() {
         const { classes } = this.props
         return (<div className={classes.root}>
             <div>
-                <ServiceDetails />
+                {
+                    this.state.serviceComplete ?
+                        <ServiceDetailsComplete service={this.state.service} /> :
+                        <ServiceDetails service={this.state.service} addServiceCallback={this.handleAddService} />
+                }
             </div>
             <Steper />
         </div>)
