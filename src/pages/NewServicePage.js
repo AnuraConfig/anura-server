@@ -23,13 +23,16 @@ class NewServicePage extends React.Component {
     handleAddService = (service) => {
         this.setState({ service, serviceComplete: true })
     }
+    reEditService = () => {
+        this.setState({ serviceComplete: false })
+    }
     render() {
         const { classes } = this.props
         return (<div className={classes.root}>
             <div>
                 {
                     this.state.serviceComplete ?
-                        <ServiceDetailsComplete service={this.state.service} /> :
+                        <ServiceDetailsComplete service={this.state.service} editService={this.reEditService} /> :
                         <ServiceDetails service={this.state.service} addServiceCallback={this.handleAddService} />
                 }
             </div>

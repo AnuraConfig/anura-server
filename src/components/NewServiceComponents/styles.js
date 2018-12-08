@@ -39,16 +39,26 @@ export const ServiceDetailsComplete = theme => ({
         paddingBottom: "20px",
         justifyContent: "right",
         flexDirection: "column",
-        paddingTop: "1vh"
+        paddingTop: "0.5vh",
+        position: "relative"
     },
     title: {
         margin: theme.spacing.unit * 3,
         marginBottom: "0px"
     },
+    noWebHookTitle: {
+        margin: theme.spacing.unit * 3,
+        marginTop: theme.spacing.unit
+    },
     webHookContainer: {
         overflowX: "auto",
         display: "flex",
         margin: theme.spacing.unit * 2
+    },
+    description: {
+        wordBreak: "break-word",
+        maxHeight: "30vh",
+        overflowY: "auto"
     },
     webHookText: {
         marginTop: "13px"
@@ -56,4 +66,9 @@ export const ServiceDetailsComplete = theme => ({
     chip: {
         margin: theme.spacing.unit,
     },
+    editButton: {
+        width: "45px",
+        position: "absolute",
+        right: "0",
+    }
 });
