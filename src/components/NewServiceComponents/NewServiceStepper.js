@@ -26,29 +26,22 @@ function getSteps() {
 }
 
 
-class Steper extends React.Component {
-    state = {
-        activeStep: 0,
-        completed: {},
-    };
-
-
+class NewServiceStepper extends React.Component {
     render() {
-        const { classes } = this.props;
+        const { classes, step } = this.props;
         const steps = getSteps();
-        const { activeStep } = this.state;
 
         return (
             <div className={classes.root}>
-                <Stepper nonLinear activeStep={activeStep}>
+                <Stepper nonLinear activeStep={step}>
                     {steps.map((label, index) => {
                         return (
                             <Step key={label}>
-                                <StepButton completed={this.state.completed[index]} >
+                                <StepButton completed={index < step} >
                                     {label}
                                 </StepButton>
                             </Step>
-                        );
+                        ); 
                     })}
                 </Stepper>
             </div>
@@ -56,8 +49,8 @@ class Steper extends React.Component {
     }
 }
 
-Steper.propTypes = {
+NewServiceStepper.propTypes = {
     classes: PropTypes.object,
 };
 
-export default withStyles(styles)(Steper);
+export default withStyles(styles)(NewServiceStepper);
