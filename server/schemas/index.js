@@ -24,7 +24,7 @@ type Query {
 }
 
 type Mutation {
-    updateConfig(serviceId: ID!, enviormentName: String!): ConfigUpdateResponse!
+    updateConfig(serviceId: ID!, enviormentName: String!, version: Int, data: String): ConfigUpdateResponse!
 }
 
 type ConfigUpdateResponse {
