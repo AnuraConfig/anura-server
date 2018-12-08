@@ -28,3 +28,32 @@ export const ServiceDetails = theme => ({
         marginTop: "30px"
     }
 });
+
+
+export const ServiceDetailsComplete = theme => ({
+    root: {
+        marginTop: "5vh",
+        width: "20%",
+        display: "flex",
+        height: "fit-content",
+        paddingBottom: "20px",
+        justifyContent: "right",
+        flexDirection: "column",
+        paddingTop: "1vh"
+    },
+    title: {
+        margin: theme.spacing.unit * 3,
+        marginBottom: "0px"
+    },
+    webHookContainer: {
+        overflowX: "auto",
+        display: "flex",
+        margin: theme.spacing.unit * 2
+    },
+    webHookText: {
+        marginTop: "13px"
+    },
+    chip: {
+        margin: theme.spacing.unit,
+    },
+});
