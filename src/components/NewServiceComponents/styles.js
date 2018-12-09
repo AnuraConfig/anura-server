@@ -1,13 +1,16 @@
-export const ServiceDetails = theme => ({
-    root: {
-        marginTop: "5vh",
-        width: "20%",
-        display: "flex",
-        height: "70vh",
-        justifyContent: "right",
-        flexDirection: "column",
-        paddingTop: "1vh"
-    },
+const root = {
+    marginTop: "5vh",
+    display: "flex",
+    height: "fit-content",
+    paddingBottom: "20px",
+    justifyContent: "right",
+    flexDirection: "column",
+    paddingTop: "0.5vh",
+    position: "relative"
+}
+
+export const DetailsWindow = theme => ({
+    root,
     textField: {
         marginLeft: theme.spacing.unit * 2,
         marginRight: theme.spacing.unit * 2,
@@ -30,24 +33,14 @@ export const ServiceDetails = theme => ({
 });
 
 
-export const ServiceDetailsComplete = theme => ({
-    root: {
-        marginTop: "5vh",
-        width: "20%",
-        display: "flex",
-        height: "fit-content",
-        paddingBottom: "20px",
-        justifyContent: "right",
-        flexDirection: "column",
-        paddingTop: "0.5vh",
-        position: "relative"
-    },
+export const DetailsWindowComplete = theme => ({
+    root,
     title: {
-        margin: theme.spacing.unit * 3,
+        margin: theme.spacing.unit * 2,
         marginBottom: "0px"
     },
     noWebHookTitle: {
-        margin: theme.spacing.unit * 3,
+        margin: theme.spacing.unit * 2,
         marginTop: theme.spacing.unit
     },
     webHookContainer: {
@@ -72,3 +65,4 @@ export const ServiceDetailsComplete = theme => ({
         right: "0",
     }
 });
+

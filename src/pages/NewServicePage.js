@@ -3,6 +3,8 @@ import { withStyles } from '@material-ui/core/styles';
 import NewServiceStepper from '../components/NewServiceComponents/NewServiceStepper'
 import ServiceDetails from '../components/NewServiceComponents/Service/ServiceDetails'
 import ServiceDetailsComplete from '../components/NewServiceComponents/Service/ServiceDetailsComplete'
+import ConfigContainer from '../components/NewServiceComponents/config/ConfigContainer'
+import Grid from '@material-ui/core/Grid';
 
 const styles = theme => ({
     root: {
@@ -28,15 +30,20 @@ class NewServicePage extends React.Component {
         this.setState({ serviceComplete: false, step: 0 })
     }
     render() {
+        const { step, service } = this.state
         const { classes } = this.props
         return (<div className={classes.root}>
-            <div>
-                {
-                    this.state.serviceComplete ?
-                        <ServiceDetailsComplete service={this.state.service} editService={this.reEditService} /> :
-                        <ServiceDetails service={this.state.service} addServiceCallback={this.handleAddService} />
-                }
-            </div>
+            <Grid container spacing={24}>
+                <Grid item xs={12} sm={3}>
+                    {this.state.serviceComplete ?
+                        <ServiceDetailsComplete service={service} editService={this.reEditService} /> :
+                        <ServiceDetails service={service} addServiceCallback={this.handleAddService} />
+                    }
+                </Grid>
+                <Grid item xs={12} sm={9}>
+                    {step === 1 && <ConfigContainer />}
+                </Grid>
+            </Grid>
             <NewServiceStepper step={this.state.step} />
         </div>)
     }

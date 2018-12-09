@@ -7,7 +7,7 @@ import TextField from '@material-ui/core/TextField';
 import classNames from 'classnames';
 import Select from '../FormControl/BorderSelect'
 import Button from '@material-ui/core/Button';
-import { ServiceDetails as styles } from '../styles'
+import { DetailsWindow as styles } from '../styles'
 import { requestTypes } from '../../../Constant/constants'
 
 
@@ -16,7 +16,6 @@ class ServiceDetails extends React.Component {
         super(props)
         this.state = {
             ...props.service,
-            labelWidth: 0,
         }
     }
 
@@ -26,9 +25,7 @@ class ServiceDetails extends React.Component {
         });
     };
     handleClick = () => {
-        let service = this.state
-        delete service.labelWidth
-        this.props.addServiceCallback(service)
+        this.props.addServiceCallback(this.state)
     }
 
     render() {

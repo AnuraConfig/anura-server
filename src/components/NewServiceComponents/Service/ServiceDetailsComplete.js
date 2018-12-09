@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography';
-import { ServiceDetailsComplete as styles } from '../styles'
+import { DetailsWindowComplete as styles } from '../styles'
 import Chip from '@material-ui/core/Chip';
 import Edit from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
