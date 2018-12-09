@@ -8,7 +8,11 @@ const root = {
     paddingTop: "0.5vh",
     position: "relative"
 }
-
+export const JsonEditorStyle = theme => ({
+    root: {
+        marginTop: "5vh"
+    }
+})
 export const DetailsWindow = theme => ({
     root,
     textField: {
