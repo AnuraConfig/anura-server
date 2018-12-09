@@ -12,8 +12,8 @@ import classNames from 'classnames';
 const styles = theme => ({
     formControl: {
         marginTop: "2vh",
-        marginLeft: theme.spacing.unit * 3,
-        marginRight: theme.spacing.unit * 3,
+        marginLeft: theme.spacing.unit * 2,
+        marginRight: theme.spacing.unit * 2,
     },
     root: {
 

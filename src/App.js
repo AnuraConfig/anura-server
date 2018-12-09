@@ -3,7 +3,7 @@ import Header from './components/Header/Header';
 import MainPage from './pages/MainPage';
 import NewServicePage from './pages/NewServicePage';
 import { HashRouter  as Router, Route, Switch } from "react-router-dom";
-import './app.css'
+import './App.css'
 
 class App extends Component {
   render() {

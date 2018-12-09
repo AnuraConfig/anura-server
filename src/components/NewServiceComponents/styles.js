@@ -3,24 +3,24 @@ export const ServiceDetails = theme => ({
         marginTop: "5vh",
         width: "20%",
         display: "flex",
-        height: "60vh",
+        height: "70vh",
         justifyContent: "right",
         flexDirection: "column",
         paddingTop: "1vh"
     },
     textField: {
-        marginLeft: theme.spacing.unit * 3,
-        marginRight: theme.spacing.unit * 3,
+        marginLeft: theme.spacing.unit * 2,
+        marginRight: theme.spacing.unit * 2,
     },
     nameField: {
         width: "70%"
     },
     title: {
-        margin: theme.spacing.unit * 3,
+        margin: theme.spacing.unit * 2,
         marginBottom: "0px"
     },
     requestType: {
-        width: "40%"
+        width: "50%"
     },
     buttonContainer: {
         display: "flex",
