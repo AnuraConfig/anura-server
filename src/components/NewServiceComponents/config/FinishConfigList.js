@@ -2,13 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper'
-import Typography from '@material-ui/core/Typography';
 import { configListStyle as styles } from '../styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import Collapse from '@material-ui/core/Collapse';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import Description from '@material-ui/icons/Description';
 
