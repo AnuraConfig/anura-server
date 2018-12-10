@@ -14,7 +14,7 @@ class ServiceDetailsComplete extends React.Component {
         const { classes, service } = this.props;
 
         return (
-            <Paper className={classes.root} elevation={15}>
+            <Paper className={classes.root} elevation={10}>
                 <IconButton aria-label="Edit" className={classes.editButton} onClick={this.props.editService}>
                     <Edit fontSize="small" />
                 </IconButton>

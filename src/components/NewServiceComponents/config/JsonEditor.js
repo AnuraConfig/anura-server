@@ -11,7 +11,6 @@ class JsonEditor extends React.Component {
 
     render() {
         const { classes, configFile } = this.props;
-        console.log(configFile)
         return (
             <Paper className={classes.root} elevation={10}>
                 <JSONInput

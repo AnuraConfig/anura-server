@@ -4,6 +4,7 @@ import NewServiceStepper from '../components/NewServiceComponents/NewServiceStep
 import ServiceDetails from '../components/NewServiceComponents/Service/ServiceDetails'
 import ServiceDetailsComplete from '../components/NewServiceComponents/Service/ServiceDetailsComplete'
 import ConfigContainer from '../components/NewServiceComponents/config/ConfigContainer'
+import FinishConfigList from '../components/NewServiceComponents/config/FinishConfigList'
 import Grid from '@material-ui/core/Grid';
 
 const styles = theme => ({
@@ -21,6 +22,8 @@ class NewServicePage extends React.Component {
     state = {
         service: {},
         serviceComplete: false,
+        currentConfig: {},
+        configs: [],
         step: 0
     }
     handleAddService = (service) => {
@@ -29,19 +32,32 @@ class NewServicePage extends React.Component {
     reEditService = () => {
         this.setState({ serviceComplete: false, step: 0 })
     }
+    addConfigCallback = (config) => {
+        this.setState(p => {
+            const configs = p.configs
+            configs.push(config)
+            return { configs, currentConfig: {}, step: 2 }
+        })
+    }
     render() {
-        const { step, service } = this.state
+        const { step, service, currentConfig, configs } = this.state
         const { classes } = this.props
+        console.log(configs)
         return (<div className={classes.root}>
             <Grid container spacing={24}>
                 <Grid item xs={12} sm={3}>
                     {this.state.serviceComplete ?
-                        <ServiceDetailsComplete service={service} editService={this.reEditService} /> :
+                        <React.Fragment>
+                            <ServiceDetailsComplete service={service} editService={this.reEditService} />
+                            {configs && configs.length !== 0 && <FinishConfigList configs={configs} />}
+                        </React.Fragment> :
                         <ServiceDetails service={service} addServiceCallback={this.handleAddService} />
+
                     }
                 </Grid>
                 <Grid item xs={12} sm={9}>
-                    {step === 1 && <ConfigContainer />}
+                    {step === 1 && <ConfigContainer currentConfig={currentConfig} addConfigCallback={this.addConfigCallback} />}
+                    {step === 2 && <div>test</div>}
                 </Grid>
             </Grid>
             <NewServiceStepper step={this.state.step} />

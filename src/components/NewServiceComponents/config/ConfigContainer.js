@@ -4,8 +4,11 @@ import ConfigDetails from './ConfigDetails'
 import JsonEditor from './JsonEditor'
 
 export default class ConfigContainer extends Component {
-    state = {
-        configFile: {}
+    constructor(props) {
+        super(props)
+        this.state = {
+            configFile: props.config || {}
+        }
     }
     updateConfig = (config) => {
         this.setState({
@@ -17,6 +20,8 @@ export default class ConfigContainer extends Component {
             ...config,
             configFile: this.state.configFile,
         })
+        this.setState({ configFile: {} })
+
     }
     render() {
         const config = this.props.config

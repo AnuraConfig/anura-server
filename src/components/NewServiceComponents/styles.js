@@ -70,3 +70,12 @@ export const DetailsWindowComplete = theme => ({
     }
 });
 
+export const configListStyle = (theme) => ({
+    root: {
+        paddingBottom: "1vh",
+        marginTop: "2vh",
+        maxHeight: "30vh",
+        overflowY: "auto"
+    }
+})
+
