@@ -5,6 +5,7 @@ import ServiceDetails from '../components/NewServiceComponents/Service/ServiceDe
 import ServiceDetailsComplete from '../components/NewServiceComponents/Service/ServiceDetailsComplete'
 import ConfigContainer from '../components/NewServiceComponents/config/ConfigContainer'
 import FinishConfigList from '../components/NewServiceComponents/config/FinishConfigList'
+import CompleteStep from '../components/NewServiceComponents/CompleteStep'
 import Grid from '@material-ui/core/Grid';
 
 const styles = theme => ({
@@ -39,10 +40,15 @@ class NewServicePage extends React.Component {
             return { configs, currentConfig: {}, step: 2 }
         })
     }
+    addEnvironment = () => {
+        this.setState({
+            step: 1
+        })
+    }
+
     render() {
         const { step, service, currentConfig, configs } = this.state
         const { classes } = this.props
-        console.log(configs)
         return (<div className={classes.root}>
             <Grid container spacing={24}>
                 <Grid item xs={12} sm={3}>
@@ -57,7 +63,7 @@ class NewServicePage extends React.Component {
                 </Grid>
                 <Grid item xs={12} sm={9}>
                     {step === 1 && <ConfigContainer currentConfig={currentConfig} addConfigCallback={this.addConfigCallback} />}
-                    {step === 2 && <div>test</div>}
+                    {step === 2 && <CompleteStep addEnvironment={this.addEnvironment} complete={() => { console.log("TODO: connect to complete api ") }} />}
                 </Grid>
             </Grid>
             <NewServiceStepper step={this.state.step} />

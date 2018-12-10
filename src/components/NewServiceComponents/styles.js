@@ -79,3 +79,19 @@ export const configListStyle = (theme) => ({
     }
 })
 
+
+export const buttonStyle = (theme) => ({
+    container: {
+        height: "100%",
+        position: "relative"
+    },
+    button: {
+        position: "absolute",
+        transform: "translate(-50%,-50%)",
+        top: "50%",
+        left: "50%",
+    },
+    buttonLabel: {
+        color: "#fff"
+    }
+})
