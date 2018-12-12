@@ -1,0 +1,1 @@
+export const requestTypes = ['GET', 'POST', 'DELETE', 'PUT']

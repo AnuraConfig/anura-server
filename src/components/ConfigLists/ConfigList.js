@@ -11,6 +11,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import { SearchContext } from '../../Context/Contexts';
 import { configFilter, configSort } from '../../utils/configSearchHelpers';
+import AddItemListItem from './AddItemListItem';
 
 const query = gql`
 {
@@ -60,6 +61,7 @@ class ConfigList extends React.Component {
                                 component="nav"
                                 subheader={<ListSubheader className={classes.subheader} component="div">Your Services</ListSubheader>}
                             >
+                                <AddItemListItem onClick={console.log} text={"Add New Service"} />
                                 <SearchContext.Consumer>
                                     {({ text }) => {
                                         return data.service.filter(configFilter(text)).sort(configSort(text)).map((service, key) => (
