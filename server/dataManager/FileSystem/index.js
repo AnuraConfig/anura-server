@@ -2,6 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import filesConst from '../../constants/filesConst'
 import getSerializer from './Serializer'
+import { HUMAN_READABLE, STORE_LOCATION } from '../../../constants/environment'
 
 function createDir(dir) {
     if (!fs.existsSync(dir)) {
@@ -10,14 +11,14 @@ function createDir(dir) {
 }
 
 function getFileName(baseName) {
-    if (process.env.HUMAN_READABLE) {
+    if (HUMAN_READABLE) {
         return baseName + filesConst.JSON_ENDING
     }
     return baseName
 }
 
 export default class FileSystemManager {
-    constructor(location, serializer = getSerializer()) {
+    constructor(location = STORE_LOCATION, serializer = getSerializer()) {
         this.serializer = serializer
         this.location = path.join(location, filesConst.BASE)
         createDir(this.location)
@@ -26,12 +27,14 @@ export default class FileSystemManager {
     createInfoFile(item, path) {
         fs.writeFileSync(path.join(path, getFileName(filesConst.INFO_FILE)), this.serializer.serialize(item));
     }
-
+    createConfigFile(envDir, { data }, key) {
+        fs.writeFileSync(path.join(path, getFileName(filesConst.CONFIG_PREFIX + key)), this.serializer.serialize(data));
+    }
     createEnv(serviceDir, { id, name, configs }) {
         const envDir = path.join(serviceDir, name)
         createDir(envDir)
         this.createInfoFile({ id, name, lastUpdate: new Date() }, envDir)
-
+        configs.forEach(this.createConfigFile.bind(this, envDir))
     }
 
     createService({ name, description, id, environments }) {

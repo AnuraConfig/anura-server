@@ -1,8 +1,9 @@
 import BasicSerializer from './basicSerializer'
 import BsonSerializer from './bsonSerializer'
+import { HUMAN_READABLE } from '../../../constants/environment'
 
 export default function getSerializer(...args) {
-    if (process.env.HUMAN_READABLE) {
+    if (HUMAN_READABLE) {
         return new BasicSerializer(args)
     }
     return new BsonSerializer(args)
