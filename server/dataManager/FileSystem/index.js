@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import filesConst from '../../constants/filesConst'
-import basicSerializer from './basicSerializer'
+import getSerializer from './Serializer'
 
 function createDir(dir) {
     if (!fs.existsSync(dir)) {
@@ -17,14 +17,14 @@ function getFileName(baseName) {
 }
 
 export default class FileSystemManager {
-    constructor(location, serializer = basicSerializer) {
+    constructor(location, serializer = getSerializer()) {
         this.serializer = serializer
         this.location = path.join(location, filesConst.BASE)
         createDir(this.location)
     }
 
     createInfoFile(item, path) {
-        fs.writeFileSync(path.join(path, getFileName(filesConst.INFO_FILE)), JSON.stringify(item, 4));
+        fs.writeFileSync(path.join(path, getFileName(filesConst.INFO_FILE)), this.serializer.serialize(item));
     }
 
     createEnv(serviceDir, { id, name, configs }) {
