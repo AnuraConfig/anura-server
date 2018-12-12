@@ -8,7 +8,10 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import IconButton from '@material-ui/core/IconButton';
 import Description from '@material-ui/icons/Description';
+import Edit from '@material-ui/icons/Edit';
 
 class FinishConfigList extends React.Component {
     render() {
@@ -24,6 +27,11 @@ class FinishConfigList extends React.Component {
                                 <ListItemIcon>
                                     <Description />
                                 </ListItemIcon>
+                                {this.props.isUpdate && <ListItemSecondaryAction>
+                                    <IconButton aria-label="Edit" onClick={() => this.props.editConfig(key)}>
+                                        <Edit />
+                                    </IconButton>
+                                </ListItemSecondaryAction>}
                                 <ListItemText inset primary={name} />
                             </ListItem>))
                     }

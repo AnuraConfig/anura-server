@@ -33,6 +33,9 @@ export const DetailsWindow = theme => ({
         display: "flex",
         justifyContent: "center",
         marginTop: "30px"
+    },
+    button: {
+        margin: "0 20px"
     }
 });
 

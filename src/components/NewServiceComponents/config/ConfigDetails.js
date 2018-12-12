@@ -66,8 +66,15 @@ class ConfigDetails extends React.Component {
                 <div className={classes.buttonContainer}>
                     <Button onClick={this.handleClick}
                         variant="outlined" color="primary" className={classes.button}>
-                        Create
+                        {this.props.editedID !== undefined ? "Update" : "Create"}
                     </Button>
+                    {
+                        this.props.cancelable &&
+                        <Button onClick={this.cancel}
+                            variant="outlined" color="secondary" className={classes.button}>
+                            Cancel
+                        </Button>
+                    }
                 </div>
             </Paper>
         );

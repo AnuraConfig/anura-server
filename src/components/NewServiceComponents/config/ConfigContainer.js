@@ -21,14 +21,15 @@ export default class ConfigContainer extends Component {
             configFile: this.state.configFile,
         })
         this.setState({ configFile: {} })
-
     }
+
     render() {
-        const config = this.props.config
+        const { config, editedID  } = this.props
         return (
             <Grid container spacing={24}>
                 <Grid item xs={12} sm={4}>
-                    <ConfigDetails config={config} addConfigCallback={this.addConfigCallback} />
+                    <ConfigDetails cancel={this.props.cancelConfigEdit} cancelable={this.props.cancelable}
+                     editedID ={editedID } config={config} addConfigCallback={this.addConfigCallback} />
                 </Grid>
                 <Grid item xs={12} sm={8}>
                     <JsonEditor configFile={config ? config.configFile : undefined} updateConfigFile={this.updateConfig} />
