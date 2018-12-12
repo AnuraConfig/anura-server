@@ -33,6 +33,9 @@ export const DetailsWindow = theme => ({
         display: "flex",
         justifyContent: "center",
         marginTop: "30px"
+    },
+    button: {
+        margin: "0 20px"
     }
 });
 
@@ -70,3 +73,28 @@ export const DetailsWindowComplete = theme => ({
     }
 });
 
+export const configListStyle = (theme) => ({
+    root: {
+        paddingBottom: "1vh",
+        marginTop: "2vh",
+        maxHeight: "30vh",
+        overflowY: "auto"
+    }
+})
+
+
+export const buttonStyle = (theme) => ({
+    container: {
+        height: "100%",
+        position: "relative"
+    },
+    button: {
+        position: "absolute",
+        transform: "translate(-50%,-50%)",
+        top: "50%",
+        left: "50%",
+    },
+    buttonLabel: {
+        color: "#fff"
+    }
+})
