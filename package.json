@@ -13,6 +13,7 @@
     "babel-preset-stage-0": "^6.24.1",
     "bson": "^4.0.1",
     "classnames": "^2.2.6",
+    "dotenv": "^6.2.0",
     "fs": "0.0.1-security",
     "graphql": "^14.0.2",
     "nodemon": "^1.18.7",
