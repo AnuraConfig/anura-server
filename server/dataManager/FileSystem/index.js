@@ -1,8 +1,8 @@
 import fs from 'fs'
 import path from 'path'
-import filesConst from '../../constants/filesConst'
+import * as filesConst from '../../constants/filesConst'
 import getSerializer from './Serializer'
-import { HUMAN_READABLE, STORE_LOCATION } from '../../../constants/environment'
+import { HUMAN_READABLE, STORE_LOCATION } from '../../constants/environment'
 
 function createDir(dir) {
     if (!fs.existsSync(dir)) {
@@ -24,17 +24,17 @@ export default class FileSystemManager {
         createDir(this.location)
     }
 
-    createInfoFile(item, path) {
-        fs.writeFileSync(path.join(path, getFileName(filesConst.INFO_FILE)), this.serializer.serialize(item));
+    createInfoFile(item, dir) {
+        fs.writeFileSync(path.format({ dir, base: getFileName(filesConst.INFO_FILE) }), this.serializer.serialize(item));
     }
-    createConfigFile(envDir, { data }, key) {
-        fs.writeFileSync(path.join(path, getFileName(filesConst.CONFIG_PREFIX + key)), this.serializer.serialize(data));
+    createConfigFile(dir, { data }, key) {
+        fs.writeFileSync(path.format({ dir, base: getFileName(filesConst.CONFIG_PREFIX + key) }), this.serializer.serialize(data));
     }
-    createEnv(serviceDir, { id, name, configs }) {
+    createEnv(serviceDir, { id, name, config }) {
         const envDir = path.join(serviceDir, name)
         createDir(envDir)
         this.createInfoFile({ id, name, lastUpdate: new Date() }, envDir)
-        configs.forEach(this.createConfigFile.bind(this, envDir))
+        this.createConfigFile(envDir, config, 0)
     }
 
     createService({ name, description, id, environments }) {
@@ -43,6 +43,4 @@ export default class FileSystemManager {
         this.createInfoFile({ name, description, id, lastUpdate: new Date() }, serviceDirectory)
         environments.forEach(this.createEnv.bind(this, serviceDirectory))
     }
-
-
 }

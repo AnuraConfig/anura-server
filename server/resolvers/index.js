@@ -1,6 +1,7 @@
 import service from './serviceResolver';
 import configs from './configResolver';
-import {updateConfig} from './mutationsResolver';
+import newService from './newServiceResolver';
+import { updateConfig } from './mutationsResolver';
 
 const resolveFunctions = {
     Query: {
@@ -8,6 +9,7 @@ const resolveFunctions = {
         configs
     },
     Mutation: {
+        newService,
         updateConfig
     }
 }
