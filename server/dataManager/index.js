@@ -1,6 +1,6 @@
 import FileSystem from './FileSystem'
-import { DATA_MANAGER } from '../../../constants/environment'
-import managerTypes from '../constants/managerTypes'
+import { DATA_MANAGER } from '../constants/environment'
+import * as managerTypes from '../constants/managerTypes'
 
 function getDataManger() {
     switch (DATA_MANAGER.toUpperCase()) {
