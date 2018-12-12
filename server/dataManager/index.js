@@ -1,12 +1,13 @@
 import FileSystem from './FileSystem'
-
+import { DATA_MANAGER } from '../../../constants/environment'
 import managerTypes from '../constants/managerTypes'
 
-export default function getDataManger() {
-    switch (process.env.DATA_MANAGER.toUpperCase()) {
+function getDataManger() {
+    switch (DATA_MANAGER.toUpperCase()) {
         case (managerTypes.FILE_SYSTEM):
-            return FileSystem;
+            return new FileSystem();
         default:
-            return FileSystem;
+            return new FileSystem();
     }
 }
+export default getDataManger()
