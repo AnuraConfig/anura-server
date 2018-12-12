@@ -7,6 +7,20 @@ type Service {
     id: ID!
     environments: [Environment]
 }
+input InputService {
+    name: String!
+    description : String
+    environments: [InputEnvironment]
+}
+
+input InputEnvironment {
+    name: String!
+    config: InputConfig
+}
+
+input InputConfig {
+    data: String
+}
 
 type Environment {
     name: String!
@@ -24,10 +38,12 @@ type Query {
 }
 
 type Mutation {
-    updateConfig(serviceId: ID!, enviormentName: String!, version: Int, data: String): ConfigUpdateResponse!
+    newService(service:InputService!): BasicResponse!
+    updateConfig(serviceId: ID!, environmentName: String!, version: Int, data: String): BasicResponse!
 }
 
-type ConfigUpdateResponse {
+type BasicResponse {
     success: Boolean!
+    error: String   
 }
 `;
