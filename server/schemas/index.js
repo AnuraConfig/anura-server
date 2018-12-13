@@ -24,6 +24,7 @@ input InputConfig {
 
 type Environment {
     name: String!
+    id: ID!    
     configs: [Config]
 }
 
@@ -33,7 +34,7 @@ type Config {
 }
 
 type Query {
-    service(isNew : Boolean): [Service]
+    service: [Service]
     configs(serviceId: String, environment: String): Environment
 }
 

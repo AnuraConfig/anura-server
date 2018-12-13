@@ -1,5 +1,5 @@
-import Configs from "./configsMock"
+import dataManager from '../dataManager/index'
 
 export default function (obj, args) {
-    return Configs
+    return dataManager.getAllEnv()
 }   
