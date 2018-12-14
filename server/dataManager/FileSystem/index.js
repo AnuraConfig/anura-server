@@ -23,6 +23,9 @@ function getNameFromFile(filename) {
     }
     return filename
 }
+function getConfigVersion(filename) {
+    return filename.slice(filesConst.CONFIG_PREFIX.length, filename.length)
+}
 
 export default class FileSystemManager {
     constructor(location = STORE_LOCATION, serializer = getSerializer()) {
@@ -73,20 +76,18 @@ export default class FileSystemManager {
         })
     }
     getConfigs(serviceId, env) {
-        console.log(this.location, serviceId, env)
         const dir = path.join(this.location, serviceId, env)
-        console.log(dir)
-        console.log(fs.readdirSync(dir))
         const configs = fs.readdirSync(dir)
             .filter(i => i !== filesConst.INFO_FILE)
             .map(filename => {
                 return {
                     name: getNameFromFile(filename),
+                    version: getConfigVersion(filename),
                     data: JSON.stringify(this.parseFile(dir, filename))
                 }
             })
-        console.log("configs", configs)
         const envInfo = this.parseFile(dir, getFileName(filesConst.INFO_FILE))
-        return Object.assign({}, envInfo, { configs })
+        envInfo.configs = configs
+        return envInfo
     }
 }
