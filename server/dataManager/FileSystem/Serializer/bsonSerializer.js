@@ -5,7 +5,6 @@ export default class BsonSerializer {
         return BSON.serialize(json)
     }
     deserialize(data) {
-        console.log(data)
         return BSON.deserialize(data)
     }
 }
