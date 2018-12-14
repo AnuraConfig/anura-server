@@ -1,7 +1,7 @@
-import service from './serviceResolver';
-import configs from './configResolver';
-import newService from './newServiceResolver';
-import { updateConfig } from './mutationsResolver';
+import service from './Query/serviceResolver';
+import configs from './Query/configResolver';
+import newService from './Mutation/newServiceResolver';
+import { updateConfig } from './Mutation/mutationsResolver';
 
 const resolveFunctions = {
     Query: {

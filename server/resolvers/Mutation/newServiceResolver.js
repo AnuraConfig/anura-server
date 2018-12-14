@@ -1,4 +1,4 @@
-import dataManager from '../dataManager/index'
+import dataManager from '../../dataManager/index'
 
 export default function (obj, args) {
     try {

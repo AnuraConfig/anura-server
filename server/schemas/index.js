@@ -24,7 +24,6 @@ input InputConfig {
 
 type Environment {
     name: String!
-    id: ID!    
     configs: [Config]
 }
 
