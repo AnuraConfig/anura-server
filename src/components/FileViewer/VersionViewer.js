@@ -20,7 +20,6 @@ const styles = theme => ({
         overflowY: "auto"
     },
     paperRoot: {
-        display: 'grid'
     }
 });
 

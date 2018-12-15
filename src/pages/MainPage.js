@@ -13,6 +13,7 @@ const styles = theme => ({
         padding: "0 20px"
     },
     grid: {
+        marginTop: '5px',
         backgroundColor: theme.palette.background.paper,
         flexGrow: 1,
     }
