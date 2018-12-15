@@ -1,5 +1,5 @@
 import { getRoomName } from './helperFunctions'
-import { ROOM_ID_PREFIX } from '../constants/constants'
+import { ROOM_ID_PREFIX, CONFIG_CHANGE_EVENT } from '../constants/constants'
 
 class StateManager {
     constructor(io) {
@@ -15,7 +15,7 @@ class StateManager {
     }
     emitChange(serviceId, environment) {
         const roomName = getRoomName(serviceId, environment)
-        this.io.to(roomName).emit('config_change');
+        this.io.to(roomName).emit(CONFIG_CHANGE_EVENT);
     }
     getAllActiveRoom() {
         const roomKeys = Object.keys(this.io.sockets.adapter.rooms)
