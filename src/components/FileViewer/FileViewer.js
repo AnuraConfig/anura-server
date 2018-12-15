@@ -11,7 +11,7 @@ import Paper from '@material-ui/core/Paper/Paper';
 
 const query = gql`
  query Env($serviceId: String, $envName: String){
-	configs(serviceId: $serviceId, environment: $envName){
+	getConfigs(serviceId: $serviceId, environment: $envName){
     name
     configs {
       data
@@ -43,8 +43,8 @@ class FileViewer extends Component {
                     if (error) return (<Typography className={classes.title} variant="h6" color="inherit" noWrap>
                       Error
               </Typography>)
-                    if (data.configs && data.configs.configs)
-                      return (<VersionViewer configs={data.configs.configs} />)
+                    if (data.getConfigs && data.getConfigs.configs)
+                      return (<VersionViewer configs={data.getConfigs.configs} />)
                     return <div>No configs</div>
                   }}
                 </Query>)

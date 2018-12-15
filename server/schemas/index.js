@@ -34,12 +34,13 @@ type Config {
 
 type Query {
     service: [Service]
-    configs(serviceId: String, environment: String): Environment
+    latestConfig(serviceId: String, environment: String): String
+    getConfigs(serviceId: String, environment: String): Environment
 }
 
 type Mutation {
     newService(service:InputService!): BasicResponse!
-    updateConfig(serviceId: ID!, environmentName: String!, version: Int, data: String): BasicResponse!
+    updateConfig(serviceId: ID!, environment: String!, data: String): BasicResponse!
 }
 
 type BasicResponse {

@@ -67,7 +67,7 @@ class VersionViewer extends React.PureComponent {
                             >
                                 {configs.map((item, key) => (
                                     <Tab key={key} label={maxVersion === item.version ?
-                                        `newest (${item.version})` : `Version ${item.version}`} />
+                                        `newest (${item.version + 1})` : `Version ${item.version + 1}`} />
                                 ))}
                             </Tabs>
                         </AppBar>

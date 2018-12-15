@@ -13,7 +13,7 @@ class StateManager {
             socket.join(roomName)
         });
     }
-    dataIsChange(serviceId, environment) {
+    emitChange(serviceId, environment) {
         const roomName = getRoomName(serviceId, environment)
         this.io.to(roomName).emit('config_change');
     }
