@@ -1,9 +1,10 @@
 import fs from 'fs'
 import path from 'path'
+import uuidv4 from 'uuid/v4'
 import * as filesConst from '../../constants/filesConst'
 import getSerializer from './Serializer'
-import { HUMAN_READABLE, STORE_LOCATION } from '../../constants/environment'
-import uuidv4 from 'uuid/v4'
+import { STORE_LOCATION } from '../../constants/environment'
+import { getFileName, getNameFromFile, getConfigVersion } from './helperFunctions'
 
 function createDir(dir) {
     if (!fs.existsSync(dir)) {
@@ -11,24 +12,9 @@ function createDir(dir) {
     }
 }
 
-function getFileName(baseName) {
-    if (HUMAN_READABLE) {
-        return baseName + filesConst.JSON_ENDING
-    }
-    return baseName
-}
-function getNameFromFile(filename) {
-    if (HUMAN_READABLE) {
-        filename.split('.').slice(0, -1).join('.')
-    }
-    return filename
-}
-function getConfigVersion(filename) {
-    return filename.slice(filesConst.CONFIG_PREFIX.length, filename.length)
-}
 
 export default class FileSystemManager {
-    constructor(location = STORE_LOCATION, serializer = getSerializer()) {
+    constructor( location = STORE_LOCATION, serializer = getSerializer()) {
         this.serializer = serializer
         this.location = path.join(location, filesConst.BASE)
         createDir(this.location)
