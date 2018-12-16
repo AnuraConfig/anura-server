@@ -8,6 +8,7 @@ import Tab from '@material-ui/core/Tab';
 import JsonViewer from './JsonViewer';
 import Paper from '@material-ui/core/Paper/Paper';
 import { getMaxVersion, getMaxVersionIndex } from './VersionHelpers'
+
 const styles = theme => ({
     root: {
         flexGrow: 1,
