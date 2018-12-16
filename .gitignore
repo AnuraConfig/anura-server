@@ -5,6 +5,7 @@
 /.vscode
 /anura_configs
 /.pnp
+/lib
 .pnp.js
 
 # testing
