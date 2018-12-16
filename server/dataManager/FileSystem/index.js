@@ -85,8 +85,9 @@ export default class FileSystemManager {
     }
     getConfig(serviceId, env) {
         const dir = path.join(this.location, serviceId, env)
-        const maxVersion = Math.max(fs.readdirSync(dir)
-            .map(getConfigVersion))
-        return this.parseFile(dir, getFileName(filesConst.CONFIG_PREFIX + maxVersion))
+        const maxVersion = Math.max(...fs.readdirSync(dir)
+            .map(getConfigVersion)
+            .filter(i => !isNaN(i)))
+        return JSON.stringify(this.parseFile(dir, getFileName(filesConst.CONFIG_PREFIX + maxVersion)))
     }
-}
+}   
