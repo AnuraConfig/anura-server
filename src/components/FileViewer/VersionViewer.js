@@ -8,6 +8,7 @@ import Tab from '@material-ui/core/Tab';
 import JsonViewer from './JsonViewer';
 import Paper from '@material-ui/core/Paper/Paper';
 import { getMaxVersion, getMaxVersionIndex } from './VersionHelpers'
+
 const styles = theme => ({
     root: {
         flexGrow: 1,
@@ -20,7 +21,6 @@ const styles = theme => ({
         overflowY: "auto"
     },
     paperRoot: {
-        display: 'grid'
     }
 });
 
@@ -67,7 +67,7 @@ class VersionViewer extends React.PureComponent {
                             >
                                 {configs.map((item, key) => (
                                     <Tab key={key} label={maxVersion === item.version ?
-                                        `newest (${item.version})` : `Version ${item.version}`} />
+                                        `newest (${item.version + 1})` : `Version ${item.version + 1}`} />
                                 ))}
                             </Tabs>
                         </AppBar>

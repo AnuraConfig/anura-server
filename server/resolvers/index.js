@@ -1,13 +1,15 @@
-import service from './serviceResolver';
-import configs from './configResolver';
-import {updateConfig} from './mutationsResolver';
-
+import service from './Query/serviceResolver';
+import { getConfigs, latestConfig } from './Query/configResolver';
+import newService from './Mutation/newServiceResolver';
+import updateConfig from './Mutation/mutationsResolver';
 const resolveFunctions = {
     Query: {
         service,
-        configs
+        getConfigs,
+        latestConfig,
     },
     Mutation: {
+        newService,
         updateConfig
     }
 }
