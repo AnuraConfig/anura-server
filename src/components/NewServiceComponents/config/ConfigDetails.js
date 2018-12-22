@@ -40,7 +40,7 @@ class ConfigDetails extends React.Component {
                     id="outlined-name"
                     label="Environment Name"
                     className={classNames(classes.textField, classes.nameField)}
-                    value={this.state.name}
+                    value={this.state.name || ""}
                     onChange={this.handleChange('name')}
                     margin="normal"
                     variant="outlined"
@@ -58,7 +58,7 @@ class ConfigDetails extends React.Component {
                     id="outlined-name"
                     label="Url"
                     className={classes.textField}
-                    value={this.state.url}
+                    value={this.state.url || ""}
                     onChange={this.handleChange('url')}
                     margin="normal"
                     variant="outlined"

@@ -40,7 +40,7 @@ class ServiceDetails extends React.Component {
                     id="outlined-name"
                     label="Name"
                     className={classNames(classes.textField, classes.nameField)}
-                    value={this.state.name}
+                    value={this.state.name || ""}
                     onChange={this.handleChange('name')}
                     margin="normal"
                     variant="outlined"
@@ -51,7 +51,7 @@ class ServiceDetails extends React.Component {
                     multiline
                     rows={3}
                     rowsMax="6"
-                    value={this.state.description}
+                    value={this.state.description || ""}
                     onChange={this.handleChange('description')}
                     className={classes.textField}
                     margin="normal"
@@ -70,7 +70,7 @@ class ServiceDetails extends React.Component {
                     id="outlined-name"
                     label="Url"
                     className={classes.textField}
-                    value={this.state.url}
+                    value={this.state.url || ""}
                     onChange={this.handleChange('url')}
                     margin="normal"
                     variant="outlined"
