@@ -33,7 +33,7 @@ const styles = theme => ({
         padding: "30px"
     },
     container: {
-        maxHeight: "77vh",
+        maxHeight: "75vh",
         overflowY: "auto"
     },
     subheader: {
