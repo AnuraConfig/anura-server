@@ -1,12 +1,16 @@
 import React from "react";
 import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import { Mutation } from "react-apollo";
+import gql from "graphql-tag";
 import NewServiceStepper from '../components/NewServiceComponents/NewServiceStepper'
 import ServiceDetails from '../components/NewServiceComponents/Service/ServiceDetails'
 import ServiceDetailsComplete from '../components/NewServiceComponents/Service/ServiceDetailsComplete'
 import ConfigContainer from '../components/NewServiceComponents/config/ConfigContainer'
 import FinishConfigList from '../components/NewServiceComponents/config/FinishConfigList'
 import CompleteStep from '../components/NewServiceComponents/CompleteStep'
-import Grid from '@material-ui/core/Grid';
+import { toast } from 'react-toastify';
+import { withRouter } from 'react-router-dom'
 
 const styles = theme => ({
     root: {
@@ -23,6 +27,15 @@ const STEPS = {
     configDetails: 1,
     completeStep: 2
 }
+
+const ADD_SERVICE = gql`
+mutation AddService($service:InputService!){
+  newService(service:$service){
+    success,
+    error
+  }
+}
+`
 
 class NewServicePage extends React.Component {
     state = {
@@ -63,6 +76,16 @@ class NewServicePage extends React.Component {
             step: STEPS.configDetails
         })
     }
+    getConfigs = () => {
+        return {
+            environments: this.state.configs.map(i => ({
+                name: i.name,
+                config: {
+                    data: JSON.stringify(i.configFile)
+                }
+            }))
+        }
+    }
 
     render() {
         const { step, service, currentConfig, configs, editedID } = this.state
@@ -85,8 +108,27 @@ class NewServicePage extends React.Component {
                     {step === STEPS.configDetails && <ConfigContainer editedID={editedID}
                         cancel={this.props.cancelConfigEdit} cancelable={configs.length !== 0}
                         config={currentConfig} addConfigCallback={this.addConfigCallback} />}
-                    {step === STEPS.completeStep && <CompleteStep addEnvironment={this.addEnvironment}
-                        complete={() => { console.log("TODO: connect to complete api ") }} />}
+                    {step === STEPS.completeStep &&
+                        <Mutation mutation={ADD_SERVICE}>
+                            {(addService, { data, error }) => {
+                                if (data) {
+                                    toast.success("service added")
+                                    this.props.history.push('/')
+                                }
+                                if (error) {
+                                    toast.error("failed adding config")
+                                    console.log(error)
+                                }
+                                return (
+                                    <CompleteStep addEnvironment={this.addEnvironment}
+                                        complete={() => {
+                                            const variables = { service: Object.assign({}, service, this.getConfigs()) }
+                                            console.log(variables)
+                                            addService({ variables })
+                                        }} />
+                                )
+                            }}
+                        </Mutation>}
                 </Grid>
             </Grid>
             <NewServiceStepper step={this.state.step} />
@@ -94,4 +136,4 @@ class NewServicePage extends React.Component {
     }
 }
 
-export default withStyles(styles)(NewServicePage);
+export default withRouter(withStyles(styles)(NewServicePage));

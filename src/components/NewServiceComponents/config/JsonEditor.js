@@ -8,14 +8,13 @@ import locale from 'react-json-editor-ajrm/locale/en';
 
 
 class JsonEditor extends React.Component {
-
     render() {
         const { classes, configFile } = this.props;
         return (
             <Paper className={classes.root} elevation={10}>
                 <JSONInput
                     id='json-viewer-id'
-                    placeholder={configFile || { "Inset you config": "Here" }}
+                    placeholder={configFile}
                     locale={locale}
                     theme={"light_mitsuketa_tribute"}
                     height="70vh"

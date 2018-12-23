@@ -12,6 +12,7 @@ import Paper from '@material-ui/core/Paper';
 import { SearchContext } from '../../Context/Contexts';
 import { configFilter, configSort } from '../../utils/configSearchHelpers';
 import AddItemListItem from './AddItemListItem';
+import { withRouter } from 'react-router-dom'
 
 const query = gql`
 {
@@ -33,7 +34,7 @@ const styles = theme => ({
         padding: "30px"
     },
     container: {
-        maxHeight: "77vh",
+        maxHeight: "75vh",
         overflowY: "auto"
     },
     subheader: {
@@ -61,7 +62,7 @@ class ConfigList extends React.Component {
                                 component="nav"
                                 subheader={<ListSubheader className={classes.subheader} component="div">Your Services</ListSubheader>}
                             >
-                                <AddItemListItem onClick={console.log} text={"Add New Service"} />
+                                <AddItemListItem onClick={() => this.props.history.push('new-service')} text={"Add New Service"} />
                                 <SearchContext.Consumer>
                                     {({ text }) => {
                                         return data.service.filter(configFilter(text)).sort(configSort(text)).map((service, key) => (
@@ -82,4 +83,4 @@ ConfigList.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ConfigList);
+export default withRouter(withStyles(styles)(ConfigList));
