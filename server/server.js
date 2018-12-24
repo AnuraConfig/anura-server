@@ -4,9 +4,11 @@ import { ApolloServer, gql } from 'apollo-server-express'
 import resolvers from './resolvers'
 import typeDefs from './schemas'
 import http from 'http';
+import cors from 'cors';
 import socketIo from 'socket.io';
 import { initializeSocket } from './stateManager/scoket'
 import stats from './routes/stats'
+
 const server = new ApolloServer({
   typeDefs,
   resolvers,
@@ -18,7 +20,7 @@ const httpServer = http.Server(app)
 const io = socketIo(httpServer)
 initializeSocket(io)
 
-
+app.use(cors())
 app.use(bodyParser.json())
 app.use('/stats', stats)
 
