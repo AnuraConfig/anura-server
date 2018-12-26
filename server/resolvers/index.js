@@ -1,7 +1,8 @@
 import service from './Query/serviceResolver';
 import { getConfigs, latestConfig } from './Query/configResolver';
 import newService from './Mutation/newServiceResolver';
-import updateConfig from './Mutation/mutationsResolver';
+import updateConfig from './Mutation/updateConfigResolver';
+
 const resolveFunctions = {
     Query: {
         service,

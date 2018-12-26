@@ -40,7 +40,7 @@ type Query {
 
 type Mutation {
     newService(service:InputService!): BasicResponse!
-    updateConfig(serviceId: ID!, environment: String!, data: String): BasicResponse!
+    updateConfig(serviceId: ID!, environmentName: String!, data: String!): BasicResponse!
 }
 
 type BasicResponse {
