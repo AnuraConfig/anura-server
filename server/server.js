@@ -8,6 +8,7 @@ import cors from 'cors';
 import socketIo from 'socket.io';
 import { initializeSocket } from './stateManager/scoket'
 import stats from './routes/stats'
+import { PORT } from './constants/environment'
 
 const server = new ApolloServer({
   typeDefs,
@@ -31,6 +32,6 @@ app.get('/meaningOfLife', (req, res) => {
 
 server.applyMiddleware({ app })
 
-httpServer.listen({ port: 4000 }, () =>
+httpServer.listen({ port: PORT }, () =>
   console.log(`🚀 Server ready at http://localhost:4000/`)
 )
