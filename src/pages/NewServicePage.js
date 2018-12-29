@@ -86,7 +86,16 @@ class NewServicePage extends React.Component {
             }))
         }
     }
-
+    mutationRendering = (data, error) => {
+        if (data) {
+            toast.success("service added")
+            this.props.history.push('/')
+        }
+        if (error) {
+            toast.error("failed adding config")
+            console.log(error)
+        }
+    }
     render() {
         const { step, service, currentConfig, configs, editedID } = this.state
         const { classes } = this.props
@@ -111,14 +120,7 @@ class NewServicePage extends React.Component {
                     {step === STEPS.completeStep &&
                         <Mutation mutation={ADD_SERVICE}>
                             {(addService, { data, error }) => {
-                                if (data) {
-                                    toast.success("service added")
-                                    this.props.history.push('/')
-                                }
-                                if (error) {
-                                    toast.error("failed adding config")
-                                    console.log(error)
-                                }
+                                this.mutationRendering(data, error)
                                 return (
                                     <CompleteStep addEnvironment={this.addEnvironment}
                                         complete={() => {

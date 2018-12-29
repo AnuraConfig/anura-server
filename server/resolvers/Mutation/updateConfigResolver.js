@@ -2,8 +2,8 @@ import dataManager from '../../dataManager/index'
 
 export default function (obj, args) {
     try {
-        const { serviceId, environment, data } = args
-        dataManager.updateConfig(serviceId, environment, data)
+        const { serviceId, environmentName, data } = args
+        dataManager.updateConfig(serviceId, environmentName, data)
         return {
             success: true
         };

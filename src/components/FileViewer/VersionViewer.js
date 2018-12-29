@@ -8,27 +8,28 @@ import Tab from '@material-ui/core/Tab';
 import JsonViewer from './JsonViewer';
 import Paper from '@material-ui/core/Paper/Paper';
 import { getMaxVersion, getMaxVersionIndex } from './VersionHelpers'
+import JSONInput from 'react-json-editor-ajrm';
+import locale from 'react-json-editor-ajrm/locale/en';
+import Button from '@material-ui/core/Button';
+import { Mutation } from "react-apollo";
+import gql from "graphql-tag";
+import { toast } from 'react-toastify';
+import { VersionViewer as styles } from './styles'
 
-const styles = theme => ({
-    root: {
-        flexGrow: 1,
-        width: '100%',
-        backgroundColor: theme.palette.background.paper,
-    },
-    viewer: {
-        margin: '2vh 1vw',
-        maxHeight: '67vh',
-        overflowY: "auto"
-    },
-    paperRoot: {
-    }
-});
-
+const UPDATE_CONFIG = gql`
+mutation updateConfig($serviceId:ID!,$environmentName:String!,$data:String!){
+    updateConfig(serviceId:$serviceId,environmentName:$environmentName,data:$data){
+    success,
+    error
+  }
+}
+`
 class VersionViewer extends React.PureComponent {
     constructor(props) {
         super(props)
         const maxVersion = getMaxVersion(props.configs)
         this.state = {
+            edit: false,
             maxVersion,
             value: getMaxVersionIndex(maxVersion, props.configs),
         };
@@ -39,6 +40,8 @@ class VersionViewer extends React.PureComponent {
             this.setState({
                 maxVersion,
                 value: getMaxVersionIndex(maxVersion, this.props.configs),
+                edit: false,
+                changeData: undefined
             })
         }
 
@@ -46,7 +49,34 @@ class VersionViewer extends React.PureComponent {
 
     handleChange = (event, value) => {
         this.setState({ value });
-    };
+    }
+
+    setEditMode = () => {
+        this.setState({
+            edit: true
+        })
+    }
+    cancelUpdate = () => {
+        this.setState({
+            edit: false
+        })
+    }
+    updateJson = ({ jsObject }) => {
+        this.setState({ changeData: jsObject })
+    }
+    saveEdit = () => {
+        this.cancelUpdate()
+        this.props.refetch()
+    }
+    mutationRendering = (data, error) => {
+        if (data && this.state.edit) {
+            toast.success("update config")
+            this.saveEdit()
+        }
+        if (error) {
+            toast.error("failed updating config")
+        }
+    }
 
     render() {
         const { classes, configs } = this.props;
@@ -74,7 +104,40 @@ class VersionViewer extends React.PureComponent {
                     </div>
                 </Grid>
                 <Grid item xs={12} sm={12} className={classes.viewer}>
-                    <JsonViewer config={configs[index]} />
+                    <Mutation mutation={UPDATE_CONFIG}>
+                        {(updateConfig, { data, error }) => {
+                            this.mutationRendering(data, error)
+                            if (!this.state.edit)
+                                return (<JsonViewer config={configs[index]} editable={configs[index].version === maxVersion}
+                                    setEditMode={this.setEditMode} />)
+                            return (<div>
+                                <Button variant="outlined" color="secondary" className={classes.cancel}
+                                    onClick={this.cancelUpdate}>
+                                    Cancel
+                                </Button>
+                                <Button variant="outlined" color="primary" className={classes.saveChanges}
+                                    onClick={() => {
+                                        const variables = {
+                                            serviceId: this.props.serviceId,
+                                            environmentName: this.props.envName,
+                                            data: JSON.stringify(this.state.changeData)
+                                        }
+                                        updateConfig({ variables })
+                                    }}>
+                                    Save changes
+                                </Button>
+                                <JSONInput
+                                    id='json-viewer-id'
+                                    placeholder={JSON.parse(configs[index].data)}
+                                    locale={locale}
+                                    theme={"light_mitsuketa_tribute"}
+                                    height="60vh"
+                                    width="100%"
+                                    onChange={this.updateJson}
+                                />
+                            </div>)
+                        }}
+                    </Mutation>
                 </Grid>
             </Paper>
         );
