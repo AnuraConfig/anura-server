@@ -36,7 +36,7 @@ class FileViewer extends Component {
             {({ selectedService, selectedEnvironment }) => {
               if (selectedService && selectedEnvironment)
                 return (<Query query={query} variables={{ serviceId: selectedService, envName: selectedEnvironment }}>
-                  {({ loading, error, data }) => {
+                  {({ loading, error, data, refetch }) => {
                     if (loading) return (<Typography className={classes.title} variant="h6" color="inherit" noWrap>
                       Loading
                   </Typography>)
@@ -44,7 +44,11 @@ class FileViewer extends Component {
                       Error
               </Typography>)
                     if (data.getConfigs && data.getConfigs.configs)
-                      return (<VersionViewer configs={data.getConfigs.configs} />)
+                      return (<VersionViewer
+                        refetch={refetch}
+                        serviceId={selectedService}
+                        envName={selectedEnvironment}
+                        configs={data.getConfigs.configs} />)
                     return <div>No configs</div>
                   }}
                 </Query>)
