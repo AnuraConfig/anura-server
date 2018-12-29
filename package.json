@@ -36,11 +36,12 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build-client": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "start-server": "set NODE_ENV=test & nodemon ./server/server.js --exec babel-node",
-    "build-server": "babel ./server -d lib"
+    "build-server": "babel ./server -d lib",
+    "build":"npm run build-client && npm run build-server"
   },
   "eslintConfig": {
     "extends": "react-app"
