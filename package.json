@@ -41,7 +41,8 @@
     "eject": "react-scripts eject",
     "start-server": "set NODE_ENV=test & nodemon ./server/server.js --exec babel-node",
     "build-server": "babel ./server -d lib",
-    "build":"npm run build-client && npm run build-server"
+    "build": "npm run build-client && npm run build-server",
+    "prod": "node ./lib/server.js"
   },
   "eslintConfig": {
     "extends": "react-app"
