@@ -18,7 +18,7 @@ function generateTitle(heightLightText, text) {
     if (splitText.length === 1) return text
     return (<div>
         {splitText.map((value, key) => {
-            return <span style={value === heightLightText ? HIGHLIGHT_STYLE : {}}>{value}</span>
+            return <span key={key} style={value === heightLightText ? HIGHLIGHT_STYLE : {}}>{value}</span>
         })}
     </div>)
 }

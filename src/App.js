@@ -10,13 +10,15 @@ import './App.css'
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <Header />
-        <Router className="content">
-          <Switch>
-            <Route path="/" exact component={MainPage} />
-            <Route path="/new-service" component={NewServicePage} />
-          </Switch>
+      <div>
+        <Router >
+          <div className="App">
+            <Header />
+            <Switch className="content">
+              <Route path="/" exact component={MainPage} />
+              <Route path="/new-service" component={NewServicePage} />
+            </Switch>
+          </div>
         </Router>
         <ToastContainer position={"bottom-left"} />
       </div>
