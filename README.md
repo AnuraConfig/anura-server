@@ -1,4 +1,5 @@
-# Anura
+# Anura   <img src="https://raw.githubusercontent.com/AnuraConfig/anura-server/master/public/favicon.ico" width="48">
+
 
 ![Version](https://img.shields.io/badge/version-0.0.1-brightgreen.svg)
 
