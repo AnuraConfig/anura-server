@@ -1,7 +1,6 @@
 {
   "name": "anura-server",
   "version": "0.1.0",
-  "private": true,
   "keywords": [
     "anura",
     "configuration",
