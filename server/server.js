@@ -41,6 +41,7 @@ function startServer() {
     console.log(`🚀 Server ready at http://localhost:${SERVER_PORT}/`)
   )
 }
-exports.startServer = startServer
-if (NODE_ENV === "development")
+if (NODE_ENV.startsWith("development"))
   startServer()
+
+exports.startServer = startServer
