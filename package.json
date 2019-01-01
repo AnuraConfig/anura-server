@@ -1,8 +1,18 @@
 {
-  "name": "anura-client",
+  "name": "anura-server",
   "version": "0.1.0",
-  "private": true,
+  "keywords": [
+    "anura",
+    "configuration",
+    "config",
+    "config server"
+  ],
+  "description": "Anura is a configuration server that make dealing with configs file a lot easier ",
+  "repository": "AnuraConfig/anura-server",
   "proxy": "http://localhost:4000",
+  "engines": {
+    "node": ">=4"
+  },
   "dependencies": {
     "@material-ui/core": "^3.6.1",
     "@material-ui/icons": "^3.0.1",
@@ -39,7 +49,7 @@
     "build-client": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "start-server": "set NODE_ENV=test & nodemon ./server/server.js --exec babel-node",
+    "start-server": "set NODE_ENV=development & nodemon ./server/server.js --exec babel-node",
     "build-server": "babel ./server -d lib",
     "build": "npm run build-client && npm run build-server",
     "prod": "node ./lib/server.js"
@@ -47,6 +57,12 @@
   "eslintConfig": {
     "extends": "react-app"
   },
+  "bin": {
+    "anura": "./bin/anura-server.js"
+  },
+  "preferGlobal": true,
+  "author": "HenShalom",
+  "license": "MIT",
   "browserslist": [
     ">0.2%",
     "not dead",

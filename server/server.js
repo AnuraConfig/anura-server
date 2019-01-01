@@ -8,7 +8,7 @@ import cors from 'cors';
 import socketIo from 'socket.io';
 import { initializeSocket } from './stateManager/scoket'
 import stats from './routes/stats'
-import { PORT } from './constants/environment'
+import { SERVER_PORT, NODE_ENV } from './constants/environment'
 
 const server = new ApolloServer({
   typeDefs,
@@ -19,7 +19,10 @@ const server = new ApolloServer({
 const app = express()
 const httpServer = http.Server(app)
 const io = socketIo(httpServer)
+
 initializeSocket(io)
+
+app.use(express.static('build'))
 
 app.use(cors())
 app.use(bodyParser.json())
@@ -27,11 +30,18 @@ app.use('/stats', stats)
 
 //is alive 
 app.get('/meaningOfLife', (req, res) => {
+  console.log('ping')
   res.send("42")
 })
 
 server.applyMiddleware({ app })
 
-httpServer.listen({ port: PORT }, () =>
-  console.log(`🚀 Server ready at http://localhost:4000/`)
-)
+function startServer() {
+  httpServer.listen({ port: SERVER_PORT }, () =>
+    console.log(`🚀 Server ready at http://localhost:${SERVER_PORT}/`)
+  )
+}
+if (NODE_ENV.startsWith("development"))
+  startServer()
+
+exports.startServer = startServer
