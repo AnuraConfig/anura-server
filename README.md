@@ -1,7 +1,7 @@
 # Anura   <img src="https://raw.githubusercontent.com/AnuraConfig/anura-server/master/public/favicon.ico" width="48">
 
 
-![Version](https://img.shields.io/badge/version-0.0.1-brightgreen.svg)
+[![Version](https://badge.fury.io/js/anura-server.svg)](https://badge.fury.io/js/anura-server)
 
 Anura is a configuration manager that help you and your team manage your configuration across multiple service and multiple environment with a simple and easy UI backed with real time update system and custom configuration db.
 
