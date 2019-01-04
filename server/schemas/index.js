@@ -11,6 +11,7 @@ input InputService {
     name: String!
     description : String
     environments: [InputEnvironment]
+    webHook: InputWebHook 
 }
 
 input InputEnvironment {
@@ -37,6 +38,7 @@ type Environment {
 type Config {
     version: Int
     data: String
+    webHook: WebHook 
 }
 type WebHook {
     url: String!
