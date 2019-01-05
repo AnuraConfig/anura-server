@@ -11,24 +11,38 @@ input InputService {
     name: String!
     description : String
     environments: [InputEnvironment]
+    webHook: InputWebHook 
 }
 
 input InputEnvironment {
     name: String!
-    config: InputConfig
+    config: InputConfig,
+    webHook: InputWebHook 
 }
 
 input InputConfig {
+    data: String
+}
+input InputWebHook {
+    url: String!
+    method: String!
     data: String
 }
 
 type Environment {
     name: String!
     configs: [Config]
+    webHook: WebHook 
 }
 
 type Config {
     version: Int
+    data: String
+    webHook: WebHook 
+}
+type WebHook {
+    url: String!
+    method: String!
     data: String
 }
 
