@@ -55,7 +55,7 @@
     "build-server": "babel ./server -d lib",
     "build": "npm run build-client && npm run build-server",
     "prod": "node ./lib/server.js",
-    "postinstall": "./bin/scripts/post-install.js"
+    "postinstall": "node ./bin/scripts/post-install.js"
   },
   "eslintConfig": {
     "extends": "react-app"
