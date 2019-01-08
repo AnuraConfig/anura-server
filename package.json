@@ -1,18 +1,24 @@
 {
-  "name": "anura-client",
+  "name": "anura-server",
   "version": "0.2.0",
-  "private": true,
+  "keywords": [
+    "anura",
+    "configuration",
+    "config",
+    "config server"
+  ],
+  "description": "Anura is a configuration server that make dealing with configs file a lot easier ",
+  "repository": "AnuraConfig/anura-server",
   "proxy": "http://localhost:4000",
+  "engines": {
+    "node": ">=4"
+  },
   "dependencies": {
     "@material-ui/core": "^3.6.1",
     "@material-ui/icons": "^3.0.1",
     "apollo-boost": "^0.1.22",
     "apollo-server": "^2.2.5",
     "apollo-server-express": "^2.3.1",
-    "babel-cli": "^6.26.0",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-stage-0": "^6.24.1",
-    "body-parser": "^1.18.3",
     "bson": "^4.0.1",
     "classnames": "^2.2.6",
     "cors": "^2.8.5",
@@ -21,7 +27,6 @@
     "fs": "0.0.1-security",
     "graphql": "^14.0.2",
     "graphql-tools": "^4.0.3",
-    "nodemon": "^1.18.7",
     "path": "^0.12.7",
     "react": "^16.6.3",
     "react-apollo": "^2.3.2",
@@ -29,17 +34,24 @@
     "react-json-editor-ajrm": "^2.5.9",
     "react-json-view": "^1.19.1",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "2.1.1",
     "react-toastify": "^4.5.1",
     "socket.io": "^2.2.0",
     "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "body-parser": "^1.18.3",
+    "nodemon": "^1.18.7",
+    "react-scripts": "2.1.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build-client": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "start-server": "set NODE_ENV=test & nodemon ./server/server.js --exec babel-node",
+    "start-server": "set NODE_ENV=development & nodemon ./server/server.js --exec babel-node",
     "build-server": "babel ./server -d lib",
     "build": "npm run build-client && npm run build-server",
     "prod": "node ./lib/server.js"
@@ -47,6 +59,12 @@
   "eslintConfig": {
     "extends": "react-app"
   },
+  "bin": {
+    "anura": "./bin/anura-server.js"
+  },
+  "preferGlobal": true,
+  "author": "HenShalom",
+  "license": "MIT",
   "browserslist": [
     ">0.2%",
     "not dead",

@@ -125,7 +125,6 @@ class NewServicePage extends React.Component {
                                     <CompleteStep addEnvironment={this.addEnvironment}
                                         complete={() => {
                                             const variables = { service: Object.assign({}, service, this.getConfigs()) }
-                                            console.log(variables)
                                             addService({ variables })
                                         }} />
                                 )
