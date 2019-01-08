@@ -36,8 +36,8 @@ app.get('/meaningOfLife', (req, res) => {
 
 server.applyMiddleware({ app })
 
-function startServer(configFile, extraConfig) {
-  const config = loadConfig(configFile, extraConfig)
+function startServer(configs) {
+  const config = loadConfig(configs)
   httpServer.listen({ port: config.SERVER_PORT }, () =>
     console.log(`🚀 Server ready at http://localhost:${config.SERVER_PORT}/`)
   )
