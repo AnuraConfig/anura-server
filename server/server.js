@@ -8,7 +8,7 @@ import cors from 'cors';
 import socketIo from 'socket.io';
 import { initializeSocket } from './stateManager/scoket'
 import stats from './routes/stats'
-import { SERVER_PORT, NODE_ENV } from './constants/environment'
+import { loadConfig } from './constants/configs'
 
 const server = new ApolloServer({
   typeDefs,
@@ -36,12 +36,13 @@ app.get('/meaningOfLife', (req, res) => {
 
 server.applyMiddleware({ app })
 
-function startServer() {
-  httpServer.listen({ port: SERVER_PORT }, () =>
-    console.log(`🚀 Server ready at http://localhost:${SERVER_PORT}/`)
+function startServer(configFile, extraConfig) {
+  const config = loadConfig(configFile, extraConfig)
+  httpServer.listen({ port: config.SERVER_PORT }, () =>
+    console.log(`🚀 Server ready at http://localhost:${config.SERVER_PORT}/`)
   )
 }
-if (NODE_ENV.startsWith("development"))
+if (process.env.NODE_ENV !== "production")
   startServer()
 
 exports.startServer = startServer
