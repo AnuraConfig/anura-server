@@ -1,9 +1,9 @@
 import FileSystem from './FileSystem'
-import { DATA_MANAGER } from '../constants/environment'
+import { config } from '../constants/configs'
 import * as managerTypes from '../constants/managerTypes'
 
 function getDataManger() {
-    switch (DATA_MANAGER.toUpperCase()) {
+    switch (config.DATA_MANAGER.toUpperCase()) {
         case (managerTypes.FILE_SYSTEM):
             return new FileSystem();
         default:
