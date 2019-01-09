@@ -1,12 +1,9 @@
 const fs = require("fs")
-const path = require("path")
+const { baseDirectory, configFileLocation } = require('./function')
 
-const folder_location = process.env.APPDATA || (process.platform == 'darwin' ? process.env.HOME + 'Library/Preferences' : '/var/local')
-const anura_dir = path.join(folder_location, 'Anura')
-
-if (!fs.existsSync(anura_dir)) {
-    fs.mkdirSync(anura_dir)
+if (!fs.existsSync(baseDirectory)) {
+    fs.mkdirSync(baseDirectory)
 }
-fs.copyFileSync('defaultConfig.yaml', path.join(anura_dir, 'anura-config.yaml'))
+fs.copyFileSync('defaultConfig.yaml', configFileLocation)
 
 console.log("Welcome to Anura")
