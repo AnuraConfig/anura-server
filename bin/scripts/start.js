@@ -1,4 +1,3 @@
-const fs = require("fs")
 const path = require("path")
 
 const folder_location = process.env.APPDATA || (process.platform == 'darwin' ? process.env.HOME + 'Library/Preferences' : '/var/local')
