@@ -2,6 +2,7 @@
 
 
 [![Version](https://badge.fury.io/js/anura-server.svg)](https://badge.fury.io/js/anura-server)
+[![CodeFactor](https://www.codefactor.io/repository/github/anuraconfig/anura-server/badge)](https://www.codefactor.io/repository/github/anuraconfig/anura-server)
 
 Anura is a configuration manager that help you and your team manage your configuration across multiple service and multiple environment with a simple and easy UI backed with real time update system and custom configuration db.
 
