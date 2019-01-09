@@ -1,10 +1,7 @@
-const path = require("path")
-
-const folder_location = process.env.APPDATA || (process.platform == 'darwin' ? process.env.HOME + 'Library/Preferences' : '/var/local')
-const config_file = path.join(folder_location, 'Anura', 'anura-config.yaml')
+const { configFileLocation } = require('./function')
 
 const init_args = {
-    config_file
+    config_file: configFileLocation
 }
 
 module.exports = function start(args) {
