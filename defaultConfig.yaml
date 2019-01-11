@@ -4,7 +4,7 @@ DATA_MANAGER: 'FILE_SYSTEM'
 # file system options
 HUMAN_READABLE: false
 
-#STORE_LOCATION:  
+#STORE_LOCATION:
 
 ## port in witch the anura server will run
 SERVER_PORT: 4000
