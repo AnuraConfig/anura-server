@@ -21,7 +21,7 @@ after those commands, Anura will start-up in port ``4000`` by default.
 
 ###  Configuration
 
-After installing Anura, A new directory will be created in the ``/var/local`` folder in Linux and  or in ``$appdata%`` folder on windows, there will be the initial folder with the config.yaml also you can add an ``config_file`` argument on the ``anura start`` sript
+After installing Anura, A new directory will be created in the ``/var/local`` folder in Linux or in ``$appdata%`` folder on windows, there will be the initial folder with the config.yaml also you can add an ``config_file`` argument on the ``anura start`` sript
 
 | Verible | Info | Type| Default |
 | ------ | ------ | ------ | ------ |
