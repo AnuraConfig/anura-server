@@ -4,6 +4,7 @@ const { baseDirectory, configFileLocation } = require('./function')
 if (!fs.existsSync(baseDirectory)) {
     fs.mkdirSync(baseDirectory)
 }
-fs.copyFileSync('defaultConfig.yaml', configFileLocation)
+const file = fs.readFileSync('defaultConfig.yaml')
+fs.writeFileSync(configFileLocation, file)
 
 console.log("Welcome to Anura")
