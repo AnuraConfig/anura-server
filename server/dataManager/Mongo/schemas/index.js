@@ -7,6 +7,7 @@ const ConfigSchema = new mongoose.Schema({
 });
 
 const EnviormentScehma = new mongoose.Schema({
+    name: String,
     configIds: [{type: mongoose.Schema.Types.ObjectId, ref: 'configs'}]
 });
 
