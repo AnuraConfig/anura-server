@@ -62,8 +62,8 @@ export default class FileSystemManager {
             return Object.assign({}, service, { environments })
         })
     }
+    
 //#region privates
-
     _createInfoFile(item, dir) {
         fs.writeFileSync(path.format({ dir, base: getFileName(filesConst.INFO_FILE) }), this.serializer.serialize(item));
     }
