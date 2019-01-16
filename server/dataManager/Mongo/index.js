@@ -50,13 +50,9 @@ export default class MongoManager {
     }
 
     async getAllEnv() {
-        console.log('get all');
-        let a = await Service.find({})
+        return Service.find({})
             .populate({ path: 'environments', populate: { path: 'configs' } })
             .exec();
-       // console.log(JSON.stringify(a, 0, 4));
-
-        return a;
     }
 
     //#region privates
