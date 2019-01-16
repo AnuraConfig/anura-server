@@ -4,7 +4,7 @@
   height: 4rem;
   padding: 2rem;
   width: calc(100% - 4rem);
-  background-color: $green-color;
+  background: linear-gradient(to left, $green-primary, $green-secondary);
   display: flex;
   justify-content: space-between;
   align-items: center;

@@ -5,6 +5,7 @@ import ConfigList from '../components/ConfigLists/ConfigList'
 import FileViewer from '../components/FileViewer/FileViewer'
 import { withStyles } from '@material-ui/core/styles';
 import LoadingError from "../components/Common/LoadingError";
+import Sidebar from "../components/Sidebar/Sidebar";
 
 const styles = theme => ({
     root: {
@@ -25,9 +26,9 @@ class MainPage extends React.Component {
         const { classes } = this.props
         return (
             <div className={"main"}>
-                {/*<ConfigList />*/}
-                {/*<FileViewer />*/}
-                <LoadingError/>
+                <ConfigList />
+                <FileViewer />
+                <Sidebar/>
             </div>
         )
     }
