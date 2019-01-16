@@ -32,8 +32,16 @@ export default class MongoManager {
         return enviorment.save();
     }
 
-    getConfigs(serviceId, env) {
-        console.log('get configs');
+    async getConfigs(serviceId, env) {
+        const shit = await Service
+            .find({ _id: mongoose.Types.ObjectId(serviceId) })
+            .populate({ path: 'environments', populate: { path: 'configs' }, match: { name: env } })
+            .exec();
+        debugger;
+        return {
+            name: shit[0].environments[0].name, 
+            configs: shit[0].environments[0].configs
+        }
     }
 
     async getConfig(serviceId, env) {
@@ -49,7 +57,7 @@ export default class MongoManager {
         let a = await Service.find({})
             .populate({ path: 'environments', populate: { path: 'configs' } })
             .exec();
-        console.log(JSON.stringify(a, 0, 4));
+       // console.log(JSON.stringify(a, 0, 4));
 
         return a;
     }
