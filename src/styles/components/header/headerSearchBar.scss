@@ -1,0 +1,29 @@
+@import "./../../base/colors";
+
+.headerSearchBar {
+  width: 20rem;
+  display: inline-flex;
+  padding-left: 1rem;
+  border-radius: 1rem;
+  color: $white-color;
+  align-items: center;
+  transition: all .2s ease-in-out;
+  border: .1rem solid $white-color;
+
+  &__show {
+    width: 20rem;
+  }
+
+  &__input {
+    padding: 1rem;
+    height: auto;
+    width: 100%;
+    background-color: transparent;
+    outline: none;
+    color: $white-color;
+
+    &::placeholder {
+      color: $white-color;
+    }
+  }
+}

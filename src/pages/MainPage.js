@@ -4,6 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import ConfigList from '../components/ConfigLists/ConfigList'
 import FileViewer from '../components/FileViewer/FileViewer'
 import { withStyles } from '@material-ui/core/styles';
+import LoadingError from "../components/Common/LoadingError";
 
 const styles = theme => ({
     root: {
@@ -23,12 +24,11 @@ class MainPage extends React.Component {
     render() {
         const { classes } = this.props
         return (
-            <Paper elevation={20} className={classes.root}>
-                <Grid container spacing={24} className={classes.grid} alignItems="stretch">
-                    <ConfigList />
-                    <FileViewer />
-                </Grid>
-            </Paper>
+            <div className={"main"}>
+                {/*<ConfigList />*/}
+                {/*<FileViewer />*/}
+                <LoadingError/>
+            </div>
         )
     }
 }

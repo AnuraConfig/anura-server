@@ -13,6 +13,7 @@ import { SearchContext } from '../../Context/Contexts';
 import { configFilter, configSort } from '../../utils/configSearchHelpers';
 import AddItemListItem from './AddItemListItem';
 import { withRouter } from 'react-router-dom'
+import LoadingError from "../Common/LoadingError";
 
 const query = gql`
 {
@@ -55,7 +56,7 @@ class ConfigList extends React.Component {
                                 Loading
                                   </Typography>)
                             if (error) return (<Typography className={classes.title} variant="h6" color="inherit" noWrap>
-                                Error
+                                <LoadingError/>
                               </Typography>)
                             return (<List
                                 className={classes.gridItem}

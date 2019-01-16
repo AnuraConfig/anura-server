@@ -1,0 +1,26 @@
+@import "../../base/colors";
+
+.header {
+  height: 4rem;
+  padding: 2rem;
+  width: calc(100% - 4rem);
+  background-color: $green-color;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &__logo {
+    display: inline-flex;
+    align-items: center;
+    height: 100%;
+
+    &_img {
+      height: 100%;
+      transition: all .3s ease-in-out;
+
+      &:active {
+         transform: rotate(360deg) scale(1.2);
+      }
+    }
+  }
+}
