@@ -33,23 +33,20 @@ export default class MongoManager {
     }
 
     async getConfigs(serviceId, env) {
-        const shit = await Service
+        const rawConfigs = await Service
             .find({ _id: mongoose.Types.ObjectId(serviceId) })
             .populate({ path: 'environments', populate: { path: 'configs' }, match: { name: env } })
             .exec();
-        debugger;
         return {
-            name: shit[0].environments[0].name, 
-            configs: shit[0].environments[0].configs
+            name: rawConfigs[0].environments[0].name, 
+            configs: rawConfigs[0].environments[0].configs
         }
     }
 
     async getConfig(serviceId, env) {
-        console.log('get config');
-        return Service
-            .findById({ _id: serviceId, "environments.name": env })
-            .populate({ path: 'environments', populate: { path: 'configs' } })
-            .exec();
+        //TODO: move to mongo query..
+        const allConfigs = await this.getConfigs(serviceId, env);
+        return allConfigs.configs.sort(item => item.version).slice(-1)[0].data;
     }
 
     async getAllEnv() {
