@@ -22,13 +22,15 @@ export default class MongoManager {
     }
 
     async updateConfig(serviceId, environmentName, data) {
-        let service = await Service.findById({ _id: serviceId, "environments.name": environmentName });
-        let enviorment = await Enviorment.findById(service._id);
-
-        let config = new Config({data: data, version: environments.configIds.length - 1});
-        config = await config.save();
-
-        enviorment.configIds.push(config._id);
+        // TODO: move to func
+        const service = await Service
+            .findOne({ _id: mongoose.Types.ObjectId(serviceId) })
+            .populate({ path: 'environments', match: { name: environmentName } })
+            .exec();
+        let enviorment = await Enviorment.findById(service.environments[0].id).exec();
+        let newConfig = new Config({data: data, version: enviorment.configs.length});
+        newConfig = await newConfig.save();
+        enviorment.configs.push(newConfig.id);
         return enviorment.save();
     }
 
