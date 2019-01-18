@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import VersionViewer from "./VersionViewer"
+import Loading from '../Common/Loading';
 
 const query = gql`
  query Env($serviceId: String, $envName: String){
@@ -25,17 +26,22 @@ const styles = theme => ({
 });
 
 class FileViewer extends Component {
+
+  getClassName = (selectedService, selectedEnvironment) => {
+    if (selectedService && selectedEnvironment)
+      return "active"
+    return "disable"
+  }
+
   render() {
     const { classes } = this.props
     return (
       <SelectFileContext.Consumer >
         {({ selectedService, selectedEnvironment }) => (
-          <div className={"file_viewer " + ((selectedService && selectedEnvironment) ? "active" : "disable")}>
+          <div className={"file_viewer " + this.getClassName(selectedService, selectedEnvironment)}>
             {(selectedService && selectedEnvironment) && <Query query={query} variables={{ serviceId: selectedService, envName: selectedEnvironment }}>
               {({ loading, error, data, refetch }) => {
-                if (loading) return (<Typography className={classes.title} variant="h6" color="inherit" noWrap>
-                  Loading
-                  </Typography>)
+                if (loading) return <Loading />
                 if (error) return (<Typography className={classes.title} variant="h6" color="inherit" noWrap>
                   Error
               </Typography>)
