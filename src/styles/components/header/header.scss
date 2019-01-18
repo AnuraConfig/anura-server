@@ -1,8 +1,8 @@
 @import "../../base/colors";
 
 .header {
-  height: 2rem;
-  padding: 2rem;
+  height: 3rem;
+  padding: 1.5rem;
   width: calc(100% - 4rem);
   background: linear-gradient(to left, $green-primary, $green-secondary);
   display: flex;
