@@ -1,8 +1,8 @@
 import dataManager from '../../dataManager'
 
 export function getConfigs(obj, args) {
-    return dataManager.getConfigs(args.serviceId, args.environment)
+    return dataManager.manager.getConfigs(args.serviceId, args.environment)
 }
 export function latestConfig(obj, args) {
-    return dataManager.getConfig(args.serviceId, args.environment)
+    return dataManager.manager.getConfig(args.serviceId, args.environment)
 }
