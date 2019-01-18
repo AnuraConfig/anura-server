@@ -2,7 +2,7 @@ import FileSystem from './FileSystem'
 import { config } from '../constants/configs'
 import * as managerTypes from '../constants/managerTypes'
 
-function getDataManger() {
+function getDataManager() {
     switch (config.DATA_MANAGER.toUpperCase()) {
         case (managerTypes.FILE_SYSTEM):
             return new FileSystem();
@@ -10,4 +10,11 @@ function getDataManger() {
             return new FileSystem();
     }
 }
-export default getDataManger()
+let dataManager
+
+export function initializeDataManager() {
+    dataManager = getDataManager()
+    return dataManager
+}
+
+export default dataManager
