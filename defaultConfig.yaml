@@ -3,7 +3,7 @@
 DATA_MANAGER: 'FILE_SYSTEM'
 # file system options
 HUMAN_READABLE: false
-
+#where anura will save the file 
 #STORE_LOCATION:
 
 ## port in witch the anura server will run

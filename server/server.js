@@ -9,6 +9,8 @@ import socketIo from 'socket.io';
 import { initializeSocket } from './stateManager/scoket'
 import stats from './routes/stats'
 import { loadConfig } from './constants/configs'
+import dataManager from './dataManager/index'
+import devArguments from './devArguments'
 
 const server = new ApolloServer({
   typeDefs,
@@ -38,11 +40,12 @@ server.applyMiddleware({ app })
 
 function startServer(configs) {
   const config = loadConfig(configs)
+  dataManager.initializeDataManager()
   httpServer.listen({ port: config.SERVER_PORT }, () =>
     console.log(`🚀 Server ready at http://localhost:${config.SERVER_PORT}/`)
   )
 }
 if (process.env.NODE_ENV !== "production")
-  startServer()
+  startServer(devArguments)
 
 exports.startServer = startServer

@@ -2,7 +2,7 @@ import dataManager from '../../dataManager/index'
 
 export default function (obj, args) {
     try {
-        dataManager.createService(args.service)
+        dataManager.manager.createService(args.service)
         return {
             success: true
         };
