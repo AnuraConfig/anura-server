@@ -6,7 +6,7 @@ export const VersionViewer = theme => ({
     },
     viewer: {
         margin: '2vh 1vw',
-        maxHeight: '67vh',
+        height: 'inherit',
         overflowY: "auto"
     },
     paperRoot: {
@@ -15,13 +15,13 @@ export const VersionViewer = theme => ({
     },
     saveChanges: {
         position: "absolute",
-        zIndex: 10000,
+        zIndex: 10,
         bottom: "10px",
         right: "125px"
     },
     cancel:{
         position: "absolute",
-        zIndex: 10000,
+        zIndex: 10,
         bottom: "10px",
         right: "15px"
     }
@@ -30,8 +30,8 @@ export const VersionViewer = theme => ({
 export const JsonViewer = theme => ({
     editButton: {
         position: "absolute",
-        zIndex: 10000,
+        zIndex: 10,
         top: "52px",
-        right: "5px"
+        right: "30px"
     },
 })

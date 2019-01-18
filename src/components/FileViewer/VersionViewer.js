@@ -6,7 +6,6 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import JsonViewer from './JsonViewer';
-import Paper from '@material-ui/core/Paper/Paper';
 import { getMaxVersion, getMaxVersionIndex } from './VersionHelpers'
 import JSONInput from 'react-json-editor-ajrm';
 import locale from 'react-json-editor-ajrm/locale/en';
@@ -83,7 +82,7 @@ class VersionViewer extends React.PureComponent {
         const { value, maxVersion } = this.state
         const index = value >= configs.length ? configs.length - 1 : value
         return (
-            <Paper className={classes.paperRoot} >
+            <React.Fragment>
                 <Grid item xs={12} sm={12}>
                     <div className={classes.root}>
                         <AppBar position="static" color="inherit">
@@ -139,7 +138,7 @@ class VersionViewer extends React.PureComponent {
                         }}
                     </Mutation>
                 </Grid>
-            </Paper>
+            </React.Fragment>
         );
     }
 }
