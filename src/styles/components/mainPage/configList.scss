@@ -3,4 +3,6 @@
     width: 35%;
     z-index: 300;
     background: #fff;
+    height: calc(100% - 2rem);
+    overflow-y: auto;
 }
