@@ -12,6 +12,7 @@ import { configFilter, configSort } from '../../utils/configSearchHelpers';
 import AddItemListItem from './AddItemListItem';
 import { withRouter } from 'react-router-dom'
 import LoadingError from "../Common/LoadingError";
+import Loading from '../Common/Loading';
 
 const query = gql`
 {
@@ -49,9 +50,7 @@ class ConfigList extends React.Component {
             <div className="config_list">
                 <Query query={query}>
                     {({ loading, error, data }) => {
-                        if (loading) return (<Typography className={classes.title} variant="h6" color="inherit" noWrap>
-                            Loading
-                                  </Typography>)
+                        if (loading) return <Loading />
                         if (error) return (<Typography className={classes.title} variant="h6" color="inherit" noWrap>
                             <LoadingError />
                         </Typography>)
