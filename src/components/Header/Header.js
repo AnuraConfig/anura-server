@@ -6,7 +6,7 @@ function SearchAppBar(props) {
   return (
     <div className="header">
       <div className="header__logo">
-        <img src="/img/001-frog.svg" className="header__logo_img" onClick={() => props.history.push('/')} />
+        <img alt="" src="/img/001-frog.svg" className="header__logo_img" onClick={() => props.history.push('/')} />
         <span className="header__title">Anura</span>
       </div>
       <HeaderSearchBar />
