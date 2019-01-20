@@ -28,30 +28,34 @@ class ServiceItem extends React.Component {
         open: false,
     };
 
-    handleClick = () => {
+    handleClick = (clickFile) => {
         this.setState(state => ({ open: !state.open }));
+        clickFile("", "")
     };
 
     render() {
         const searchText = this.props.searchText
         const { name, description, environments, id } = this.props.service
-        return (<div>
-            <ListItem button onClick={this.handleClick}>
-                <ListItemIcon>
-                    <Apps />
-                </ListItemIcon>
-                <ListItemText inset primary={generateTitle(searchText, name)} secondary={generateTitle(searchText, description)} />
-                {this.state.open ? <ExpandLess /> : <ExpandMore />}
-            </ListItem>
+        return (
             <SelectFileContext.Consumer>
-                {({ clickFile }) => (
-                    <EnvList open={this.state.open}
-                        environments={environments}
-                        clickFile={(envName) => clickFile(id, envName)} />
+                {({ clickFile, selectedService, selectedEnvironment }) => (
+                    <div>
+                        <ListItem button onClick={() => this.handleClick(clickFile)}>
+                            <ListItemIcon>
+                                <Apps />
+                            </ListItemIcon>
+                            <ListItemText inset primary={generateTitle(searchText, name)} secondary={generateTitle(searchText, description)} />
+                            {this.state.open ? <ExpandLess /> : <ExpandMore />}
+                        </ListItem>
+                        <EnvList open={this.state.open}
+                            environments={environments}
+                            isSelected={selectedService === id}
+                            selectedEnvironment={selectedEnvironment}
+                            clickFile={(envName) => clickFile(id, envName)} />
+                        <Divider />
+                    </div>
                 )}
-            </SelectFileContext.Consumer>
-            <Divider />
-        </div>)
+            </SelectFileContext.Consumer>)
     }
 }
 
