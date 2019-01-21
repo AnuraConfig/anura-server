@@ -1,15 +1,15 @@
 
 import * as filesConst from '../../constants/filesConst'
-import { HUMAN_READABLE } from '../../constants/environment'
+import { config } from '../../constants/configs'
 
 export function getFileName(baseName) {
-    if (HUMAN_READABLE) {
+    if (config.HUMAN_READABLE) {
         return baseName + filesConst.JSON_ENDING
     }
     return baseName
 }
 export function getNameFromFile(filename) {
-    if (HUMAN_READABLE) {
+    if (config.HUMAN_READABLE) {
         filename.split('.').slice(0, -1).join('.')
     }
     return filename

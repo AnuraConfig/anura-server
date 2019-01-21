@@ -1,6 +1,6 @@
 import express from 'express'
 import bodyParser from 'body-parser'
-import { ApolloServer, gql } from 'apollo-server-express'
+import { ApolloServer } from 'apollo-server-express'
 import resolvers from './resolvers'
 import typeDefs from './schemas'
 import http from 'http';
@@ -8,7 +8,9 @@ import cors from 'cors';
 import socketIo from 'socket.io';
 import { initializeSocket } from './stateManager/scoket'
 import stats from './routes/stats'
-import { SERVER_PORT, NODE_ENV } from './constants/environment'
+import { loadConfig } from './constants/configs'
+import dataManager from './dataManager/index'
+import devArguments from './devArguments'
 
 const server = new ApolloServer({
   typeDefs,
@@ -36,12 +38,14 @@ app.get('/meaningOfLife', (req, res) => {
 
 server.applyMiddleware({ app })
 
-function startServer() {
-  httpServer.listen({ port: SERVER_PORT }, () =>
-    console.log(`🚀 Server ready at http://localhost:${SERVER_PORT}/`)
+function startServer(configs) {
+  const config = loadConfig(configs)
+  dataManager.initializeDataManager()
+  httpServer.listen({ port: config.SERVER_PORT }, () =>
+    console.log(`🚀 Server ready at http://localhost:${config.SERVER_PORT}/`)
   )
 }
-if (NODE_ENV.startsWith("development"))
-  startServer()
+if (process.env.NODE_ENV !== "production")
+  startServer(devArguments)
 
 exports.startServer = startServer

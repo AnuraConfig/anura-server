@@ -27,17 +27,16 @@ class ServiceDetailsComplete extends React.Component {
                 <Typography className={classes.title} variant="subtitle2" color="inherit" >
                     web hooks :
                 </Typography>
-
-                {service.requestType && service.url ?
+                {service.webHook ?
                     <div className={classes.webHookContainer}>
                         <Chip
-                            label={service.requestType}
+                            label={service.webHook.method}
                             className={classes.chip}
                             color="primary"
                             variant="outlined"
                         />
                         <Typography className={classes.webHookText} variant="body1" color="inherit">
-                            {service.url}
+                            {service.webHook.url}
                         </Typography>
                     </div>
                     :

@@ -3,7 +3,7 @@ import path from 'path'
 import uuidv4 from 'uuid/v4'
 import * as filesConst from '../../constants/filesConst'
 import getSerializer from './Serializer'
-import { STORE_LOCATION } from '../../constants/environment'
+import { config } from '../../constants/configs'
 import { getFileName, getNameFromFile, getConfigVersion } from './helperFunctions'
 import { getStateManager } from '../../stateManager/scoket'
 
@@ -14,7 +14,7 @@ function createDir(dir) {
 }
 
 export default class FileSystemManager {
-    constructor(location = STORE_LOCATION, serializer = getSerializer()) {
+    constructor(location = config.STORE_LOCATION, serializer = getSerializer()) {
         this.serializer = serializer
         this.location = path.join(location, filesConst.BASE)
         createDir(this.location)

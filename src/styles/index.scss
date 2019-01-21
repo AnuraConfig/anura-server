@@ -1,0 +1,19 @@
+// base files
+
+@import "base/base";
+@import "base/common";
+
+// Components
+
+// Common
+@import "./components/common/loadingError";
+@import "./components/common/loading";
+
+// Header
+@import "./components/header/header";
+@import "./components/header/headerSearchBar";
+
+// Main Page
+@import "./components/mainPage/main";
+@import "./components/mainPage/fileViewer";
+@import "./components/mainPage/configList";

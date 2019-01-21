@@ -17,6 +17,9 @@ const styles = theme => ({
 });
 
 class EnvList extends React.Component {
+    checkSelected = (name) => {
+        return this.props.isSelected && this.props.selectedEnvironment === name
+    }
     render() {
         const { classes, environments } = this.props;
         return (
@@ -31,7 +34,9 @@ class EnvList extends React.Component {
                     <AddItemListItem onClick={console.log} text={"Add New Environment"} />
                     {
                         environments.map(({ name }, key) => (
-                            < ListItem key={key} button onClick={() => this.props.clickFile(name, 1)} >
+                            <ListItem key={key} button
+                                selected={this.checkSelected(name)}
+                                onClick={() => this.props.clickFile(name, 1)} >
                                 <ListItemIcon>
                                     <Description />
                                 </ListItemIcon>

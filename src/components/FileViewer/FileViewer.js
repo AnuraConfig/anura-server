@@ -5,9 +5,8 @@ import { SelectFileContext } from '../../Context/Contexts'
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
 import VersionViewer from "./VersionViewer"
-import Paper from '@material-ui/core/Paper/Paper';
+import Loading from '../Common/Loading';
 
 const query = gql`
  query Env($serviceId: String, $envName: String){
@@ -27,35 +26,37 @@ const styles = theme => ({
 });
 
 class FileViewer extends Component {
+
+  getClassName = (selectedService, selectedEnvironment) => {
+    if (selectedService && selectedEnvironment)
+      return "active"
+    return "disable"
+  }
+
   render() {
     const { classes } = this.props
     return (
-      <Grid item xs={6} sm={6}>
-        <Paper className={classes.root}>
-          < SelectFileContext.Consumer>
-            {({ selectedService, selectedEnvironment }) => {
-              if (selectedService && selectedEnvironment)
-                return (<Query query={query} variables={{ serviceId: selectedService, envName: selectedEnvironment }}>
-                  {({ loading, error, data, refetch }) => {
-                    if (loading) return (<Typography className={classes.title} variant="h6" color="inherit" noWrap>
-                      Loading
-                  </Typography>)
-                    if (error) return (<Typography className={classes.title} variant="h6" color="inherit" noWrap>
-                      Error
+      <SelectFileContext.Consumer >
+        {({ selectedService, selectedEnvironment }) => (
+          <div className={"file_viewer " + this.getClassName(selectedService, selectedEnvironment)}>
+            {(selectedService && selectedEnvironment) && <Query query={query} variables={{ serviceId: selectedService, envName: selectedEnvironment }}>
+              {({ loading, error, data, refetch }) => {
+                if (loading) return <Loading />
+                if (error) return (<Typography className={classes.title} variant="h6" color="inherit" noWrap>
+                  Error
               </Typography>)
-                    if (data.getConfigs && data.getConfigs.configs)
-                      return (<VersionViewer
-                        refetch={refetch}
-                        serviceId={selectedService}
-                        envName={selectedEnvironment}
-                        configs={data.getConfigs.configs} />)
-                    return <div>No configs</div>
-                  }}
-                </Query>)
-            }}
-          </SelectFileContext.Consumer>
-        </Paper>
-      </Grid>
+                if (data.getConfigs && data.getConfigs.configs)
+                  return (<VersionViewer
+                    refetch={refetch}
+                    serviceId={selectedService}
+                    envName={selectedEnvironment}
+                    configs={data.getConfigs.configs} />)
+                return <div>No configs</div>
+              }}
+            </Query>}
+          </div>
+        )}
+      </SelectFileContext.Consumer>
     )
   }
 }

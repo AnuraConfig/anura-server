@@ -5,6 +5,7 @@ import NewServicePage from './pages/NewServicePage';
 import { ToastContainer } from 'react-toastify';
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.css';
+import "./styles/index.scss";
 import './App.css'
 
 class App extends Component {
