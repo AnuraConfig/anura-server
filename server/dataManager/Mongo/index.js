@@ -31,13 +31,13 @@ export default class MongoManager {
     }
 
     async getConfigs(serviceId, env) {
-        const rawConfigs = await Service
+        const service = await Service
             .find({ _id: mongoose.Types.ObjectId(serviceId) })
             .populate({ path: 'environments', populate: { path: 'configs' }, match: { name: env } })
             .exec();
         return {
-            name: rawConfigs[0].environments[0].name, 
-            configs: rawConfigs[0].environments[0].configs
+            name: service[0].environments[0].name, 
+            configs: service[0].environments[0].configs
         }
     }
 
