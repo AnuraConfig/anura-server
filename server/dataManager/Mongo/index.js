@@ -11,20 +11,27 @@ export default class MongoManager {
     }
 
     async createService({ name, description, environments }) {
-        let enviormentIds = [];
+        let promises = []
         for (let enviorment of environments) {
-            let newEnviorment = await this._createEnviorment(enviorment);
-            enviormentIds.push(newEnviorment._id);
+            promises.push(this._createEnviorment(enviorment));
         }
 
-        var service = new Service({ name: name, description: description, environments: enviormentIds });
+        let newEnvironments = await Promise.all(promises)
+        var service = new Service({
+            name: name,
+            description: description,
+            environments: newEnvironments.map(env => env._id)
+        });
         return service.save();
     }
 
     async updateConfig(serviceId, environmentName, data) {
         const service = await this._findService(serviceId, environmentName);
         let enviorment = await Enviorment.findById(service.environments[0].id).exec();
-        let newConfig = new Config({data: data, version: enviorment.configs.length});
+        let newConfig = new Config({
+            data: data,
+            version: enviorment.configs.length
+        });
         newConfig = await newConfig.save();
         enviorment.configs.push(newConfig.id);
         return enviorment.save();
@@ -32,11 +39,21 @@ export default class MongoManager {
 
     async getConfigs(serviceId, env) {
         const service = await Service
-            .find({ _id: mongoose.Types.ObjectId(serviceId) })
-            .populate({ path: 'environments', populate: { path: 'configs' }, match: { name: env } })
+            .find({
+                _id: mongoose.Types.ObjectId(serviceId)
+            })
+            .populate({
+                path: 'environments',
+                populate: {
+                    path: 'configs'
+                },
+                match: {
+                    name: env
+                }
+            })
             .exec();
         return {
-            name: service[0].environments[0].name, 
+            name: service[0].environments[0].name,
             configs: service[0].environments[0].configs
         }
     }
@@ -48,7 +65,12 @@ export default class MongoManager {
 
     async getAllEnv() {
         return Service.find({})
-            .populate({ path: 'environments', populate: { path: 'configs' } })
+            .populate({
+                path: 'environments',
+                populate: {
+                    path: 'configs'
+                }
+            })
             .exec();
     }
 
@@ -57,19 +79,32 @@ export default class MongoManager {
     async _createEnviorment({ name, config }) {
         let newConfig = await this._createConfig(config);
 
-        let enviorment = new Enviorment({ name: name, configs: [newConfig._id] });
+        let enviorment = new Enviorment({
+            name: name,
+            configs: [newConfig._id]
+        });
         return enviorment.save();
     }
 
     async _createConfig({ data, key }) {
-        let config = new Config({ data: data, version: key || 0 });
+        let config = new Config({
+            data: data,
+            version: key || 0
+        });
         return config.save();
     }
 
     async _findService(serviceId, environmentName) {
         return Service
-            .findOne({ _id: mongoose.Types.ObjectId(serviceId) })
-            .populate({ path: 'environments', match: { name: environmentName } })
+            .findOne({
+                _id: mongoose.Types.ObjectId(serviceId)
+            })
+            .populate({
+                path: 'environments',
+                match: {
+                    name: environmentName
+                }
+            })
             .exec();
     }
 
