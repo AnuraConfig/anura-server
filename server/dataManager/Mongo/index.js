@@ -22,11 +22,7 @@ export default class MongoManager {
     }
 
     async updateConfig(serviceId, environmentName, data) {
-        // TODO: move to func
-        const service = await Service
-            .findOne({ _id: mongoose.Types.ObjectId(serviceId) })
-            .populate({ path: 'environments', match: { name: environmentName } })
-            .exec();
+        const service = await this._findService(serviceId, environmentName);
         let enviorment = await Enviorment.findById(service.environments[0].id).exec();
         let newConfig = new Config({data: data, version: enviorment.configs.length});
         newConfig = await newConfig.save();
@@ -46,7 +42,6 @@ export default class MongoManager {
     }
 
     async getConfig(serviceId, env) {
-        //TODO: move to mongo query..
         const allConfigs = await this.getConfigs(serviceId, env);
         return allConfigs.configs.sort(item => item.version).slice(-1)[0].data;
     }
@@ -69,6 +64,13 @@ export default class MongoManager {
     async _createConfig({ data, key }) {
         let config = new Config({ data: data, version: key || 0 });
         return config.save();
+    }
+
+    async _findService(serviceId, environmentName) {
+        return Service
+            .findOne({ _id: mongoose.Types.ObjectId(serviceId) })
+            .populate({ path: 'environments', match: { name: environmentName } })
+            .exec();
     }
 
     //#endregion
