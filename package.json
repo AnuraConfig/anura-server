@@ -59,6 +59,7 @@
     "build-server": "babel ./server -d lib",
     "build": "npm run build-client && npm run build-server",
     "prod": "node ./lib/server.js",
+    "prepublish": "npm run build",
     "postinstall": "node ./bin/scripts/post-install.js"
   },
   "eslintConfig": {
