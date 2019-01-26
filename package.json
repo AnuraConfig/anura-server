@@ -56,7 +56,7 @@
     "eject": "react-scripts eject",
     "start-server": "set NODE_ENV=development & nodemon ./server/server.js --exec babel-node",
     "debug-server": "set NODE_ENV=development & nodemon --inspect ./server/server.js --exec babel-node",
-    "build-server": "babel ./server -d lib",
+    "build-server": "rm -rf ./lib/* &babel ./server -d lib",
     "build": "npm run build-client && npm run build-server",
     "prod": "node ./lib/server.js",
     "prepublish": "npm run build",
