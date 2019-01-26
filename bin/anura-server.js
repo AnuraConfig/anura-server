@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-
 var start = require('./scripts/start.js')
+process.env.NODE_ENV = "production"
 
 function generateArgObject(argv) {
     let argObject = {}
@@ -26,6 +26,7 @@ function specialCommand(args) {
 var commands = {
     "start": start
 }
+
 var command = process.argv[2]
 
 commands[command](generateArgObject(process.argv))
