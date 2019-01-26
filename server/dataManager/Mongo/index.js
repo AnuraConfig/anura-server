@@ -1,9 +1,10 @@
 import mongoose from 'mongoose';
 import { Service, Enviorment, Config } from './schemas';
-import { STORE_LOCATION } from '../../constants/environment'
+import { config } from '../../constants/configs'
+
 
 export default class MongoManager {
-    constructor(connectionString = STORE_LOCATION) {
+    constructor(connectionString = config.STORE_LOCATION) {
         this.connectionString = connectionString
 
         mongoose.connect(this.connectionString)
