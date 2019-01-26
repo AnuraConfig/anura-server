@@ -45,7 +45,7 @@ export default class FileSystemManager {
         envInfo.configs = configs
         return envInfo
     }
-    
+
     getConfig(serviceId, env) {
         const dir = path.join(this.location, serviceId, env)
         const maxVersion = Math.max(...fs.readdirSync(dir)
@@ -62,8 +62,8 @@ export default class FileSystemManager {
             return Object.assign({}, service, { environments })
         })
     }
-    
-//#region privates
+
+    //#region privates
     _createInfoFile(item, dir) {
         fs.writeFileSync(path.format({ dir, base: getFileName(filesConst.INFO_FILE) }), this.serializer.serialize(item));
     }
@@ -97,5 +97,5 @@ export default class FileSystemManager {
             data: JSON.stringify(this._parseFile(dir, filename))
         }
     }
-//#endregion
+    //#endregion
 }   

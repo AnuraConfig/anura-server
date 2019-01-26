@@ -1,11 +1,11 @@
-const { configFileLocation } = require('./function')
+const { configFileLocation, baseDirectory } = require('./function')
 
 const init_args = {
     config_file: configFileLocation,
-    STORE_LOCATION: configFileLocation
+    STORE_LOCATION: baseDirectory
 }
 
 module.exports = function start(args) {
-    var anuraServer = require('../../lib/server.js')
+    const anuraServer = require('../../lib/server.js')
     anuraServer.startServer(Object.assign(init_args, args))
 }
