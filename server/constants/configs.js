@@ -10,8 +10,9 @@ let config = defaultConfig
 
 function loadConfig(configs) {
     let configFileObject = {}
-    if (config.config_file) {
-        const file = fs.readFileSync(config.config_file, 'utf8')
+    console.log(`reading config file at '${configs.config_file}'`)
+    if (configs.config_file) {
+        const file = fs.readFileSync(configs.config_file, 'utf8')
         configFileObject = YAML.parse(file)
     }
     config = Object.assign({}, defaultConfig, configFileObject, configs)
