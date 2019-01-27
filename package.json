@@ -1,6 +1,6 @@
 {
   "name": "anura-server",
-  "version": "0.3.4",
+  "version": "0.4.3",
   "keywords": [
     "anura",
     "configuration",
@@ -45,8 +45,8 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "body-parser": "^1.18.3",
-    "nodemon": "^1.18.7",
     "node-sass": "^4.11.0",
+    "nodemon": "^1.18.7",
     "react-scripts": "^2.1.3"
   },
   "scripts": {
@@ -56,7 +56,7 @@
     "eject": "react-scripts eject",
     "start-server": "set NODE_ENV=development & nodemon ./server/server.js --exec babel-node",
     "debug-server": "set NODE_ENV=development & nodemon --inspect ./server/server.js --exec babel-node",
-    "build-server": "babel ./server -d lib",
+    "build-server": "rm -rf ./lib/* &babel ./server -d lib",
     "build": "npm run build-client && npm run build-server",
     "prod": "node ./lib/server.js",
     "postinstall": "node ./bin/scripts/post-install.js"

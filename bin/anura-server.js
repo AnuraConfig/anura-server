@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-
 var start = require('./scripts/start.js')
+process.env.NODE_ENV = "production"
 
 function generateArgObject(argv) {
     let argObject = {}
@@ -8,6 +8,7 @@ function generateArgObject(argv) {
         let splits = argv[i].split("=")
         Object.assign(argObject, generateKeyValue(splits, argv[i]))
     }
+    return argObject
 }
 function generateKeyValue(splits, arg) {
     switch (splits.length) {
@@ -26,6 +27,9 @@ function specialCommand(args) {
 var commands = {
     "start": start
 }
-var command = process.argv[2]
 
-commands[command](generateArgObject(process.argv))
+var command = process.argv[2]
+if (commands[command])
+    commands[command](generateArgObject(process.argv))
+else
+    console.log(`no such command: "${command}"`)

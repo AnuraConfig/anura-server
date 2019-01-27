@@ -11,6 +11,7 @@ import stats from './routes/stats'
 import { loadConfig } from './constants/configs'
 import dataManager from './dataManager/index'
 import devArguments from './devArguments'
+import path from 'path'
 
 const server = new ApolloServer({
   typeDefs,
@@ -24,7 +25,7 @@ const io = socketIo(httpServer)
 
 initializeSocket(io)
 
-app.use(express.static('build'))
+app.use(express.static(path.join(__dirname, '../build')))
 
 app.use(cors())
 app.use(bodyParser.json())
@@ -41,8 +42,8 @@ server.applyMiddleware({ app })
 function startServer(configs) {
   const config = loadConfig(configs)
   dataManager.initializeDataManager()
-  httpServer.listen({ port: config.SERVER_PORT }, () =>
-    console.log(`🚀 Server ready at http://localhost:${config.SERVER_PORT}/`)
+  httpServer.listen({ port: config.SERVER_PORT, hostname: config.HOST_NAME }, () =>
+    console.log(`🚀 Server ready at http://${config.HOST_NAME}:${config.SERVER_PORT}/`)
   )
 }
 if (process.env.NODE_ENV !== "production")

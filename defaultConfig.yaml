@@ -7,3 +7,4 @@ HUMAN_READABLE: false
 STORE_LOCATION: "C:/"
 ## port in witch the anura server will run
 SERVER_PORT: 4000
+HOST_NAME: 'localhost'
