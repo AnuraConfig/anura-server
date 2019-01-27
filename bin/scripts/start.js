@@ -6,6 +6,9 @@ const init_args = {
 }
 
 module.exports = function start(args) {
+    console.log("==============================================")
+    console.log("================Starting Anura================")
+    console.log("==============================================")
     const anuraServer = require('../../lib/server.js')
     anuraServer.startServer(Object.assign(init_args, args))
 }
