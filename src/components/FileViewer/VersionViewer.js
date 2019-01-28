@@ -5,20 +5,16 @@ import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import brace from 'brace';
 import AceEditor from 'react-ace';
 import IconButton from '@material-ui/core/IconButton';
 import Edit from '@material-ui/icons/Edit'
 import { getMaxVersion, getMaxVersionIndex } from './VersionHelpers'
-import locale from 'react-json-editor-ajrm/locale/en';
 import Button from '@material-ui/core/Button';
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import { toast } from 'react-toastify';
 import { VersionViewer as styles } from './styles'
-
-import 'brace/mode/json';
-import 'brace/theme/github';
+import '../Common/braceImport'
 
 const UPDATE_CONFIG = gql`
 mutation updateConfig($serviceId:ID!,$environmentName:String!,$data:String!){
@@ -93,7 +89,6 @@ class VersionViewer extends React.PureComponent {
         const { classes, configs } = this.props;
         const { value, maxVersion, changeData } = this.state
         const index = value >= configs.length ? configs.length - 1 : value
-        console.log(changeData)
         return (
             <React.Fragment>
                 <Grid item xs={12} sm={12}>
