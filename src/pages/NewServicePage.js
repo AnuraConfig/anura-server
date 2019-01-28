@@ -81,7 +81,7 @@ class NewServicePage extends React.Component {
             environments: this.state.configs.map(i => ({
                 name: i.name,
                 config: {
-                    data: JSON.stringify(i.configFile)
+                    data: i.configFile
                 }
             }))
         }
