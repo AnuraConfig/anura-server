@@ -19,19 +19,20 @@ export const VersionViewer = theme => ({
         bottom: "10px",
         right: "125px"
     },
-    cancel:{
+    cancel: {
         position: "absolute",
         zIndex: 10,
         bottom: "10px",
         right: "15px"
-    }
-
-});
-export const JsonViewer = theme => ({
+    },
     editButton: {
         position: "absolute",
         zIndex: 10,
         top: "52px",
         right: "30px"
     },
-})
+    container: {
+        width: "100%",
+        height: "100%"
+    }
+});
