@@ -68,8 +68,7 @@ export default class FileSystemManager {
         fs.writeFileSync(path.format({ dir, base: getFileName(filesConst.INFO_FILE) }), this.serializer.serialize(item));
     }
     _createConfigFile(dir, data, key) {
-        fs.writeFileSync(path.format({ dir, base: getFileName(filesConst.CONFIG_PREFIX + key) }),
-            this.serializer.serialize(JSON.parse(data)));
+        fs.writeFileSync(path.format({ dir, base: getFileName(filesConst.CONFIG_PREFIX + key) }), data);
     }
     _createEnv(serviceDir, { name, config }) {
         const envDir = path.join(serviceDir, name)
@@ -77,10 +76,12 @@ export default class FileSystemManager {
         this._createInfoFile({ name, lastUpdate: new Date() }, envDir)
         this._createConfigFile(envDir, config.data, 0)
     }
-    _parseFile(dir, base) {
+    _parseFile(dir, base, notSerializer) {
         const infoFile = path.format({ dir, base })
-        const data = fs.readFileSync(infoFile)
-        return this.serializer.deserialize(data)
+        const data = fs.readFileSync(infoFile,"utf8")
+        if (!notSerializer) 
+            return this.serializer.deserialize(data)
+        return data
     }
     _readInfos(source) {
         const isDirectory = source => fs.lstatSync(source).isDirectory()
@@ -94,7 +95,7 @@ export default class FileSystemManager {
         return {
             name: getNameFromFile(filename),
             version: getConfigVersion(filename),
-            data: JSON.stringify(this._parseFile(dir, filename))
+            data: this._parseFile(dir, filename, true)
         }
     }
     //#endregion
