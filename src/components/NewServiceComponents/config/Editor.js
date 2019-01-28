@@ -3,31 +3,32 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper'
 import { JsonEditorStyle as styles } from '../styles'
-import JSONInput from 'react-json-editor-ajrm';
-import locale from 'react-json-editor-ajrm/locale/en';
+import AceEditor from 'react-ace';
+import '../../Common/braceImport'
 
 
-class JsonEditor extends React.Component {
+class Editor extends React.Component {
     render() {
         const { classes, configFile } = this.props;
         return (
             <Paper className={classes.root} elevation={10}>
-                <JSONInput
+                <AceEditor
                     id='json-viewer-id'
-                    placeholder={configFile}
-                    locale={locale}
-                    theme={"light_mitsuketa_tribute"}
                     height="70vh"
                     width="100%"
-                    onChange={({ jsObject }) => this.props.updateConfigFile(jsObject)}
+                    mode="json"
+                    theme="github"
+                    value={configFile}
+                    onChange={(data) => this.props.updateConfigFile(data)}
+                    name="NEW_DIV"
                 />
             </Paper>
         );
     }
 }
 
-JsonEditor.propTypes = {
+Editor.propTypes = {
     classes: PropTypes.object,
 };
 
-export default withStyles(styles)(JsonEditor);
+export default withStyles(styles)(Editor);
