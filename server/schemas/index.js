@@ -1,6 +1,7 @@
 import { gql } from 'apollo-server';
 
 export default gql`
+
 type Service {
     name: String!
     description : String
@@ -22,6 +23,7 @@ input InputEnvironment {
 
 input InputConfig {
     data: String
+    type: String
 }
 input InputWebHook {
     url: String!
@@ -54,7 +56,7 @@ type Query {
 
 type Mutation {
     newService(service:InputService!): BasicResponse!
-    updateConfig(serviceId: ID!, environmentName: String!, data: String!): BasicResponse!
+    updateConfig(serviceId: ID!, environmentName: String!, data: String!, type:String): BasicResponse!
 }
 
 type BasicResponse {
