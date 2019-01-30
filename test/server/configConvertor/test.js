@@ -1,8 +1,35 @@
 import assert from "assert"
-
+import chai from "chai"
+import convertConfig from "../../../server/configConvertor"
 import convertJSON from "../../../server/configConvertor/convertJSON"
 import convertText from "../../../server/configConvertor/convertText"
 import convertYAML from "../../../server/configConvertor/convertYAML"
+const expect = chai.expect
+
+describe('convertConfig', () => {
+    describe('#isValid()', () => {
+        it('should return true when json is valid', function () {
+            const res = convertConfig.isValid(JSON.stringify({ "test": 6 }), 'json')
+            assert.equal(res, true)
+        });
+        it('should throw exception when trying to access unknown type ', () => {
+            expect(convertConfig.isValid.bind(convertConfig, '{}', 'JSON6')).to.throw('No such type');
+
+        })
+    });
+    describe('#getObject()', () => {
+        it('should return json object', function () {
+            const obj = { "test": 6 }
+            const res = convertConfig.getObject(JSON.stringify(obj), 'JSON')
+            assert.deepEqual(res, obj)
+        });
+        it('should throw exception when trying to access unknown type ', () => {
+            expect(convertConfig.getObject.bind(convertConfig, '{}', 'JSON6')).to.throw('No such type');
+
+        })
+    });
+
+});
 
 describe('convertJSON', () => {
     describe('#isValid()', () => {

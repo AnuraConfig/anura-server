@@ -10,15 +10,19 @@ const typeDic = {
 
 // return false if the text value can't be parse according to the type
 function isValid(text, type) {
-    return typeDic[type].isValid(text)
+    const upperType = type.toUpperCase()
+    if (typeDic[upperType])
+        return typeDic[upperType].isValid(text)
+    else
+        throw new Error("No such type")
 }
 
 function getObject(text, type) {
-    try {
-        return typeDic[type].getObject(text)
-    } catch (error) {
-        throw new Error("convent failed")
-    }
+    const upperType = type.toUpperCase()
+    if (typeDic[upperType])
+        return typeDic[upperType].getObject(text)
+    else
+        throw new Error("No such type")
 }
 
-export { isValid, getObject }
+export default { isValid, getObject }
