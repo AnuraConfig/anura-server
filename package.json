@@ -51,6 +51,7 @@
     "start": "react-scripts start",
     "build-client": "react-scripts build",
     "test": "mocha --require babel-register --recursive ./test",
+    "test-watch": "mocha --require babel-register --recursive ./test --watch",
     "eject": "react-scripts eject",
     "start-server": "set NODE_ENV=development & nodemon ./server/server.js --exec babel-node",
     "debug-server": "set NODE_ENV=development & nodemon --inspect ./server/server.js --exec babel-node",
