@@ -1,11 +1,11 @@
-import YAML from 'YAML'
+import YAML from 'js-yaml'
 import fs from 'fs'
 import path from 'path'
 import { DEFAULT_CONFIG_LOCATION } from './constants'
 
 const configLocation = path.join(__dirname, '../../', DEFAULT_CONFIG_LOCATION)
 const file = fs.readFileSync(configLocation, 'utf8')
-const defaultConfig = YAML.parse(file)
+const defaultConfig = YAML.safeLoad(file)
 let config = defaultConfig
 
 function loadConfig(configs) {
