@@ -1,5 +1,6 @@
 import { getRoomName } from './helperFunctions'
 import { ROOM_ID_PREFIX, CONFIG_CHANGE_EVENT } from '../constants/constants'
+import { initializePubsub } from './pubsub';
 
 class StateManager {
     constructor(io) {
@@ -30,6 +31,7 @@ class StateManager {
 let stateManager;
 
 export function initializeSocket(io) {
+    initializePubsub(io)
     if (stateManager === undefined) {
         stateManager = new StateManager(io)
         return stateManager
