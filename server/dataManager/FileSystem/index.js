@@ -5,7 +5,7 @@ import * as filesConst from '../../constants/filesConst'
 import getSerializer from './Serializer'
 import { config } from '../../constants/configs'
 import { getFileName, getNameFromFile, getConfigVersion } from './helperFunctions'
-import { getStateManager } from '../../stateManager/scoket'
+import { getStateManager } from '../../stateManager/socket'
 
 function createDir(dir) {
     if (!fs.existsSync(dir)) {

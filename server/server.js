@@ -6,7 +6,7 @@ import typeDefs from './schemas'
 import http from 'http';
 import cors from 'cors';
 import socketIo from 'socket.io';
-import { initializeSocket } from './stateManager/scoket'
+import { initializeSocket } from './stateManager/socket'
 import stats from './routes/stats'
 import { loadConfig } from './constants/configs'
 import dataManager from './dataManager/index'
