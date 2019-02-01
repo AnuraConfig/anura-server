@@ -9,7 +9,7 @@ import AceEditor from 'react-ace';
 import IconButton from '@material-ui/core/IconButton';
 import Edit from '@material-ui/icons/Edit'
 import { getMaxVersion, getMaxVersionIndex } from './VersionHelpers'
-import Button from '@material-ui/core/Button';
+import EditActions from './EditActions'
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import { toast } from 'react-toastify';
@@ -76,39 +76,38 @@ class VersionViewer extends React.PureComponent {
         this.props.refetch()
     }
     mutationRendering = (data, error) => {
-        if (data && this.state.edit) {
+        if (!data) return
+        if (data.updateConfig.success) {
             toast.success("update config")
             this.saveEdit()
+        } else {
+            toast.error(data.updateConfig.error)
         }
-        if (error) {
-            toast.error("failed updating config")
-        }
+
     }
 
     render() {
-        const { classes, configs } = this.props;
+        const { classes, configs, serviceId,envName } = this.props;
         const { value, maxVersion, changeData } = this.state
         const index = value >= configs.length ? configs.length - 1 : value
         return (
             <React.Fragment>
                 <Grid item xs={12} sm={12}>
-                    <div className={classes.root}>
-                        <AppBar position="static" color="inherit">
-                            <Tabs
-                                value={index}
-                                onChange={this.handleChange}
-                                indicatorColor="primary"
-                                textColor="primary"
-                                scrollable
-                                scrollButtons="auto"
-                            >
-                                {configs.map((item, key) => (
-                                    <Tab key={key} label={maxVersion === item.version ?
-                                        `newest (${item.version + 1})` : `Version ${item.version + 1}`} />
-                                ))}
-                            </Tabs>
-                        </AppBar>
-                    </div>
+                    <AppBar position="static" color="inherit">
+                        <Tabs
+                            value={index}
+                            onChange={this.handleChange}
+                            indicatorColor="primary"
+                            textColor="primary"
+                            scrollable
+                            scrollButtons="auto"
+                        >
+                            {configs.map((item, key) => (
+                                <Tab key={key} label={maxVersion === item.version ?
+                                    `newest (${item.version + 1})` : `Version ${item.version + 1}`} />
+                            ))}
+                        </Tabs>
+                    </AppBar>
                 </Grid>
                 <Grid item xs={12} sm={12} className={classes.viewer}>
                     <Mutation mutation={UPDATE_CONFIG}>
@@ -116,23 +115,11 @@ class VersionViewer extends React.PureComponent {
                             this.mutationRendering(data, error)
                             return (<div className={classes.container}>
                                 {this.state.edit ?
-                                    <div>
-                                        <Button variant="outlined" color="secondary" className={classes.cancel}
-                                            onClick={this.cancelUpdate}>
-                                            Cancel
-                                        </Button>
-                                        <Button variant="outlined" color="primary" className={classes.saveChanges}
-                                            onClick={() => {
-                                                const variables = {
-                                                    serviceId: this.props.serviceId,
-                                                    environmentName: this.props.envName,
-                                                    data: changeData
-                                                }
-                                                updateConfig({ variables })
-                                            }}>
-                                            Save changes
-                                        </Button>
-                                    </div> :
+                                    <EditActions changeData={changeData}
+                                        updateConfig={updateConfig}
+                                        serviceId={serviceId}
+                                        envName={envName}
+                                    /> :
                                     <IconButton className={classes.editButton} aria-label="Edit" onClick={() => this.setEditMode(index)}>
                                         <Edit />
                                     </IconButton>

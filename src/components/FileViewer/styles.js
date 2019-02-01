@@ -1,3 +1,9 @@
+const ActionButton = {
+    position: "absolute",
+    zIndex: 10,
+    top: "52px",
+    right: "30px"
+}
 export const VersionViewer = theme => ({
     root: {
         flexGrow: 1,
@@ -13,6 +19,15 @@ export const VersionViewer = theme => ({
         position: 'relative',
         paddingBottom: "5px"
     },
+    editButton: ActionButton,
+    container: {
+        width: "100%",
+        height: "100%"
+    }
+});
+
+export const EditActions = theme => ({
+    settingButton: ActionButton,
     saveChanges: {
         position: "absolute",
         zIndex: 10,
@@ -25,14 +40,4 @@ export const VersionViewer = theme => ({
         bottom: "10px",
         right: "15px"
     },
-    editButton: {
-        position: "absolute",
-        zIndex: 10,
-        top: "52px",
-        right: "30px"
-    },
-    container: {
-        width: "100%",
-        height: "100%"
-    }
-});
+})
