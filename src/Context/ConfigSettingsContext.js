@@ -4,7 +4,7 @@ import { ConfigSettingsContext } from './Contexts'
 export default class ConfigSettingsContextProvider extends Component {
     state = {
         settings: {},
-        openFalse: false
+        open: false
     }
 
     changeSettings = (data) => {
