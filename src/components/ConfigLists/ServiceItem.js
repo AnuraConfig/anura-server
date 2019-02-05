@@ -5,8 +5,10 @@ import ListItemText from '@material-ui/core/ListItemText';
 import EnvList from './EnvList'
 import Divider from '@material-ui/core/Divider';
 import { SelectFileContext } from '../../Context/Contexts'
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 // icons
 import Apps from '@material-ui/icons/Apps';
+import FileCopyOutlined from '@material-ui/icons/FileCopyOutlined'; 
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 
@@ -23,9 +25,11 @@ function generateTitle(heightLightText, text) {
     </div>)
 }
 
+
 class ServiceItem extends React.Component {
     state = {
         open: false,
+        copied: false
     };
 
     handleClick = (clickFile) => {
@@ -44,6 +48,13 @@ class ServiceItem extends React.Component {
                             <ListItemIcon>
                                 <Apps />
                             </ListItemIcon>
+                            <CopyToClipboard text={'66'}
+                                onCopy={() => {
+                                    this.setState({copied: true,  open: !this.state.open});
+                                    console.log("copied")
+                                    }}>
+                                <FileCopyOutlined />
+                            </CopyToClipboard>
                             <ListItemText inset primary={generateTitle(searchText, name)} secondary={generateTitle(searchText, description)} />
                             {this.state.open ? <ExpandLess /> : <ExpandMore />}
                         </ListItem>
