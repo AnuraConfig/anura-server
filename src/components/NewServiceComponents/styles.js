@@ -10,7 +10,13 @@ const root = {
 }
 export const JsonEditorStyle = theme => ({
     root: {
-        marginTop: "5vh"
+        marginTop: "5vh",
+        position: "relative"
+    },
+    settingButton: {
+        position: "absolute",
+        zIndex: 10,
+        right: "5px"
     }
 })
 export const DetailsWindow = theme => ({
