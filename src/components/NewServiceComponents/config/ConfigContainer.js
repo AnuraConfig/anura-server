@@ -25,6 +25,13 @@ export default class ConfigContainer extends Component {
         this.setState({ configFile: {} })
     }
 
+    getConfig() {
+        const config = this.config
+        if (this.state.configFile === undefined && config)
+            return config.configFile ? config.configFile : INIT_CONFIG
+        return this.state.configFile
+    }
+
     render() {
         const { config, editedID } = this.props
         return (
@@ -34,8 +41,7 @@ export default class ConfigContainer extends Component {
                         editedID={editedID} config={config} addConfigCallback={this.addConfigCallback} />
                 </Grid>
                 <Grid item xs={12} sm={8}>
-                    <Editor configFile={this.state.configFile || (config && config.configFile ? config.configFile : INIT_CONFIG)}
-                        updateConfigFile={this.updateConfig} />
+                    <Editor configFile={this.getConfig()} updateConfigFile={this.updateConfig} />
                 </Grid>
 
             </Grid>
