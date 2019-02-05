@@ -3,7 +3,9 @@ import { ConfigSettingsContext } from './Contexts'
 
 export default class ConfigSettingsContextProvider extends Component {
     state = {
-        settings: {},
+        settings: {
+            type: 'JSON'
+        },
         open: false
     }
 
