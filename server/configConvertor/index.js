@@ -25,4 +25,4 @@ function getObject(text, type) {
         throw new Error("No such type")
 }
 
-export default { isValid, getObject }
+export default { isValid, getObject,  typeDic }

@@ -6,6 +6,7 @@ import getSerializer from './Serializer'
 import { config } from '../../constants/configs'
 import { getFileName, getNameFromFile, getConfigVersion } from './helperFunctions'
 import { getStateManager } from '../../stateManager/scoket'
+import configConvertor from '../../configConvertor'
 
 function createDir(dir) {
     if (!fs.existsSync(dir)) {
@@ -28,11 +29,11 @@ export default class FileSystemManager {
         environments.forEach(this._createEnv.bind(this, serviceDirectory))
     }
 
-    updateConfig(serviceId, environmentName, data) {
+    updateConfig(serviceId, environmentName, data, type) {
         const dir = path.join(this.location, serviceId, environmentName)
-        if (!fs.existsSync(dir)) throw new Error("no such service or environment in service")
+        this._validateUpdateConfig(dir, data, type)
         const configs = fs.readdirSync(dir)
-        this._createConfigFile(dir, data, configs.length - 1)
+        this._createConfigFile(dir, data, type, configs.length - 1)
         getStateManager().emitChange(serviceId, environmentName)
     }
 
@@ -64,22 +65,36 @@ export default class FileSystemManager {
     }
 
     //#region privates
+    _validateUpdateConfig(dir, data, type) {
+        if (!fs.existsSync(dir)) throw new Error(`no such service or environment in service list`)
+        this._validConfigType(data, type)
+    }
+    _validConfigType(data, type) {
+        if (!configConvertor.typeDic[type]) throw new Error(`no such type:  ${type}`)
+        if (!configConvertor.isValid(data, type)) throw new Error(`config is not a valid config from type  ${type}`)
+    }
+
     _createInfoFile(item, dir) {
         fs.writeFileSync(path.format({ dir, base: getFileName(filesConst.INFO_FILE) }), this.serializer.serialize(item));
     }
-    _createConfigFile(dir, data, key) {
-        fs.writeFileSync(path.format({ dir, base: getFileName(filesConst.CONFIG_PREFIX + key) }), data);
+    _createConfigFile(dir, data, type, key) {
+        const file = path.format({
+            dir,
+            base: getFileName(filesConst.CONFIG_PREFIX + key)
+        })
+        fs.writeFileSync(file, JSON.stringify({ data, type }));
     }
     _createEnv(serviceDir, { name, config }) {
         const envDir = path.join(serviceDir, name)
+        this._validConfigType(config.data, config.type)
         createDir(envDir)
         this._createInfoFile({ name, lastUpdate: new Date() }, envDir)
-        this._createConfigFile(envDir, config.data, 0)
+        this._createConfigFile(envDir, config.data, config.type, 0)
     }
     _parseFile(dir, base, notSerializer) {
         const infoFile = path.format({ dir, base })
-        const data = fs.readFileSync(infoFile,"utf8")
-        if (!notSerializer) 
+        const data = fs.readFileSync(infoFile, "utf8")
+        if (!notSerializer)
             return this.serializer.deserialize(data)
         return data
     }
@@ -92,11 +107,10 @@ export default class FileSystemManager {
         return this._readInfos(this.location)
     }
     _createConfigObject(filename, dir) {
-        return {
+        return Object.assign({
             name: getNameFromFile(filename),
-            version: getConfigVersion(filename),
-            data: this._parseFile(dir, filename, true)
-        }
+            version: getConfigVersion(filename)
+        }, this._parseFile(dir, filename))
     }
     //#endregion
 }   
