@@ -39,7 +39,8 @@ type Environment {
 
 type Config {
     version: Int
-    data: String
+    data: String,
+    type: String,
     webHook: WebHook 
 }
 type WebHook {
