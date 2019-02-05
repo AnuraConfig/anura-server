@@ -35,7 +35,10 @@ export default class SettingsDialog extends React.Component {
                 <Button onClick={toggleMenu} color="primary">
                   Cancel
                 </Button>
-                <Button onClick={() => changeSettings(this.state)} color="primary">
+                <Button onClick={() => {
+                  changeSettings(this.state)
+                  toggleMenu()
+                }} color="primary">
                   Save Changes
                 </Button>
               </DialogActions>
