@@ -15,6 +15,7 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 
 const HIGHLIGHT_STYLE = { backgroundColor: "yellow" }
 
+
 function generateTitle(heightLightText, text) {
     if (!heightLightText) return text
     let splitText = text.split(new RegExp(`(${heightLightText})`, 'gi'))
@@ -51,9 +52,9 @@ class ServiceItem extends React.Component {
                             <CopyToClipboard text={id.toString()}
                                 onCopy={() => {
                                     this.setState({ open: !this.state.open });
-                                    toast.success('Copied value', {autoClose: 2000})
+                                    toast.success('Copied value', { autoClose: 2000 })
                                     }}>
-                                <FileCopyOutlined />
+                                <FileCopyOutlined className={"copy_icon"}/>
                             </CopyToClipboard>
                             <ListItemText inset primary={generateTitle(searchText, name)} secondary={generateTitle(searchText, description)} />
                             {this.state.open ? <ExpandLess /> : <ExpandMore />}
