@@ -92,7 +92,7 @@ class VersionViewer extends React.PureComponent {
         return (
             <React.Fragment>
                 <VersionTab currentIndex={index} maxVersion={maxVersion} configs={configs} />
-                <Grid item xs={12} sm={12} className={classes.viewer}>'
+                <Grid item xs={12} sm={12} className={classes.viewer}>
                 <ConfigSettingsContext.Consumer>
                         {({ settings, toggleMenu }) =>
                             <Mutation mutation={UPDATE_CONFIG}>
