@@ -19,7 +19,6 @@ export default class SelectFileContextProvider extends Component {
             ...this.state,
             clickFile: this.clickFile
         }
-        console.log(value)
         return (
             <SelectFileContext.Provider value={value}>
                 {this.props.children}
