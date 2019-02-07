@@ -8,6 +8,7 @@ import classNames from 'classnames';
 import Button from '@material-ui/core/Button';
 import { DetailsWindow as styles } from '../styles'
 import WebHookDetails from '../WebHookDetails'
+import { ConfigSettingsContext } from '../../../Context/Contexts'
 
 class ConfigDetails extends React.Component {
     constructor(props) {
@@ -22,8 +23,8 @@ class ConfigDetails extends React.Component {
             [name]: event.target.value,
         });
     };
-    handleClick = () => {
-        this.props.addConfigCallback(this.state)
+    handleClick = (type) => {
+        this.props.addConfigCallback(Object.assign(this.state, { type }))
     }
     webHookUpdate = (value) => {
         this.setState({
@@ -49,17 +50,19 @@ class ConfigDetails extends React.Component {
                 />
                 <WebHookDetails webHook={this.state.webHook || {}} webHookUpdate={this.webHookUpdate} />
                 <div className={classes.buttonContainer}>
-                    <Button onClick={this.handleClick}
-                        variant="outlined" color="primary" className={classes.button}>
-                        {this.props.editedID !== undefined ? "Update" : "Create"}
-                    </Button>
-                    {
-                        this.props.cancelable &&
+                    <ConfigSettingsContext.Consumer>
+                        {({ settings }) =>
+                            <Button onClick={() => this.handleClick(settings.type)}
+                                variant="outlined" color="primary" className={classes.button}>
+                                {this.props.editedID !== undefined ? "Update" : "Create"}
+                            </Button>
+                        }
+                    </ConfigSettingsContext.Consumer>
+                    {this.props.cancelable &&
                         <Button onClick={this.cancel}
                             variant="outlined" color="secondary" className={classes.button}>
                             Cancel
-                        </Button>
-                    }
+                        </Button>}
                 </div>
             </Paper>
         );

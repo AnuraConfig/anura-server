@@ -81,19 +81,19 @@ class NewServicePage extends React.Component {
             environments: this.state.configs.map(i => ({
                 name: i.name,
                 config: {
-                    data: i.configFile
+                    data: i.configFile,
+                    type: i.type
                 }
             }))
         }
     }
     mutationRendering = (data, error) => {
-        if (data) {
+        if (data && data.newService && data.newService.success) {
             toast.success("service added")
             this.props.history.push('/')
         }
         if (error) {
-            toast.error("failed adding config")
-            console.log(error)
+            toast.error(data.newService.error)
         }
     }
     render() {
