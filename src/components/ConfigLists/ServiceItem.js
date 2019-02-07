@@ -51,7 +51,7 @@ class ServiceItem extends React.Component {
                             environments={environments}
                             isSelected={selectedService === id}
                             selectedEnvironment={selectedEnvironment}
-                            clickFile={(envName) => clickFile(id, envName)} />
+                            clickFile={(envName) => clickFile(id, name, envName)} />
                         <Divider />
                     </div>
                 )}
