@@ -7,10 +7,15 @@ import IconButton from '@material-ui/core/IconButton';
 
 class EditActions extends Component {
     render() {
-        const { classes, changeData, updateConfig, serviceId, envName, toggleMenu, settings } = this.props
+        const { classes, changeData, updateConfig, serviceId, envName, toggleMenu, changeSettings, type } = this.props
         return (
             <div>
-                <IconButton className={classes.settingButton} aria-label="Edit" onClick={toggleMenu}>
+                <IconButton className={classes.settingButton}
+                    aria-label="Edit"
+                    onClick={() => {
+                        changeSettings({ type })
+                        toggleMenu()
+                    }}>
                     <Setting />
                 </IconButton>
                 <Button variant="outlined" color="secondary" className={classes.cancel}

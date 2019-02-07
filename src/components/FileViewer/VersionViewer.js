@@ -96,18 +96,20 @@ class VersionViewer extends React.PureComponent {
                 <VersionTab currentIndex={index} maxVersion={maxVersion} configs={configs} />
                 <Grid item xs={12} sm={12} className={classes.viewer}>
                     <ConfigSettingsContext.Consumer>
-                        {({ settings, toggleMenu }) =>
+                        {({ settings, toggleMenu, changeSettings }) =>
                             <Mutation mutation={UPDATE_CONFIG}>
                                 {(updateConfig, { data, error }) => {
                                     this.mutationRendering(data, error)
                                     return (<div className={classes.container}>
                                         {this.state.edit ?
                                             <EditActions changeData={changeData}
+                                                changeSettings={changeSettings}
                                                 updateConfig={updateConfig}
                                                 serviceId={serviceId}
                                                 envName={envName}
                                                 toggleMenu={toggleMenu}
                                                 settings={settings}
+                                                type={type}
                                             /> :
                                             <IconButton className={classes.editButton} aria-label="Edit" onClick={() => this.setEditMode(index)}>
                                                 <Edit />
