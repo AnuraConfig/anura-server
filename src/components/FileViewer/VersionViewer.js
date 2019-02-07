@@ -32,7 +32,8 @@ class VersionViewer extends React.PureComponent {
             edit: false,
             maxVersion,
             value,
-            changeData: props.configs[value].data
+            changeData: props.configs[value].data,
+            type: props.configs[value].type
         };
     }
     componentDidUpdate(prevProps) {
@@ -43,7 +44,8 @@ class VersionViewer extends React.PureComponent {
                 maxVersion,
                 value,
                 edit: false,
-                changeData: this.props.configs[value].data
+                changeData: this.props.configs[value].data,
+                type: this.props.configs[value].type
             })
         }
 
@@ -87,13 +89,13 @@ class VersionViewer extends React.PureComponent {
 
     render() {
         const { classes, configs, serviceId, envName } = this.props;
-        const { value, maxVersion, changeData } = this.state
+        const { value, maxVersion, changeData, type } = this.state
         const index = value >= configs.length ? configs.length - 1 : value
         return (
             <React.Fragment>
                 <VersionTab currentIndex={index} maxVersion={maxVersion} configs={configs} />
                 <Grid item xs={12} sm={12} className={classes.viewer}>
-                <ConfigSettingsContext.Consumer>
+                    <ConfigSettingsContext.Consumer>
                         {({ settings, toggleMenu }) =>
                             <Mutation mutation={UPDATE_CONFIG}>
                                 {(updateConfig, { data, error }) => {
@@ -115,7 +117,7 @@ class VersionViewer extends React.PureComponent {
                                             readOnly={!this.state.edit}
                                             height="100%"
                                             width="100%"
-                                            mode="json"
+                                            mode={type.toLowerCase()}
                                             theme="github"
                                             value={changeData}
                                             onChange={this.updateData}

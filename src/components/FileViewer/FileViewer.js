@@ -14,6 +14,7 @@ const query = gql`
     name
     configs {
       data
+      type
       version
     }
   }
