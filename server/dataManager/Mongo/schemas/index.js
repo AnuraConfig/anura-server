@@ -3,10 +3,11 @@ import mongoose from 'mongoose';
 
 const ConfigSchema = new mongoose.Schema({
     version: Number,
-    data: String
+    data: String,
+    type: String
 })
 
-const EnviormentScehma = new mongoose.Schema({
+const EnvironmentSchema = new mongoose.Schema({
     name: String,
     configs: [{type: mongoose.Schema.Types.ObjectId, ref: 'configs'}]
 })
@@ -19,6 +20,6 @@ const ServiceSchema = new mongoose.Schema({
 
 module.exports = {
     Config: mongoose.model('configs', ConfigSchema),
-    Enviorment: mongoose.model('environments', EnviormentScehma),
+    Environment: mongoose.model('environments', EnvironmentSchema),
     Service: mongoose.model('services', ServiceSchema)
 }
