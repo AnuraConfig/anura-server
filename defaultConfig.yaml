@@ -7,3 +7,8 @@ STORE_LOCATION: "C:/"
 ## port in witch the anura server will run
 SERVER_PORT: 4000
 HOST_NAME: 'localhost'
+
+PUB_SUB:
+  #TYPE: "redis"
+  #HOST: "redis://localhost:6379"
+  TYPE: "none"

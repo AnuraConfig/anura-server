@@ -1,5 +1,5 @@
 import express from 'express'
-import { getStateManager } from '../stateManager/scoket'
+import { getStateManager } from '../stateManager/socket'
 
 const router = express.Router()
 
