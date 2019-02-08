@@ -1,6 +1,5 @@
 
 import * as filesConst from '../../constants/filesConst'
-import { config } from '../../constants/configs'
 
 export function getFileName(baseName) {
     return baseName
