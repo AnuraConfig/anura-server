@@ -1,6 +1,7 @@
 import { gql } from 'apollo-server';
 
 export default gql`
+
 type Service {
     name: String!
     description : String
@@ -22,6 +23,7 @@ input InputEnvironment {
 
 input InputConfig {
     data: String
+    type: String
 }
 input InputWebHook {
     url: String!
@@ -37,7 +39,8 @@ type Environment {
 
 type Config {
     version: Int
-    data: String
+    data: String,
+    type: String,
     webHook: WebHook 
 }
 type WebHook {
@@ -48,13 +51,13 @@ type WebHook {
 
 type Query {
     service: [Service]
-    latestConfig(serviceId: String, environment: String): String
-    getConfigs(serviceId: String, environment: String): Environment
+    latestConfig(serviceId: String, environment: String, raw: Boolean): Config
+    getConfigs(serviceId: String, environment: String, raw: Boolean): Environment
 }
 
 type Mutation {
     newService(service:InputService!): BasicResponse!
-    updateConfig(serviceId: ID!, environmentName: String!, data: String!): BasicResponse!
+    updateConfig(serviceId: ID!, environmentName: String!, data: String!, type:String): BasicResponse!
 }
 
 type BasicResponse {

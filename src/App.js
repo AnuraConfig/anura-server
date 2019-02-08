@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Header from './components/Header/Header';
+import SettingsDialog from './components/Common/SettingsDialog'
 import MainPage from './pages/MainPage';
 import NewServicePage from './pages/NewServicePage';
 import { ToastContainer } from 'react-toastify';
@@ -19,6 +20,7 @@ class App extends Component {
               <Route path="/" exact component={MainPage} />
               <Route path="/new-service" component={NewServicePage} />
             </Switch>
+            <SettingsDialog />
           </div>
         </Router>
         <ToastContainer position={"bottom-left"} />

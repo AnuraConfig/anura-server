@@ -5,7 +5,8 @@ import * as filesConst from '../../constants/filesConst'
 import getSerializer from './Serializer'
 import { config } from '../../constants/configs'
 import { getFileName, getNameFromFile, getConfigVersion } from './helperFunctions'
-import { getStateManager } from '../../stateManager/socket'
+import { getStateManager } from '../../stateManager/scoket'
+import configConvertor from '../../configConvertor'
 
 function createDir(dir) {
     if (!fs.existsSync(dir)) {
@@ -28,30 +29,33 @@ export default class FileSystemManager {
         environments.forEach(this._createEnv.bind(this, serviceDirectory))
     }
 
-    updateConfig(serviceId, environmentName, data) {
+    updateConfig(serviceId, environmentName, data, type) {
         const dir = path.join(this.location, serviceId, environmentName)
-        if (!fs.existsSync(dir)) throw new Error("no such service or environment in service")
+        this._validateUpdateConfig(dir, data, type)
         const configs = fs.readdirSync(dir)
-        this._createConfigFile(dir, data, configs.length - 1)
+        this._createConfigFile(dir, data, type, configs.length - 1)
         getStateManager().emitChange(serviceId, environmentName)
     }
 
-    getConfigs(serviceId, env) {
+    getConfigs(serviceId, env, raw) {
         const dir = path.join(this.location, serviceId, env)
         const configs = fs.readdirSync(dir)
             .filter(i => i !== filesConst.INFO_FILE)
-            .map(filename => this._createConfigObject(filename, dir))
+            .map(filename => this._createConfigObject(dir, filename, raw))
         const envInfo = this._parseFile(dir, getFileName(filesConst.INFO_FILE))
         envInfo.configs = configs
         return envInfo
     }
 
-    getConfig(serviceId, env) {
+    getConfig(serviceId, env, raw) {
         const dir = path.join(this.location, serviceId, env)
         const maxVersion = Math.max(...fs.readdirSync(dir)
             .map(getConfigVersion)
             .filter(i => !isNaN(i)))
-        return JSON.stringify(this._parseFile(dir, getFileName(filesConst.CONFIG_PREFIX + maxVersion)))
+        return Object.assign(
+            { version: maxVersion },
+            this._createConfigObject(dir, getFileName(filesConst.CONFIG_PREFIX + maxVersion), raw)
+        )
     }
 
     getAllEnv() {
@@ -64,23 +68,48 @@ export default class FileSystemManager {
     }
 
     //#region privates
+    _validateUpdateConfig(dir, data, type) {
+        if (!fs.existsSync(dir)) throw new Error(`no such service or environment in service list`)
+        this._validConfigType(data, type)
+    }
+    _validConfigType(data, type) {
+        if (!configConvertor.typeDic[type]) throw new Error(`no such type:  ${type}`)
+        if (!configConvertor.isValid(data, type)) throw new Error(`config is not a valid config from type  ${type}`)
+    }
+
     _createInfoFile(item, dir) {
         fs.writeFileSync(path.format({ dir, base: getFileName(filesConst.INFO_FILE) }), this.serializer.serialize(item));
     }
-    _createConfigFile(dir, data, key) {
-        fs.writeFileSync(path.format({ dir, base: getFileName(filesConst.CONFIG_PREFIX + key) }),
-            this.serializer.serialize(JSON.parse(data)));
+    _createConfigFile(dir, data, type, key) {
+        const file = path.format({
+            dir,
+            base: getFileName(filesConst.CONFIG_PREFIX + key)
+        })
+        fs.writeFileSync(file, JSON.stringify({ data, type }));
     }
     _createEnv(serviceDir, { name, config }) {
         const envDir = path.join(serviceDir, name)
+        this._validConfigType(config.data, config.type)
         createDir(envDir)
         this._createInfoFile({ name, lastUpdate: new Date() }, envDir)
-        this._createConfigFile(envDir, config.data, 0)
+        this._createConfigFile(envDir, config.data, config.type, 0)
     }
-    _parseFile(dir, base) {
+    _createConfigObject(dir, filename, raw) {
+        let configFile = Object.assign({
+            name: getNameFromFile(filename),
+            version: getConfigVersion(filename)
+        }, this._parseFile(dir, filename))
+        if (raw)
+            return configFile
+        configFile.data = JSON.stringify(configConvertor.getObject(configFile.data, configFile.type))
+        return configFile
+    }
+    _parseFile(dir, base, notSerializer) {
         const infoFile = path.format({ dir, base })
-        const data = fs.readFileSync(infoFile)
-        return this.serializer.deserialize(data)
+        const data = fs.readFileSync(infoFile, "utf8")
+        if (!notSerializer)
+            return this.serializer.deserialize(data)
+        return data
     }
     _readInfos(source) {
         const isDirectory = source => fs.lstatSync(source).isDirectory()
@@ -89,13 +118,6 @@ export default class FileSystemManager {
     }
     _getAllServicesInfo() {
         return this._readInfos(this.location)
-    }
-    _createConfigObject(filename, dir) {
-        return {
-            name: getNameFromFile(filename),
-            version: getConfigVersion(filename),
-            data: JSON.stringify(this._parseFile(dir, filename))
-        }
     }
     //#endregion
 }   

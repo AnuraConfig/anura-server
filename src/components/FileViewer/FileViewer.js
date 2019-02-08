@@ -10,10 +10,11 @@ import Loading from '../Common/Loading';
 
 const query = gql`
  query Env($serviceId: String, $envName: String){
-	getConfigs(serviceId: $serviceId, environment: $envName){
+	getConfigs(serviceId: $serviceId, environment: $envName, raw: true){
     name
     configs {
       data
+      type
       version
     }
   }

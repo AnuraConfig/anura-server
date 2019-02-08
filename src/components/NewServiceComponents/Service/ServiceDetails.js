@@ -32,7 +32,6 @@ class ServiceDetails extends React.Component {
         });
     }
     render() {
-        console.log(this.state)
         const { classes } = this.props;
         return (
             <Paper className={classes.root} elevation={15}>

@@ -4,10 +4,15 @@ import { SelectFileContext } from './Contexts'
 export default class SelectFileContextProvider extends Component {
     state = {
         selectedService: "",
+        selectedServiceName: "",
         selectedEnvironment: ""
     }
 
-    clickFile = (selectedService, selectedEnvironment) => this.setState({ selectedService, selectedEnvironment })
+    clickFile = (selectedService, selectedServiceName, selectedEnvironment) => {
+        this.setState({
+            selectedService, selectedServiceName, selectedEnvironment
+        })
+    }
 
     render() {
         const value = {

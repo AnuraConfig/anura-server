@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Grid from '@material-ui/core/Grid'
 import { INIT_CONFIG } from '../../../Constant/constants'
 import ConfigDetails from './ConfigDetails'
-import JsonEditor from './JsonEditor'
+import Editor from './Editor'
 
 export default class ConfigContainer extends Component {
     constructor(props) {
@@ -25,6 +25,13 @@ export default class ConfigContainer extends Component {
         this.setState({ configFile: {} })
     }
 
+    getConfig() {
+        const config = this.config
+        if (this.state.configFile === undefined && config)
+            return config.configFile ? config.configFile : INIT_CONFIG
+        return this.state.configFile
+    }
+
     render() {
         const { config, editedID } = this.props
         return (
@@ -34,8 +41,7 @@ export default class ConfigContainer extends Component {
                         editedID={editedID} config={config} addConfigCallback={this.addConfigCallback} />
                 </Grid>
                 <Grid item xs={12} sm={8}>
-                    <JsonEditor configFile={config && config.configFile ? config.configFile : INIT_CONFIG}
-                        updateConfigFile={this.updateConfig} />
+                    <Editor configFile={this.getConfig()} updateConfigFile={this.updateConfig} />
                 </Grid>
 
             </Grid>
