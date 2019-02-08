@@ -51,8 +51,8 @@ type WebHook {
 
 type Query {
     service: [Service]
-    latestConfig(serviceId: String, environment: String): String
-    getConfigs(serviceId: String, environment: String): Environment
+    latestConfig(serviceId: String, environment: String, raw: Boolean): Config
+    getConfigs(serviceId: String, environment: String, raw: Boolean): Environment
 }
 
 type Mutation {

@@ -37,22 +37,25 @@ export default class FileSystemManager {
         getStateManager().emitChange(serviceId, environmentName)
     }
 
-    getConfigs(serviceId, env) {
+    getConfigs(serviceId, env, raw) {
         const dir = path.join(this.location, serviceId, env)
         const configs = fs.readdirSync(dir)
             .filter(i => i !== filesConst.INFO_FILE)
-            .map(filename => this._createConfigObject(filename, dir))
+            .map(filename => this._createConfigObject(dir, filename, raw))
         const envInfo = this._parseFile(dir, getFileName(filesConst.INFO_FILE))
         envInfo.configs = configs
         return envInfo
     }
 
-    getConfig(serviceId, env) {
+    getConfig(serviceId, env, raw) {
         const dir = path.join(this.location, serviceId, env)
         const maxVersion = Math.max(...fs.readdirSync(dir)
             .map(getConfigVersion)
             .filter(i => !isNaN(i)))
-        return JSON.stringify(this._parseFile(dir, getFileName(filesConst.CONFIG_PREFIX + maxVersion)))
+        return Object.assign(
+            { version: maxVersion },
+            this._createConfigObject(dir, getFileName(filesConst.CONFIG_PREFIX + maxVersion), raw)
+        )
     }
 
     getAllEnv() {
@@ -91,6 +94,16 @@ export default class FileSystemManager {
         this._createInfoFile({ name, lastUpdate: new Date() }, envDir)
         this._createConfigFile(envDir, config.data, config.type, 0)
     }
+    _createConfigObject(dir, filename, raw) {
+        let configFile = Object.assign({
+            name: getNameFromFile(filename),
+            version: getConfigVersion(filename)
+        }, this._parseFile(dir, filename))
+        if (raw)
+            return configFile
+        configFile.data = JSON.stringify(configConvertor.getObject(configFile.data, configFile.type))
+        return configFile
+    }
     _parseFile(dir, base, notSerializer) {
         const infoFile = path.format({ dir, base })
         const data = fs.readFileSync(infoFile, "utf8")
@@ -105,12 +118,6 @@ export default class FileSystemManager {
     }
     _getAllServicesInfo() {
         return this._readInfos(this.location)
-    }
-    _createConfigObject(filename, dir) {
-        return Object.assign({
-            name: getNameFromFile(filename),
-            version: getConfigVersion(filename)
-        }, this._parseFile(dir, filename))
     }
     //#endregion
 }   
