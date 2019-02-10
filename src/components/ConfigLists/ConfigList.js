@@ -48,7 +48,7 @@ class ConfigList extends React.Component {
         const { classes } = this.props;
         return (
             <div className="config_list">
-                <Query query={query} fetchPolicy={'cache-and-network'}>
+                <Query query={query}>
                     {({ loading, error, data }) => {
                         if (loading) return <Loading />
                         if (error) return (<Typography className={classes.title} variant="h6" color="inherit" noWrap>
