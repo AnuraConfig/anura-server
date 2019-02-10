@@ -19,6 +19,9 @@ const theme = createMuiTheme({
         primary: green,
         secondary: pink,
     },
+    typography: {
+        useNextVariants: true,
+    },
 });
 ReactDOM.render(
     <MuiThemeProvider theme={theme}>
