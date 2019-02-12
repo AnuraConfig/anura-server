@@ -16,7 +16,8 @@ import path from 'path'
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  cors: true
+  cors: true,
+  dataSources: () => dataManager.getDataManager()
 })
 
 const app = express()
