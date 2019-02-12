@@ -1,8 +1,8 @@
-export default class MockManager {
+export default class ManagerMock {
     constructor() {
-        this.state = {
-            
-        }
+        this.state = [{
+            id: 6
+        }]
     }
 
     async createService({ name, description, environments }) {
