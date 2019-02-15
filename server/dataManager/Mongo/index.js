@@ -1,21 +1,21 @@
 import mongoose from 'mongoose';
-import { Service, Enviorment, Config } from './schemas';
+import { Service, Environment, Config } from './schemas';
 import { config } from '../../constants/configs'
 
 
 export default class MongoManager {
-    constructor(connectionString = config.STORE_LOCATION) {
+    constructor(connectionString = config.MONGO_STORE) {
         console.log("WARNING THIS CONNECTOR IS BROKEN ON THIS VERSION DON'T USE IT ") //TODO: fix this connector and remove the message
         this.connectionString = connectionString
-        
+
         mongoose.connect(this.connectionString)
         mongoose.connection.on('error', console.error.bind(console, 'connection error:'))
     }
 
     async createService({ name, description, environments }) {
         let promises = []
-        for (let enviorment of environments) {
-            promises.push(this._createEnviorment(enviorment))
+        for (let environment of environments) {
+            promises.push(this._createEnvironment(environment))
         }
 
         let newEnvironments = await Promise.all(promises)
@@ -29,14 +29,14 @@ export default class MongoManager {
 
     async updateConfig(serviceId, environmentName, data) {
         const service = await this._findService(serviceId, environmentName)
-        let enviorment = await Enviorment.findById(service.environments[0].id).exec()
+        let environment = await Environment.findById(service.environments[0].id).exec()
         let newConfig = new Config({
             data: data,
-            version: enviorment.configs.length
+            version: environment.configs.length
         })
         newConfig = await newConfig.save()
-        enviorment.configs.push(newConfig.id)
-        return enviorment.save()
+        environment.configs.push(newConfig.id)
+        return environment.save()
     }
 
     async getConfigs(serviceId, env) {
@@ -78,15 +78,15 @@ export default class MongoManager {
 
     //#region privates
 
-    async _createEnviorment({ name, config }) {
+    async _createEnvironment({ name, config }) {
         let newConfig = await this._createConfig(config)
 
-        let enviorment = new Enviorment({
+        let environment = new Environment({
             name: name,
             configs: [newConfig._id]
         })
 
-        return enviorment.save()
+        return environment.save()
     }
 
     async _createConfig({ data, key }) {
