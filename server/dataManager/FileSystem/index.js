@@ -3,10 +3,11 @@ import path from 'path'
 import uuidv4 from 'uuid/v4'
 import * as filesConst from '../../constants/filesConst'
 import getSerializer from './Serializer'
-import { config } from '../../constants/configs'
+import configManager from '../../constants/configs'
 import { getFileName, getNameFromFile, getConfigVersion } from './helperFunctions'
 import { getStateManager } from '../../stateManager/socket'
 import configConvertor from '../../configConvertor'
+const config = configManager.config
 
 function createDir(dir) {
     if (!fs.existsSync(dir)) {

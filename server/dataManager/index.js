@@ -1,7 +1,8 @@
 import FileSystem from './FileSystem'
-import { config } from '../constants/configs'
+import configManager from '../constants/configs'
 import * as managerTypes from '../constants/managerTypes'
 import MongoManager from './Mongo';
+const config = configManager.config
 
 class DataManager {
     constructor() {

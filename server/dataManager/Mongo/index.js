@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import { Service, Enviorment, Config } from './schemas';
-import { config } from '../../constants/configs'
+import configManager from '../../constants/configs'
+const config = configManager.config
 
 
 export default class MongoManager {

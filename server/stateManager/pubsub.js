@@ -1,6 +1,7 @@
-import { config } from '../constants/configs';
+import configManager from '../constants/configs';
 import * as pubsubTypes from '../constants/pubsubTypes';
 import redisAdaptor from 'socket.io-redis';
+const config = configManager.config
 
 export function initializePubsub(io) {
     switch(config.PUB_SUB.TYPE) {
