@@ -2,8 +2,8 @@
 DATA_MANAGER: 'FILE_SYSTEM'
 
 #where anura will save the file 
-#STORE_LOCATION:
-STORE_LOCATION: "C:/"
+#STORE_LOCATION: default to your base folder (where this config is)
+
 ## port in witch the anura server will run
 SERVER_PORT: 4000
 HOST_NAME: 'localhost'
