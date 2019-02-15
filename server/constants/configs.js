@@ -28,7 +28,7 @@ class Config {
         if (configs.config_file) {
             console.log(`reading config file at '${configs.config_file}'`)
             const file = fs.readFileSync(configs.config_file, 'utf8')
-            configFileObject = YAML.parse(file)
+            configFileObject = YAML.safeLoad(file)
         }
         this.config = Object.assign({}, this.config, configFileObject, configs)
         this.activeCallback(this.config)
