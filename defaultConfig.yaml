@@ -1,9 +1,15 @@
 ## data manager to use
-DATA_MANAGER: 'FILE_SYSTEM'
+DATA_MANAGER: 'MONGO'
 
-#where anura will save the file 
-#STORE_LOCATION:
+#Mongo DataManager options:
+#==========================
+MONGO_STORE: 'mongodb://localhost:27017/test'
+
+#==========================
+##FileSystem DataManager Options 
 STORE_LOCATION: "C:/"
+
+
 ## port in witch the anura server will run
 SERVER_PORT: 4000
 HOST_NAME: 'localhost'
