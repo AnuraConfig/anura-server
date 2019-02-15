@@ -7,7 +7,6 @@ import configManager from '../../constants/configs'
 import { getFileName, getNameFromFile, getConfigVersion } from './helperFunctions'
 import { getStateManager } from '../../stateManager/socket'
 import configConvertor from '../../configConvertor'
-const config = configManager.config
 
 function createDir(dir) {
     if (!fs.existsSync(dir)) {
@@ -16,7 +15,7 @@ function createDir(dir) {
 }
 
 export default class FileSystemManager {
-    constructor(location = config.STORE_LOCATION, serializer = getSerializer()) {
+    constructor(location = configManager.config.STORE_LOCATION, serializer = getSerializer()) {
         this.serializer = serializer
         this.location = path.join(location, filesConst.BASE)
         createDir(this.location)

@@ -23,16 +23,16 @@ class Config {
         }
     }
 
-    loadConfig(configs) {
+    loadConfig(configs = {}) {
         let configFileObject = {}
-        console.log(`reading config file at '${configs.config_file}'`)
         if (configs.config_file) {
+            console.log(`reading config file at '${configs.config_file}'`)
             const file = fs.readFileSync(configs.config_file, 'utf8')
             configFileObject = YAML.parse(file)
         }
-        config = Object.assign({}, defaultConfig, configFileObject, configs)
-        this.activeCallback(config)
-        return config
+        this.config = Object.assign({}, this.config, configFileObject, configs)
+        this.activeCallback(this.config)
+        return this.config
     }
 
 }

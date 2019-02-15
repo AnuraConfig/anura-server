@@ -1,11 +1,10 @@
 import mongoose from 'mongoose';
 import { Service, Enviorment, Config } from './schemas';
 import configManager from '../../constants/configs'
-const config = configManager.config
 
 
 export default class MongoManager {
-    constructor(connectionString = config.STORE_LOCATION) {
+    constructor(connectionString = configManager.config) {
         console.log("WARNING THIS CONNECTOR IS BROKEN ON THIS VERSION DON'T USE IT ") //TODO: fix this connector and remove the message
         this.connectionString = connectionString
         
