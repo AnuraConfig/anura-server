@@ -7,28 +7,29 @@ import configManager from '../../constants/configs'
 import { getFileName, getNameFromFile, getConfigVersion } from './helperFunctions'
 import { getStateManager } from '../../stateManager/socket'
 import configConvertor from '../../configConvertor'
-import logger from '../../utils/logger'
+
+function createDir(dir) {
+    if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir)
+    }
+}
 
 export default class FileSystemManager {
-    constructor(location = configManager.config.STORE_LOCATION, serializer = getSerializer(), customLogger = logger) {
-        this.logger = customLogger
-        this._log("initialize")
+    constructor(location = configManager.config.STORE_LOCATION, serializer = getSerializer()) {
         this.serializer = serializer
         this.location = path.join(location, filesConst.BASE)
-        this._createDir(this.location)
+        createDir(this.location)
     }
 
     createService({ name, description, environments }) {
-        this._log(`create service ${name}`)
         const serviceId = uuidv4()
         const serviceDirectory = path.join(this.location, serviceId)
-        this._createDir(serviceDirectory)
+        createDir(serviceDirectory)
         this._createInfoFile({ name, description, id: serviceId, lastUpdate: new Date() }, serviceDirectory)
         environments.forEach(this._createEnv.bind(this, serviceDirectory))
     }
 
     updateConfig(serviceId, environmentName, data, type) {
-        this._log(`update config, serviceId:${serviceId}, environmentName:${environmentName}`)
         const dir = path.join(this.location, serviceId, environmentName)
         this._validateUpdateConfig(dir, data, type)
         const configs = fs.readdirSync(dir)
@@ -37,7 +38,6 @@ export default class FileSystemManager {
     }
 
     getConfigs(serviceId, env, raw) {
-        this._log(`get configs serviceId:${serviceId}, environmentName:${env}`)
         const dir = path.join(this.location, serviceId, env)
         const configs = fs.readdirSync(dir)
             .filter(i => i !== filesConst.INFO_FILE)
@@ -48,7 +48,6 @@ export default class FileSystemManager {
     }
 
     getConfig(serviceId, env, raw) {
-        this._log(`get configs serviceId:${serviceId}, environmentName:${env}`)
         const dir = path.join(this.location, serviceId, env)
         const maxVersion = Math.max(...fs.readdirSync(dir)
             .map(getConfigVersion)
@@ -60,7 +59,6 @@ export default class FileSystemManager {
     }
 
     getAllEnv() {
-        this._log(`get all env`)
         const rootService = this._getAllServicesInfo()
         return rootService.map(service => {
             const dir = path.join(this.location, service.id)
@@ -70,17 +68,6 @@ export default class FileSystemManager {
     }
 
     //#region privates
-    _log(message, level = "info") {
-        this.logger.log({ message: `File System Manger: ${message} `, level })
-    }
-
-    _createDir(dir) {
-        if (!fs.existsSync(dir)) {
-            this._log(`create directory, ${dir}`)
-            fs.mkdirSync(dir)
-        }
-    }
-
     _validateUpdateConfig(dir, data, type) {
         if (!fs.existsSync(dir)) throw new Error(`no such service or environment in service list`)
         this._validConfigType(data, type)
@@ -103,7 +90,7 @@ export default class FileSystemManager {
     _createEnv(serviceDir, { name, config }) {
         const envDir = path.join(serviceDir, name)
         this._validConfigType(config.data, config.type)
-        this._createDir(envDir)
+        createDir(envDir)
         this._createInfoFile({ name, lastUpdate: new Date() }, envDir)
         this._createConfigFile(envDir, config.data, config.type, 0)
     }
