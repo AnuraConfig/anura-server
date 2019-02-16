@@ -7,6 +7,7 @@ import { config } from '../../constants/configs'
 import { getFileName, getNameFromFile, getConfigVersion } from './helperFunctions'
 import { getStateManager } from '../../stateManager/socket'
 import configConvertor from '../../configConvertor'
+import { validConfigType } from '../common/validation'
 
 function createDir(dir) {
     if (!fs.existsSync(dir)) {
@@ -70,11 +71,7 @@ export default class FileSystemManager {
     //#region privates
     _validateUpdateConfig(dir, data, type) {
         if (!fs.existsSync(dir)) throw new Error(`no such service or environment in service list`)
-        this._validConfigType(data, type)
-    }
-    _validConfigType(data, type) {
-        if (!configConvertor.typeDic[type]) throw new Error(`no such type:  ${type}`)
-        if (!configConvertor.isValid(data, type)) throw new Error(`config is not a valid config from type  ${type}`)
+        this.validConfigType(data, type)
     }
 
     _createInfoFile(item, dir) {
@@ -89,7 +86,7 @@ export default class FileSystemManager {
     }
     _createEnv(serviceDir, { name, config }) {
         const envDir = path.join(serviceDir, name)
-        this._validConfigType(config.data, config.type)
+        this.validConfigType(config.data, config.type)
         createDir(envDir)
         this._createInfoFile({ name, lastUpdate: new Date() }, envDir)
         this._createConfigFile(envDir, config.data, config.type, 0)
