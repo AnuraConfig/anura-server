@@ -10,7 +10,7 @@ class Logger {
     }
 
     log(...args) {
-        if (this.logger == undefined)
+        if (this.logger === undefined)
             this.awaitLogs.push(args)
         else
             this.logger.log(...args)
@@ -18,8 +18,8 @@ class Logger {
 
     loadConfig(config) {
         this.initializeLogger(config)
-        for (let config of this.awaitLogs) {
-            this.logger.log(config)
+        for (let configArgs of this.awaitLogs) {
+            this.logger.log(...configArgs)
         }
     }
 
