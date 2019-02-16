@@ -8,6 +8,11 @@ DATA_MANAGER: 'FILE_SYSTEM'
 SERVER_PORT: 4000
 HOST_NAME: 'localhost'
 
+LOG:
+   LEVEL: "info"
+#   LOG_FILE:
+#   ERROR_LOG_FILE:
+
 PUB_SUB:
   #TYPE: "redis"
   #HOST: "redis://localhost:6379"
