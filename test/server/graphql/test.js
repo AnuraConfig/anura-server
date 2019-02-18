@@ -22,7 +22,7 @@ const allServicesTestCase = {
                 type
               }
             }
-          }
+        }
       }
     `,
     variables: {},
@@ -66,8 +66,44 @@ const allServicesTestCase = {
     }
 }
 
+const latestConfigTestCase = {
+    id: 'Latest Config test case',
+    query: `
+    query Env($serviceId: String, $envName: String){
+        getConfigs(serviceId: $serviceId, environment: $envName, raw: true){
+        name
+        configs {
+          data
+          type
+          version
+        }
+      }
+    }
+    `,
+    variables: {serviceId: '6', envName: 'env6'},
+
+    // Injecting the
+    context: {
+        dataSources: new ManagerMock()
+    },
+
+    // Expected result
+    expected: {
+        data: {
+            "getConfigs": {
+                "name": "env6",
+                "configs": [{
+                    'version': 0,
+                    'data': '{test}',
+                    'type': 'YAML'
+                }]
+            }
+        }
+    }
+}
+
 describe('Schema', () => {
-    const cases = [allServicesTestCase]
+    const cases = [allServicesTestCase, latestConfigTestCase]
     const schema = makeExecutableSchema({
         typeDefs,
         resolvers

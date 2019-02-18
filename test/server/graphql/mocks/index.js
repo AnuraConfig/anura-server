@@ -1,37 +1,5 @@
 export default class ManagerMock {
     constructor() {
-        this.state = [{
-            "id": "6",
-            "name": "name6",
-            "description": "desc6",
-            "environments": [
-              {
-                "name": "env",
-                "configs": [{
-                    'version':1,
-                    'data': '{}',
-                    'type': 'json'
-                    }
-                ]
-              }
-            ]
-          },
-          {
-            "id": "66",
-            "name": "name66",
-            "description": null,
-            "environments": [
-              {
-                "name": "env2",
-                "configs": [{
-                    'version':2,
-                    'data': '{a}',
-                    'type': 'json'
-                    }
-                ]
-              }
-            ]
-          }]
     }
 
     async createService({ name, description, environments }) {
@@ -41,14 +9,58 @@ export default class ManagerMock {
     }
 
     async getConfigs(serviceId, env) {
+      return new Promise((resolve, reject) => {
+        resolve({
+          "name": "env6",
+          "configs": [{
+            'version': 0,
+            'data': '{test}',
+            'type': 'YAML'
+          }]
+        })
+      })
     }
 
     async getConfig(serviceId, env) {
+      return new Promise((resolve, reject) => {
+        resolve({})
+      })
     }
 
     async getAllEnv() {
         return new Promise((resolve, reject) => {
-            resolve(this.state)
+            resolve([{
+              "id": "6",
+              "name": "name6",
+              "description": "desc6",
+              "environments": [
+                {
+                  "name": "env",
+                  "configs": [{
+                      'version':1,
+                      'data': '{}',
+                      'type': 'json'
+                      }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "66",
+              "name": "name66",
+              "description": null,
+              "environments": [
+                {
+                  "name": "env2",
+                  "configs": [{
+                      'version':2,
+                      'data': '{a}',
+                      'type': 'json'
+                      }
+                  ]
+                }
+              ]
+            }])
         }) 
     }
 }
