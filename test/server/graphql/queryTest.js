@@ -103,7 +103,7 @@ const getConfigsTestCase = {
 }
 
 
-describe('Schema', () => {
+describe('Schema query', () => {
     const cases = [allServicesTestCase, getConfigsTestCase]
     const schema = makeExecutableSchema({
         typeDefs,
@@ -112,7 +112,7 @@ describe('Schema', () => {
 
     cases.forEach(obj => {
         const { id, query, variables, context, expected } = obj
-        it(`query: ${id}`, async () => {
+        it(id, async () => {
             const result = await graphql(schema, query, null, context, variables)
             expect(result).to.deep.equal(expected)
         })
