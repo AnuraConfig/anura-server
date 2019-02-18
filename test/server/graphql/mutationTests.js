@@ -9,10 +9,34 @@ const expect = chai.expect;
 const newServiceTestCase = {
     id: 'New service',
     query: `
-      query {
+    mutation AddService($service:InputService!){
+        newService(service:$service){
+          success,
+          error
+        }
       }
     `,
-    variables: {},
+    variables: {
+        service: {
+            name: "name6",
+            description: "description6",
+            environments: [{
+                    name: "env1",
+                    config: {
+                        data: "data1",
+                        type: "JSON"
+                    }
+                },
+                {
+                    name: "env2",
+                    config: {
+                        data: "data2",
+                        type: "YAML"
+                    }
+                }
+            ]
+        }
+    },
 
     // Injecting the
     context: {
@@ -22,12 +46,16 @@ const newServiceTestCase = {
     // Expected result
     expected: {
         data: {
+            newService: {
+                error: null,
+                success: true
+            }
         }
     }
 }
 
 
-describe('Schema', () => {
+describe('Schema mutation', () => {
     const cases = [newServiceTestCase]
     const schema = makeExecutableSchema({
         typeDefs,
@@ -36,7 +64,7 @@ describe('Schema', () => {
 
     cases.forEach(obj => {
         const { id, query, variables, context, expected } = obj
-        it(`mutation: ${id}`, async () => {
+        it(id, async () => {
             const result = await graphql(schema, query, null, context, variables)
             expect(result).to.deep.equal(expected)
         })
