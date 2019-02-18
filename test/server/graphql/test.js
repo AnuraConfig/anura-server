@@ -7,7 +7,7 @@ import resolvers from '../../../server/resolvers';
 const expect = chai.expect;
 
 const allServicesTestCase = {
-    id: 'Full service list test case',
+    id: 'Full service list',
     query: `
       query {
         service {
@@ -67,7 +67,7 @@ const allServicesTestCase = {
 }
 
 const latestConfigTestCase = {
-    id: 'Latest Config test case',
+    id: 'Latest Config',
     query: `
     query Env($serviceId: String, $envName: String){
         getConfigs(serviceId: $serviceId, environment: $envName, raw: true){
