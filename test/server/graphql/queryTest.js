@@ -66,8 +66,8 @@ const allServicesTestCase = {
     }
 }
 
-const latestConfigTestCase = {
-    id: 'Latest Config',
+const getConfigsTestCase = {
+    id: 'get Configs',
     query: `
     query Env($serviceId: String, $envName: String){
         getConfigs(serviceId: $serviceId, environment: $envName, raw: true){
@@ -102,8 +102,9 @@ const latestConfigTestCase = {
     }
 }
 
+
 describe('Schema', () => {
-    const cases = [allServicesTestCase, latestConfigTestCase]
+    const cases = [allServicesTestCase, getConfigsTestCase]
     const schema = makeExecutableSchema({
         typeDefs,
         resolvers
