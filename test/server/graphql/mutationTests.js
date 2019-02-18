@@ -54,9 +54,40 @@ const newServiceTestCase = {
     }
 }
 
+const updateConfigTestCase = {
+    id: 'updateConfig',
+    query: `
+    mutation updateConfig($serviceId:ID!,$environmentName:String!,$data:String!){
+        updateConfig(serviceId:$serviceId,environmentName:$environmentName,data:$data){
+        success,
+        error
+      }
+    }
+    `,
+    variables: {
+        serviceId: '6',
+        environmentName: 'name',
+        data: "data"
+    },
+
+    // Injecting the
+    context: {
+        dataSources: new ManagerMock()
+    },
+
+    // Expected result
+    expected: {
+        data: {
+            updateConfig: {
+                error: null,
+                success: true
+            }
+        }
+    }
+}
 
 describe('Schema mutation', () => {
-    const cases = [newServiceTestCase]
+    const cases = [newServiceTestCase, updateConfigTestCase]
     const schema = makeExecutableSchema({
         typeDefs,
         resolvers

@@ -9,6 +9,9 @@ export default class ManagerMock {
     }
 
     async updateConfig(serviceId, environmentName, data) {
+      return new Promise((resolve, reject) => {
+        resolve(true)
+      })
     }
 
     async getConfigs(serviceId, env) {
