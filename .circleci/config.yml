@@ -12,13 +12,13 @@ jobs: # a collection of steps
             echo 'export NODE_ENV="dev"' >> $BASH_ENV
       - run:
           name: update-npm
-          command: 'npm install -g npm@latest'
+          command: 'sudo npm install -g npm@latest'
       - restore_cache: # special step to restore the dependency cache
           # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
           key: dependency-cache-{{ checksum "package.json" }}
       - run:
           name: install-npm-wee
-          command: sudo npm install
+          command: npm install
       - save_cache: # special step to save the dependency cache
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
