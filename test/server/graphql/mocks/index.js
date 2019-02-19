@@ -1,7 +1,4 @@
 export default class ManagerMock {
-    constructor() {
-    }
-
     async createService({ name, description, environments }) {
       return new Promise((resolve, reject) => {
         resolve(true)
