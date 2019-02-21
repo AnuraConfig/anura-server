@@ -1,9 +1,10 @@
 const fs = require("fs")
 const path = require("path")
 
-const { baseDirectory, configFileLocation } = require('./function')
 
 if(process.env.NODE_ENV !== "develop") {
+    const { baseDirectory, configFileLocation } = require('./function')
+
     if (!fs.existsSync(baseDirectory)) {
         fs.mkdirSync(baseDirectory)
     }
