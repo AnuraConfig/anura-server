@@ -42,6 +42,7 @@
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "body-parser": "^1.18.3",
@@ -54,8 +55,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build-client": "react-scripts build",
-    "test": "mocha --require babel-register --recursive ./test",
-    "test-watch": "mocha --require babel-register --recursive ./test --watch",
+    "test": "mocha --require babel-register --require babel-polyfill --recursive ./test",
+    "test-watch": "mocha --require babel-register --require babel-polyfill --recursive ./test --watch",
     "eject": "react-scripts eject",
     "start-server": "set NODE_ENV=development & nodemon ./server/server.js --exec babel-node",
     "debug-server": "set NODE_ENV=development & nodemon --inspect ./server/server.js --exec babel-node",

@@ -1,9 +1,7 @@
-import dataManager from '../../dataManager/index'
-
-export default function (obj, args) {
+export default function (root, args, ctx, info) {
     try {
         const { serviceId, environmentName, data, type } = args
-        dataManager.manager.updateConfig(serviceId, environmentName, data, type)
+        ctx.dataSources.updateConfig(serviceId, environmentName, data, type)
         return {
             success: true
         };
