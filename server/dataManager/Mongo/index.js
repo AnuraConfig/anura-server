@@ -1,18 +1,21 @@
 import mongoose from 'mongoose';
 import { Service, Enviorment, Config } from './schemas';
-import { config } from '../../constants/configs'
-
+import configManager from '../../constants/configs'
+import logger from '../../utils/logger'
 
 export default class MongoManager {
-    constructor(connectionString = config.STORE_LOCATION) {
-        console.log("WARNING THIS CONNECTOR IS BROKEN ON THIS VERSION DON'T USE IT ") //TODO: fix this connector and remove the message
+    constructor(connectionString = configManager.config, customLogger = logger) {
+        this.logger = customLogger
+        this._log("initialize")
+        this._log("THIS CONNECTOR IS BROKEN ON THIS VERSION DON'T USE IT ", "warn")
         this.connectionString = connectionString
-        
+
         mongoose.connect(this.connectionString)
         mongoose.connection.on('error', console.error.bind(console, 'connection error:'))
     }
 
     async createService({ name, description, environments }) {
+        this._log(`create service ${name}`)
         let promises = []
         for (let enviorment of environments) {
             promises.push(this._createEnviorment(enviorment))
@@ -28,6 +31,7 @@ export default class MongoManager {
     }
 
     async updateConfig(serviceId, environmentName, data) {
+        this._log(`update config, serviceId:${serviceId}, environmentName:${environmentName}`)
         const service = await this._findService(serviceId, environmentName)
         let enviorment = await Enviorment.findById(service.environments[0].id).exec()
         let newConfig = new Config({
@@ -40,6 +44,7 @@ export default class MongoManager {
     }
 
     async getConfigs(serviceId, env) {
+        this._log(`get configs serviceId:${serviceId}, environmentName:${env}`)
         const service = await Service
             .find({
                 _id: mongoose.Types.ObjectId(serviceId)
@@ -61,11 +66,13 @@ export default class MongoManager {
     }
 
     async getConfig(serviceId, env) {
+        this._log(`get configs serviceId:${serviceId}, environmentName:${env}`)
         const allConfigs = await this.getConfigs(serviceId, env)
         return allConfigs.configs.sort(item => item.version).slice(-1)[0].data
     }
 
     async getAllEnv() {
+        this._log(`get all environment  `)
         return Service.find({})
             .populate({
                 path: 'environments',
@@ -77,6 +84,9 @@ export default class MongoManager {
     }
 
     //#region privates
+    _log(message, level = "info") {
+        this.logger.log({ message: `Mongo Manger: ${message} `, level })
+    }
 
     async _createEnviorment({ name, config }) {
         let newConfig = await this._createConfig(config)

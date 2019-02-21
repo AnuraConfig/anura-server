@@ -8,10 +8,11 @@ import cors from 'cors';
 import socketIo from 'socket.io';
 import { initializeSocket } from './stateManager/socket'
 import stats from './routes/stats'
-import { loadConfig } from './constants/configs'
+import configManager from './constants/configs'
 import dataManager from './dataManager/index'
 import devArguments from './devArguments'
 import path from 'path'
+import logger from './utils/logger'
 
 const server = new ApolloServer({
   typeDefs,
@@ -40,11 +41,12 @@ app.get('/meaningOfLife', (req, res) => {
 
 server.applyMiddleware({ app })
 
+
 function startServer(configs) {
-  const config = loadConfig(configs)
+  const config = configManager.loadConfig(configs)
   dataManager.initializeDataManager()
   httpServer.listen({ port: config.SERVER_PORT, hostname: config.HOST_NAME }, () =>
-    console.log(`🚀 Server ready at http://${config.HOST_NAME}:${config.SERVER_PORT}/`)
+    logger.log({ message: `Anura server started at http://${config.HOST_NAME}:${config.SERVER_PORT}/`, level: "info" })
   )
 }
 if (process.env.NODE_ENV !== "production")
