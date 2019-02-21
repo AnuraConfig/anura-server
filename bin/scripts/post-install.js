@@ -1,9 +1,9 @@
-if(process.env.NODE_ENV !== "dev") {
-    const fs = require("fs")
-    const path = require("path")
+const fs = require("fs")
+const path = require("path")
 
-    const { baseDirectory, configFileLocation } = require('./function')
+const { baseDirectory, configFileLocation } = require('./function')
 
+if(process.env.NODE_ENV !== "develop") {
     if (!fs.existsSync(baseDirectory)) {
         fs.mkdirSync(baseDirectory)
     }
