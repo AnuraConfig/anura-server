@@ -17,7 +17,8 @@ import logger from './utils/logger'
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  cors: true
+  cors: true,
+  dataSources: () => dataManager.getDataManager()
 })
 
 const app = express()

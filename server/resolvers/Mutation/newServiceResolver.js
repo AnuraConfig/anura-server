@@ -1,8 +1,6 @@
-import dataManager from '../../dataManager/index'
-
-export default function (obj, args) {
+export default function (root, args, ctx, info) {
     try {
-        dataManager.manager.createService(args.service)
+        ctx.dataSources.createService(args.service)
         return {
             success: true
         };
