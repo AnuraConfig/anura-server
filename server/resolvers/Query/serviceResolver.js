@@ -1,5 +1,3 @@
-import dataManager from '../../dataManager'
-
-export default function (obj, args) {
-    return dataManager.manager.getAllEnv()
+export default function (root, args, ctx, info) {
+    return ctx.dataSources.getAllEnv()
 }
