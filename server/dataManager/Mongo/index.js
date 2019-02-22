@@ -6,7 +6,7 @@ import configConvertor from '../../configConvertor'
 import { validConfigType } from '../common/validation'
 
 export default class MongoManager {
-    constructor(connectionString = configManager.config, customLogger = logger) {
+    constructor(connectionString = configManager.config.MONGO_STORE, customLogger = logger) {
         this.logger = customLogger
         this._log("initialize")
         this.connectionString = connectionString
@@ -31,7 +31,7 @@ export default class MongoManager {
     }
 
     async updateConfig(serviceId, environmentName, data) {
-        validConfigType(data, type)
+        validConfigType(data, type, this._log)
         this._log(`update config, serviceId:${serviceId}, environmentName:${environmentName}`)
         const service = await this._findService(serviceId, environmentName)
         let environment = await Environment.findById(service.environments[0].id).exec()
@@ -108,7 +108,7 @@ export default class MongoManager {
     }
 
     async _createConfig({ data, type, key }) {
-        validConfigType(data, type)
+        validConfigType(data, type, this._log)
         let config = new Config({
             type,
             data: data,
