@@ -71,7 +71,7 @@ export default class FileSystemManager {
     //#region privates
     _validateUpdateConfig(dir, data, type) {
         if (!fs.existsSync(dir)) throw new Error(`no such service or environment in service list`)
-        this.validConfigType(data, type)
+        validConfigType(data, type)
     }
 
     _createInfoFile(item, dir) {
@@ -86,7 +86,7 @@ export default class FileSystemManager {
     }
     _createEnv(serviceDir, { name, config }) {
         const envDir = path.join(serviceDir, name)
-        this.validConfigType(config.data, config.type)
+        validConfigType(config.data, config.type)
         createDir(envDir)
         this._createInfoFile({ name, lastUpdate: new Date() }, envDir)
         this._createConfigFile(envDir, config.data, config.type, 0)
