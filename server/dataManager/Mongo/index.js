@@ -6,7 +6,6 @@ import configConvertor from '../../configConvertor'
 
 export default class MongoManager {
     constructor(connectionString = config.MONGO_STORE) {
-        console.log("WARNING THIS CONNECTOR IS BROKEN ON THIS VERSION DON'T USE IT ") //TODO: fix this connector and remove the message
         this.connectionString = connectionString
         mongoose.connect(this.connectionString)
         mongoose.connection.on('error', console.error.bind(console, 'connection error:'))
