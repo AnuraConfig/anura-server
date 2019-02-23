@@ -27,7 +27,8 @@ class EditActions extends Component {
                         const variables = {
                             serviceId: serviceId,
                             environmentName: envName,
-                            data: changeData
+                            data: changeData,
+                            type
                         }
                         updateConfig({ variables })
                     }}>

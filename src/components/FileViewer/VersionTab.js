@@ -6,13 +6,13 @@ import Tab from '@material-ui/core/Tab';
 
 class VersionTab extends React.PureComponent {
     render() {
-        const { maxVersion, configs, currentIndex } = this.props;
+        const { maxVersion, configs, currentIndex, handleChange } = this.props;
         return (
             <Grid item xs={12} sm={12}>
                 <AppBar position="static" color="inherit">
                     <Tabs
                         value={currentIndex}
-                        onChange={this.handleChange}
+                        onChange={handleChange}
                         indicatorColor="primary"
                         textColor="primary"
                         scrollable
