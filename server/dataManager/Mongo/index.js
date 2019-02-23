@@ -10,7 +10,7 @@ export default class MongoManager {
         this.logger = customLogger
         this._log("initialize")
         this.connectionString = connectionString
-        mongoose.connect(this.connectionString)
+        mongoose.connect(this.connectionString, { useNewUrlParser: true })
         mongoose.connection.on('error', console.error.bind(console, 'connection error:'))
     }
 
@@ -30,9 +30,9 @@ export default class MongoManager {
         return service.save()
     }
 
-    async updateConfig(serviceId, environmentName, data) {
-        validConfigType(data, type, this._log)
+    async updateConfig(serviceId, environmentName, data, type) {
         this._log(`update config, serviceId:${serviceId}, environmentName:${environmentName}`)
+        validConfigType(data, type, this._log)
         const service = await this._findService(serviceId, environmentName)
         let environment = await Environment.findById(service.environments[0].id).exec()
         let newConfig = new Config({
@@ -93,7 +93,7 @@ export default class MongoManager {
             config.data = JSON.stringify(configConvertor.getObject(config.data, config.type))
         })
     }
-    _log(message, level = "info") {
+    _log = (message, level = "info") => {
         this.logger.log({ message: `Mongo Manger: ${message} `, level })
     }
 
