@@ -1,6 +1,5 @@
 import fs from 'fs'
 import path from 'path'
-import uuidv4 from 'uuid/v4'
 import * as filesConst from '../../constants/filesConst'
 import getSerializer from './Serializer'
 import configManager from '../../constants/configs'
@@ -20,25 +19,24 @@ export default class FileSystemManager {
 
     createService({ name, description, environments }) {
         this._log(`create service ${name}`)
-        const serviceId = uuidv4()
-        const serviceDirectory = path.join(this.location, serviceId)
+        const serviceDirectory = path.join(this.location, name)
         this._createDir(serviceDirectory)
-        this._createInfoFile({ name, description, id: serviceId, lastUpdate: new Date() }, serviceDirectory)
+        this._createInfoFile({ name, description, lastUpdate: new Date() }, serviceDirectory)
         environments.forEach(this._createEnv.bind(this, serviceDirectory))
     }
 
-    updateConfig(serviceId, environmentName, data, type) {
-        this._log(`update config, serviceId:${serviceId}, environmentName:${environmentName}`)
-        const dir = path.join(this.location, serviceId, environmentName)
+    updateConfig(serviceName, environmentName, data, type) {
+        this._log(`update config, serviceName:${serviceName}, environmentName:${environmentName}`)
+        const dir = path.join(this.location, serviceName, environmentName)
         this._validateUpdateConfig(dir, data, type)
         const configs = fs.readdirSync(dir)
         this._createConfigFile(dir, data, type, configs.length - 1)
-        getStateManager().emitChange(serviceId, environmentName)
+        getStateManager().emitChange(serviceName, environmentName)
     }
 
-    getConfigs(serviceId, env, raw) {
-        this._log(`get configs serviceId:${serviceId}, environmentName:${env}`)
-        const dir = path.join(this.location, serviceId, env)
+    getConfigs(serviceName, env, raw) {
+        this._log(`get configs serviceName:${serviceName}, environmentName:${env}`)
+        const dir = path.join(this.location, serviceName, env)
         const configs = fs.readdirSync(dir)
             .filter(i => i !== filesConst.INFO_FILE)
             .map(filename => this._createConfigObject(dir, filename, raw))
@@ -47,9 +45,9 @@ export default class FileSystemManager {
         return envInfo
     }
 
-    getConfig(serviceId, env, raw) {
-        this._log(`get configs serviceId:${serviceId}, environmentName:${env}`)
-        const dir = path.join(this.location, serviceId, env)
+    getConfig(serviceName, env, raw) {
+        this._log(`get configs serviceName:${serviceName}, environmentName:${env}`)
+        const dir = path.join(this.location, serviceName, env)
         const maxVersion = Math.max(...fs.readdirSync(dir)
             .map(getConfigVersion)
             .filter(i => !isNaN(i)))
@@ -63,10 +61,10 @@ export default class FileSystemManager {
         this._log(`get all environment`)
         const rootService = this._getAllServicesInfo()
         return rootService.map(service => {
-            const dir = path.join(this.location, service.id)
+            const dir = path.join(this.location, service.name)
             const environments = this._readInfos(dir)
             return Object.assign({}, service, { environments })
-        })
+        })  
     }
 
     //#region privates
