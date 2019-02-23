@@ -89,9 +89,10 @@ export default class MongoManager {
     _prosesConfigs(configs, raw) {
         if (raw)
             return configs;
-        return configs.map(config => {
+        configs.forEach(config => {
             config.data = JSON.stringify(configConvertor.getObject(config.data, config.type))
         })
+        return configs
     }
     _log = (message, level = "info") => {
         this.logger.log({ message: `Mongo Manger: ${message} `, level })

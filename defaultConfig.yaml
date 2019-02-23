@@ -9,7 +9,7 @@ MONGO_STORE: 'mongodb://localhost:27017/test'
 ##FileSystem DataManager Options 
 STORE_LOCATION: "C:/"
 
-#where anura will save the file 
+#where anura will save the file
 #STORE_LOCATION: default to your base folder (where this config is)
 
 ## port in witch the anura server will run
