@@ -7,6 +7,7 @@ import configManager from '../../constants/configs'
 import { getFileName, getNameFromFile, getConfigVersion } from './helperFunctions'
 import { getStateManager } from '../../stateManager/socket'
 import configConvertor from '../../configConvertor'
+import { validConfigType, logAndThrow } from '../common/validation'
 import logger from '../../utils/logger'
 
 export default class FileSystemManager {
@@ -70,7 +71,7 @@ export default class FileSystemManager {
     }
 
     //#region privates
-    _log(message, level = "info") {
+    _log = (message, level = "info") => {
         this.logger.log({ message: `File System Manger: ${message} `, level })
     }
 
@@ -82,12 +83,8 @@ export default class FileSystemManager {
     }
 
     _validateUpdateConfig(dir, data, type) {
-        if (!fs.existsSync(dir)) throw new Error(`no such service or environment in service list`)
-        this._validConfigType(data, type)
-    }
-    _validConfigType(data, type) {
-        if (!configConvertor.typeDic[type]) throw new Error(`no such type:  ${type}`)
-        if (!configConvertor.isValid(data, type)) throw new Error(`config is not a valid config from type  ${type}`)
+        if (!fs.existsSync(dir)) logAndThrow(`no such service or environment in service list`, this._log)
+        validConfigType(data, type, this._log)
     }
 
     _createInfoFile(item, dir) {
@@ -102,7 +99,7 @@ export default class FileSystemManager {
     }
     _createEnv(serviceDir, { name, config }) {
         const envDir = path.join(serviceDir, name)
-        this._validConfigType(config.data, config.type)
+        validConfigType(config.data, config.type, this._log)
         this._createDir(envDir)
         this._createInfoFile({ name, lastUpdate: new Date() }, envDir)
         this._createConfigFile(envDir, config.data, config.type, 0)

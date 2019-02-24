@@ -18,7 +18,7 @@ const server = new ApolloServer({
   typeDefs,
   resolvers,
   cors: true,
-  dataSources: () => dataManager.getDataManager()
+  dataSources: () => dataManager.manager
 })
 
 const app = express()

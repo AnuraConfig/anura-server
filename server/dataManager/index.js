@@ -7,7 +7,11 @@ class DataManager {
     constructor() {
         this.manager = undefined
     }
-    getDataManager = () => {
+    initializeDataManager = () => {
+        this.manager = this._getDataManager()
+        return this.manager
+    }
+    _getDataManager = () => {
         switch (configManager.config.DATA_MANAGER.toUpperCase()) {
             case (managerTypes.FILE_SYSTEM):
                 return new FileSystem();
@@ -16,10 +20,6 @@ class DataManager {
             default:
                 return new FileSystem();
         }
-    }
-    initializeDataManager = () => {
-        this.manager = this.getDataManager()
-        return this.manager
     }
 }
 
