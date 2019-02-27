@@ -21,7 +21,7 @@ export default {
             }
         },
         {
-            "name": "wierd",
+            "name": "yamlConfig",
             "config": {
                 "data": "names:\n    - hen\n    - eyal\n    - ron",
                 "type": "YAML"
