@@ -1,7 +1,6 @@
 import fs from 'fs'
 import path from 'path'
 import * as filesConst from '../../constants/filesConst'
-import getSerializer from './Serializer'
 import configManager from '../../constants/configs'
 import { getFileName, getNameFromFile, getConfigVersion } from './helperFunctions'
 import { getStateManager } from '../../stateManager/socket'
@@ -9,10 +8,10 @@ import configConvertor from '../../configConvertor'
 import logger from '../../utils/logger'
 
 export default class FileSystemManager {
-    constructor(location = configManager.config.STORE_LOCATION, customLogger = logger, serializer = getSerializer()) {
+    constructor(location = configManager.config.STORE_LOCATION, customLogger = logger, stateManager = getStateManager()) {
         this.logger = customLogger
         this._log("initialize")
-        this.serializer = serializer
+        this.stateManager = stateManager
         this.location = path.join(location, filesConst.BASE)
         this._createDir(this.location)
     }
@@ -25,13 +24,13 @@ export default class FileSystemManager {
         environments.forEach(this._createEnv.bind(this, serviceDirectory))
     }
 
-    updateConfig(serviceName, environmentName, data, type) {
+    updateConfig(serviceName, environmentName, data, type = "TEXT") {
         this._log(`update config, serviceName:${serviceName}, environmentName:${environmentName}`)
         const dir = path.join(this.location, serviceName, environmentName)
         this._validateUpdateConfig(dir, data, type)
         const configs = fs.readdirSync(dir)
         this._createConfigFile(dir, data, type, configs.length - 1)
-        getStateManager().emitChange(serviceName, environmentName)
+        this.stateManager.emitChange(serviceName, environmentName)
     }
 
     getConfigs(serviceName, env, raw) {
@@ -64,7 +63,7 @@ export default class FileSystemManager {
             const dir = path.join(this.location, service.name)
             const environments = this._readInfos(dir)
             return Object.assign({}, service, { environments })
-        })  
+        })
     }
 
     //#region privates
@@ -89,7 +88,7 @@ export default class FileSystemManager {
     }
 
     _createInfoFile(item, dir) {
-        fs.writeFileSync(path.format({ dir, base: getFileName(filesConst.INFO_FILE) }), this.serializer.serialize(item));
+        fs.writeFileSync(path.format({ dir, base: getFileName(filesConst.INFO_FILE) }), JSON.stringify(item));
     }
     _createConfigFile(dir, data, type, key) {
         const file = path.format({
@@ -115,12 +114,10 @@ export default class FileSystemManager {
         configFile.data = JSON.stringify(configConvertor.getObject(configFile.data, configFile.type))
         return configFile
     }
-    _parseFile(dir, base, notSerializer) {
+    _parseFile(dir, base) {
         const infoFile = path.format({ dir, base })
         const data = fs.readFileSync(infoFile, "utf8")
-        if (!notSerializer)
-            return this.serializer.deserialize(data)
-        return data
+        return JSON.parse(data)
     }
     _readInfos(source) {
         const isDirectory = source => fs.lstatSync(source).isDirectory()
