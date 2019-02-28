@@ -5,7 +5,6 @@ export default gql`
 type Service {
     name: String!
     description : String
-    id: ID!
     environments: [Environment]
 }
 input InputService {
@@ -51,13 +50,13 @@ type WebHook {
 
 type Query {
     service: [Service]
-    latestConfig(serviceId: String, environment: String, raw: Boolean): Config
-    getConfigs(serviceId: String, environment: String, raw: Boolean): Environment
+    latestConfig(serviceName: String, environment: String, raw: Boolean): Config
+    getConfigs(serviceName: String, environment: String, raw: Boolean): Environment
 }
 
 type Mutation {
     newService(service:InputService!): BasicResponse!
-    updateConfig(serviceId: ID!, environmentName: String!, data: String!, type:String): BasicResponse!
+    updateConfig(serviceName: String!, environmentName: String!, data: String!, type:String): BasicResponse!
 }
 
 type BasicResponse {
