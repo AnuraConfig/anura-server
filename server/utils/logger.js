@@ -1,7 +1,20 @@
 import winston from "winston"
 import configManager from "../constants/configs"
+const { printf, combine, timestamp, json, colorize, align } = winston.format;
 
-const { combine, timestamp, json, simple } = winston.format;
+const alignedWithColorsAndTime = winston.format.combine(
+    colorize(),
+    timestamp(),
+    align(),
+    printf((info) => {
+        const {
+            timestamp, level, message, ...args
+        } = info;
+
+        const ts = timestamp.slice(0, 19).replace('T', ' ');
+        return `${ts} [${level}]: ${message} ${Object.keys(args).length ? JSON.stringify(args, null, 2) : ''}`;
+    }),
+);
 
 class Logger {
     constructor() {
@@ -26,7 +39,7 @@ class Logger {
     initializeLogger(config) {
         this.logger = winston.createLogger(this._getLoggerBasicInfo(config));
         if (process.env.NODE_ENV !== 'production') {
-            this.logger.add(new winston.transports.Console({ format: simple() }));
+            this.logger.add(new winston.transports.Console({ format: alignedWithColorsAndTime }));
         }
     }
 

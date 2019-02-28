@@ -1,27 +1,27 @@
 import mongoose from 'mongoose';
-import { Service, Enviorment, Config } from './schemas';
+import { Service, Environment, Config } from './schemas';
 import configManager from '../../constants/configs'
 import logger from '../../utils/logger'
+import configConvertor from '../../configConvertor'
+import { validConfigType } from '../common/validation'
 
 export default class MongoManager {
-    constructor(connectionString = configManager.config, customLogger = logger) {
+    constructor(connectionString = configManager.config.MONGO_STORE, customLogger = logger) {
         this.logger = customLogger
         this._log("initialize")
-        this._log("THIS CONNECTOR IS BROKEN ON THIS VERSION DON'T USE IT ", "warn")
         this.connectionString = connectionString
-
-        mongoose.connect(this.connectionString)
+        mongoose.connect(this.connectionString, { useNewUrlParser: true })
         mongoose.connection.on('error', console.error.bind(console, 'connection error:'))
     }
 
     async createService({ name, description, environments }) {
         this._log(`create service ${name}`)
         let promises = []
-        for (let enviorment of environments) {
-            promises.push(this._createEnviorment(enviorment))
+        for (let environment of environments) {
+            promises.push(this._createEnvironment(environment))
         }
 
-        let newEnvironments = await Promise.all(promises)
+        let newEnvironments = await Promise.all(promises).catch(e => { throw e })
         var service = new Service({
             name: name,
             description: description,
@@ -30,20 +30,22 @@ export default class MongoManager {
         return service.save()
     }
 
-    async updateConfig(serviceId, environmentName, data) {
+    async updateConfig(serviceId, environmentName, data, type) {
         this._log(`update config, serviceId:${serviceId}, environmentName:${environmentName}`)
+        validConfigType(data, type, this._log)
         const service = await this._findService(serviceId, environmentName)
-        let enviorment = await Enviorment.findById(service.environments[0].id).exec()
+        let environment = await Environment.findById(service.environments[0].id).exec()
         let newConfig = new Config({
-            data: data,
-            version: enviorment.configs.length
+            data,
+            type,
+            version: environment.configs.length
         })
         newConfig = await newConfig.save()
-        enviorment.configs.push(newConfig.id)
-        return enviorment.save()
+        environment.configs.push(newConfig.id)
+        return environment.save()
     }
 
-    async getConfigs(serviceId, env) {
+    async getConfigs(serviceId, env, raw) {
         this._log(`get configs serviceId:${serviceId}, environmentName:${env}`)
         const service = await Service
             .find({
@@ -61,13 +63,13 @@ export default class MongoManager {
             .exec()
         return {
             name: service[0].environments[0].name,
-            configs: service[0].environments[0].configs
+            configs: this._prosesConfigs(service[0].environments[0].configs, raw)
         }
     }
 
-    async getConfig(serviceId, env) {
+    async getConfig(serviceId, env, raw) {
         this._log(`get configs serviceId:${serviceId}, environmentName:${env}`)
-        const allConfigs = await this.getConfigs(serviceId, env)
+        const allConfigs = await this.getConfigs(serviceId, env, raw)
         return allConfigs.configs.sort(item => item.version).slice(-1)[0].data
     }
 
@@ -84,23 +86,32 @@ export default class MongoManager {
     }
 
     //#region privates
-    _log(message, level = "info") {
+    _prosesConfigs(configs, raw) {
+        if (raw)
+            return configs;
+        configs.forEach(config => {
+            config.data = JSON.stringify(configConvertor.getObject(config.data, config.type))
+        })
+        return configs
+    }
+    _log = (message, level = "info") => {
         this.logger.log({ message: `Mongo Manger: ${message} `, level })
     }
 
-    async _createEnviorment({ name, config }) {
+    async _createEnvironment({ name, config }) {
         let newConfig = await this._createConfig(config)
-
-        let enviorment = new Enviorment({
+        let environment = new Environment({
             name: name,
             configs: [newConfig._id]
         })
 
-        return enviorment.save()
+        return environment.save()
     }
 
-    async _createConfig({ data, key }) {
+    async _createConfig({ data, type, key }) {
+        validConfigType(data, type, this._log)
         let config = new Config({
+            type,
             data: data,
             version: key || 0
         })

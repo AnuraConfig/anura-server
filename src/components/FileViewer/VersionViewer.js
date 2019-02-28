@@ -16,8 +16,8 @@ import '../Common/braceImport'
 import VersionTab from './VersionTab'
 
 const UPDATE_CONFIG = gql`
-mutation updateConfig($serviceName:String!,$environmentName:String!,$data:String!){
-    updateConfig(serviceName:$serviceName,environmentName:$environmentName,data:$data){
+mutation updateConfig($serviceName:ID!,$environmentName:String!,$data:String!,$type:String!){
+    updateConfig(serviceName:$serviceName,environmentName:$environmentName,data:$data,type:$type){
     success,
     error
   }
@@ -93,7 +93,8 @@ class VersionViewer extends React.PureComponent {
         const index = value >= configs.length ? configs.length - 1 : value
         return (
             <React.Fragment>
-                <VersionTab currentIndex={index} maxVersion={maxVersion} configs={configs} />
+                <VersionTab handleChange={this.handleChange}
+                    currentIndex={index} maxVersion={maxVersion} configs={configs} />
                 <Grid item xs={12} sm={12} className={classes.viewer}>
                     <ConfigSettingsContext.Consumer>
                         {({ settings, toggleMenu, changeSettings }) =>
