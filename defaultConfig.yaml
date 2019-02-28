@@ -1,5 +1,5 @@
 ## data manager to use
-DATA_MANAGER: 'MONGO'
+DATA_MANAGER: 'FILE_SYSTEM'
 
 #Mongo DataManager options:
 #==========================
