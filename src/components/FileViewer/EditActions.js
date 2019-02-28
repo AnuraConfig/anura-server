@@ -7,7 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 
 class EditActions extends Component {
     render() {
-        const { classes, changeData, updateConfig, serviceId, envName, toggleMenu, changeSettings, type } = this.props
+        const { classes, changeData, updateConfig, serviceName, envName, toggleMenu, changeSettings, type } = this.props
         return (
             <div>
                 <IconButton className={classes.settingButton}
@@ -25,7 +25,7 @@ class EditActions extends Component {
                 <Button variant="outlined" color="primary" className={classes.saveChanges}
                     onClick={() => {
                         const variables = {
-                            serviceId: serviceId,
+                            serviceName: serviceName,
                             environmentName: envName,
                             data: changeData
                         }

@@ -9,8 +9,8 @@ import VersionViewer from "./VersionViewer"
 import Loading from '../Common/Loading';
 
 const query = gql`
- query Env($serviceId: String, $envName: String){
-	getConfigs(serviceId: $serviceId, environment: $envName, raw: true){
+ query Env($serviceName: String, $envName: String){
+	getConfigs(serviceName: $serviceName, environment: $envName, raw: true){
     name
     configs {
       data
@@ -40,7 +40,7 @@ class FileViewer extends Component {
       <SelectFileContext.Consumer >
         {({ selectedService, selectedEnvironment }) => (
           <div className={"file_viewer " + this.getClassName(selectedService, selectedEnvironment)}>
-            {(selectedService && selectedEnvironment) && <Query query={query} variables={{ serviceId: selectedService, envName: selectedEnvironment }}>
+            {(selectedService && selectedEnvironment) && <Query query={query} variables={{ serviceName: selectedService, envName: selectedEnvironment }}>
               {({ loading, error, data, refetch }) => {
                 if (loading) return <Loading />
                 if (error) return (<Typography className={classes.title} variant="h6" color="inherit" noWrap>
@@ -49,7 +49,7 @@ class FileViewer extends Component {
                 if (data.getConfigs && data.getConfigs.configs)
                   return (<VersionViewer
                     refetch={refetch}
-                    serviceId={selectedService}
+                    serviceName={selectedService}
                     envName={selectedEnvironment}
                     configs={data.getConfigs.configs} />)
                 return <div>No configs</div>

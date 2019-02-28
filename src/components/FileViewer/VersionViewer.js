@@ -16,8 +16,8 @@ import '../Common/braceImport'
 import VersionTab from './VersionTab'
 
 const UPDATE_CONFIG = gql`
-mutation updateConfig($serviceId:ID!,$environmentName:String!,$data:String!){
-    updateConfig(serviceId:$serviceId,environmentName:$environmentName,data:$data){
+mutation updateConfig($serviceName:String!,$environmentName:String!,$data:String!){
+    updateConfig(serviceName:$serviceName,environmentName:$environmentName,data:$data){
     success,
     error
   }
@@ -88,7 +88,7 @@ class VersionViewer extends React.PureComponent {
     }
 
     render() {
-        const { classes, configs, serviceId, envName } = this.props;
+        const { classes, configs, serviceName, envName } = this.props;
         const { value, maxVersion, changeData, type } = this.state
         const index = value >= configs.length ? configs.length - 1 : value
         return (
@@ -105,7 +105,7 @@ class VersionViewer extends React.PureComponent {
                                             <EditActions changeData={changeData}
                                                 changeSettings={changeSettings}
                                                 updateConfig={updateConfig}
-                                                serviceId={serviceId}
+                                                serviceName={serviceName}
                                                 envName={envName}
                                                 toggleMenu={toggleMenu}
                                                 settings={settings}
