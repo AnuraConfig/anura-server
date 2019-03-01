@@ -3,7 +3,7 @@ import path from "path"
 import fs from "fs"
 import rimraf from "rimraf"
 import FileSystemManager from "../../../../server/dataManager/FileSystem";
-import { dataManagerRequestTests } from "./index"
+import dataManagerRequestTests from "./common/dataManagerRequestTests"
 import newService from "./mocks/newService"
 import { StateMangerMock } from "./mocks/stateManger"
 

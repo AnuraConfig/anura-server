@@ -2,7 +2,7 @@ import chai from "chai"
 const { expect, should } = chai
 should()
 
-export function dataManagerRequestTests() {
+export default function dataManagerRequestTests() {
     it("should load all the services", async function () {
         const serviceEnv = await this.dataManager.getAllEnv()
         expect(serviceEnv).to.have.lengthOf(1)
