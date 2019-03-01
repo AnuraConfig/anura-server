@@ -9,13 +9,13 @@ const ConfigSchema = new mongoose.Schema({
 
 const EnvironmentSchema = new mongoose.Schema({
     name: String,
-    configs: [{type: mongoose.Schema.Types.ObjectId, ref: 'configs'}]
+    configs: [{type: mongoose.Schema.Types.String, ref: 'configs'}]
 })
 
 const ServiceSchema = new mongoose.Schema({
     name: String,
     description: String,
-    environments: [{type: mongoose.Schema.Types.ObjectId, ref: 'environments'}]
+    environments: [{type: mongoose.Schema.Types.String, ref: 'environments'}]
 })
 
 module.exports = {
