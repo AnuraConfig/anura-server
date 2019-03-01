@@ -10,7 +10,7 @@ import { StateMangerMock } from "./mocks/stateManger"
 
 const expect = chai.expect
 
-describe("FileSystem", function () {
+describe("FileSystem data manager ", function () {
     describe("check requests", function () {
         beforeEach(function () {
             this.filePath = path.join(__dirname, `./mocks/temps_configs_${Math.random()}`) //reduce the probability of conflict 
