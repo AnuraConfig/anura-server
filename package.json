@@ -58,7 +58,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build-client": "react-scripts build",
-    "test": "mocha --timeout 60000 --require babel-register --require babel-polyfill --recursive ./test",
+    "test": "mocha --timeout 20000 --require babel-register --require babel-polyfill --recursive ./test --exit  ",
     "test-watch": "mocha --timeout 60000 --require babel-register --require babel-polyfill --recursive ./test --watch",
     "coverage": "nyc  --reporter=html --reporter=text npm test",
     "eject": "react-scripts eject",
