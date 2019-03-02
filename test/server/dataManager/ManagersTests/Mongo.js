@@ -3,7 +3,7 @@ import { Service, Environment, Config } from '../../../../server/dataManager/Mon
 import mongoose from 'mongoose';
 import MongoManager from "../../../../server/dataManager/Mongo";
 import { StateMangerMock } from "./mocks/stateManger"
-import dataManagerRequestTests from "./common/dataManagerRequestTests "
+import dataManagerRequestTests from "./common/dataManagerRequestTests"
 import newService from "./mocks/newService"
 
 mongoose.models = {};
