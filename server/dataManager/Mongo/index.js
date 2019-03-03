@@ -47,6 +47,21 @@ export default class MongoManager {
         environment.configs.push(newConfig._id)
         return environment.save()
     }
+    async getService(serviceName, raw) {
+        this._log(`get service, serviceName:${serviceName}`)
+        const service = await Service
+            .find({
+                name: serviceName
+            })
+            .populate({
+                path: 'environments',
+                populate: {
+                    path: 'configs'
+                }
+            })
+            .exec()
+        return service
+    }
 
     async getConfigs(serviceName, env, raw) {
         this._log(`get configs serviceName:${serviceName}, environmentName:${env}`)

@@ -25,6 +25,17 @@ export default class FileSystemManager {
         environments.forEach(this._createEnv.bind(this, serviceDirectory))
     }
 
+    getService(serviceName, raw) {
+        this._log(`get service, serviceName:${serviceName}`)
+        const dir = path.join(this.location, serviceName)
+        const environments = fs.readdirSync(dir)
+            .filter(i => i !== filesConst.INFO_FILE)
+            .map(envName => this.getConfigs(serviceName, envName, raw))
+        const serviceInfo = this._parseFile(dir, getFileName(filesConst.INFO_FILE))
+        serviceInfo.environments = environments
+        return serviceInfo
+    }
+
     updateConfig(serviceName, environmentName, data, type = "TEXT") {
         this._log(`update config, serviceName:${serviceName}, environmentName:${environmentName}`)
         const dir = path.join(this.location, serviceName, environmentName)
