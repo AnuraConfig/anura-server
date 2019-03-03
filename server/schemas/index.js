@@ -49,7 +49,8 @@ type WebHook {
 }
 
 type Query {
-    service: [Service]
+    services: [Service]
+    service(serviceName: String): Service
     latestConfig(serviceName: String, environment: String, raw: Boolean): Config
     getConfigs(serviceName: String, environment: String, raw: Boolean): Environment
 }

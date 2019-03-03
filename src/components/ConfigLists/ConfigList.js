@@ -16,7 +16,7 @@ import Loading from '../Common/Loading';
 
 const query = gql`
 {
-  service  {
+  services  {
     name
     description 
     environments {
@@ -61,7 +61,7 @@ class ConfigList extends React.Component {
                             <AddItemListItem onClick={() => this.props.history.push('new-service')} text={"Add New Service"} />
                             <SearchContext.Consumer>
                                 {({ text }) => {
-                                    return data.service.filter(configFilter(text)).sort(configSort(text)).map((service, key) => (
+                                    return data.services.filter(configFilter(text)).sort(configSort(text)).map((service, key) => (
                                         <ServiceItem service={service} key={key} searchText={text} />
                                     ))
                                 }}
