@@ -58,7 +58,7 @@ class ConfigList extends React.Component {
                             component="nav"
                             subheader={<ListSubheader className={classes.subheader} component="div">Your Services</ListSubheader>}
                         >
-                            <AddItemListItem onClick={() => this.props.history.push('new-service')} text={"Add New Service"} />
+                            <AddItemListItem onClick={() => this.props.history.push('new-environment')} text={"Add New Service"} />
                             <SearchContext.Consumer>
                                 {({ text }) => {
                                     return data.services.filter(configFilter(text)).sort(configSort(text)).map((service, key) => (
