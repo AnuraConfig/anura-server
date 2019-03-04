@@ -9,6 +9,7 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import List from '@material-ui/core/List';
 import Description from '@material-ui/icons/Description';
 import AddItemListItem from './AddItemListItem';
+import { withRouter } from 'react-router-dom'
 
 const styles = theme => ({
     nested: {
@@ -21,7 +22,7 @@ class EnvList extends React.Component {
         return this.props.isSelected && this.props.selectedEnvironment === name
     }
     render() {
-        const { classes, environments } = this.props;
+        const { classes, environments, ServiceName } = this.props;
         return (
             <Collapse
                 in={this.props.open}
@@ -31,7 +32,9 @@ class EnvList extends React.Component {
                     className={classes.nested}
                     disablePadding
                     subheader={<ListSubheader component="div">Environments</ListSubheader>}>
-                    <AddItemListItem onClick={console.log} text={"Add New Environment"} />
+                    <AddItemListItem
+                        onClick={() => this.props.history.push(`new-service?serviceName=${ServiceName}`)}
+                        text={"Add New Environment"} />
                     {
                         environments.map(({ name }, key) => (
                             <ListItem key={key} button
@@ -53,4 +56,4 @@ EnvList.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(EnvList);
+export default withRouter(withStyles(styles)(EnvList));
