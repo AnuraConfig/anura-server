@@ -33,7 +33,7 @@ class EnvList extends React.Component {
                     disablePadding
                     subheader={<ListSubheader component="div">Environments</ListSubheader>}>
                     <AddItemListItem
-                        onClick={() => this.props.history.push(`new-service?serviceName=${ServiceName}`)}
+                        onClick={() => this.props.history.push(`new-environment?serviceName=${ServiceName}`)}
                         text={"Add New Environment"} />
                     {
                         environments.map(({ name }, key) => (
