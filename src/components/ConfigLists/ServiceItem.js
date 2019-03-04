@@ -5,11 +5,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import EnvList from './EnvList'
 import Divider from '@material-ui/core/Divider';
 import { SelectFileContext } from '../../Context/Contexts'
-import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { toast } from 'react-toastify';
 // icons
 import Apps from '@material-ui/icons/Apps';
-import FileCopyOutlined from '@material-ui/icons/FileCopyOutlined'; 
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 
@@ -40,7 +37,7 @@ class ServiceItem extends React.Component {
 
     render() {
         const searchText = this.props.searchText
-        const { name, description, environments, id } = this.props.service
+        const { name, description, environments } = this.props.service
         return (
             <SelectFileContext.Consumer>
                 {({ clickFile, selectedService, selectedEnvironment }) => (
@@ -49,21 +46,14 @@ class ServiceItem extends React.Component {
                             <ListItemIcon>
                                 <Apps />
                             </ListItemIcon>
-                            <CopyToClipboard text={id.toString()}
-                                onCopy={() => {
-                                    this.setState({ open: !this.state.open });
-                                    toast.success('Copied value', { autoClose: 2000 })
-                                    }}>
-                                <FileCopyOutlined className={"copy_icon"}/>
-                            </CopyToClipboard>
                             <ListItemText inset primary={generateTitle(searchText, name)} secondary={generateTitle(searchText, description)} />
                             {this.state.open ? <ExpandLess /> : <ExpandMore />}
                         </ListItem>
                         <EnvList open={this.state.open}
                             environments={environments}
-                            isSelected={selectedService === id}
+                            isSelected={selectedService === name}
                             selectedEnvironment={selectedEnvironment}
-                            clickFile={(envName) => clickFile(id, name, envName)} />
+                            clickFile={(envName) => clickFile( name, envName)} />
                         <Divider />
                     </div>
                 )}

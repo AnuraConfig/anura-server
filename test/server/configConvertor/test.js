@@ -65,7 +65,7 @@ describe('convertText', () => {
     });
     describe('#getObject()', () => {
         it('should return the text', function () {
-            const obj = "text"
+            const obj = { value: "text" }
             const res = convertText.getObject("text")
             assert.deepEqual(res, obj)
         });

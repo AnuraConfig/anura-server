@@ -12,15 +12,15 @@ class StateManager {
     startUp() {
         this.logger.log({ message: "StateManager: Initialize ", level: "info" })
         this.io.on('connection', function (socket) {
-            const { serviceId, environment } = socket.request._query;
-            this.logger.log({ message: `StateManager: connect serviceId:${serviceId}, environment:${environment}`, level: "info" })
-            const roomName = getRoomName(serviceId, environment)
+            const { serviceName, environment } = socket.request._query;
+            this.logger.log({ message: `StateManager: connect serviceName:${serviceName}, environment:${environment}`, level: "info" })
+            const roomName = getRoomName(serviceName, environment)
             socket.join(roomName)
         });
     }
-    emitChange(serviceId, environment) {
-        this.logger.log({ message: `StateManager: emit change on serviceId:${serviceId},environment:${environment} `, level: "info" })
-        const roomName = getRoomName(serviceId, environment)
+    emitChange(serviceName, environment) {
+        this.logger.log({ message: `StateManager: emit change on serviceName:${serviceName},environment:${environment} `, level: "info" })
+        const roomName = getRoomName(serviceName, environment)
         this.io.to(roomName).emit(CONFIG_CHANGE_EVENT);
     }
     getAllActiveRoom() {

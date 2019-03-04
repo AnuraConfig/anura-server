@@ -3,7 +3,7 @@ function isValid(text) {
 }
 
 function getObject(text) {
-    return text
+    return { value: text }
 }
 
 export default { isValid, getObject }

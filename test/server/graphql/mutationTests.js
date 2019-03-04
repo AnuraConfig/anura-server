@@ -57,15 +57,15 @@ const newServiceTestCase = {
 const updateConfigTestCase = {
     id: 'updateConfig',
     query: `
-    mutation updateConfig($serviceId:ID!,$environmentName:String!,$data:String!){
-        updateConfig(serviceId:$serviceId,environmentName:$environmentName,data:$data){
+    mutation updateConfig($serviceName:String!,$environmentName:String!,$data:String!){
+        updateConfig(serviceName:$serviceName,environmentName:$environmentName,data:$data){
         success,
         error
       }
     }
     `,
     variables: {
-        serviceId: '6',
+        serviceName: '6',
         environmentName: 'name',
         data: "data"
     },

@@ -17,7 +17,6 @@ import Loading from '../Common/Loading';
 const query = gql`
 {
   service  {
-    id
     name
     description 
     environments {

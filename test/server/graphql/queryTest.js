@@ -11,7 +11,6 @@ const allServicesTestCase = {
     query: `
       query {
         service {
-            id
             name
             description
             environments {
@@ -36,7 +35,6 @@ const allServicesTestCase = {
     expected: {
         data: {
             service: [{
-                    "id": "6",
                     "name": "name6",
                     "description": "desc6",
                     "environments": [{
@@ -49,7 +47,6 @@ const allServicesTestCase = {
                     }]
                 },
                 {
-                    "id": "66",
                     "name": "name66",
                     "description": null,
                     "environments": [{
@@ -69,8 +66,8 @@ const allServicesTestCase = {
 const getConfigsTestCase = {
     id: 'get Configs',
     query: `
-    query Env($serviceId: String, $envName: String){
-        getConfigs(serviceId: $serviceId, environment: $envName, raw: true){
+    query Env($serviceName: String, $envName: String){
+        getConfigs(serviceName: $serviceName, environment: $envName, raw: true){
         name
         configs {
           data
@@ -80,7 +77,7 @@ const getConfigsTestCase = {
       }
     }
     `,
-    variables: {serviceId: '6', envName: 'env6'},
+    variables: {serviceName: '6', envName: 'env6'},
 
     // Injecting the
     context: {

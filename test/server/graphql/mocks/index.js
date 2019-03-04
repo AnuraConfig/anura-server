@@ -5,13 +5,13 @@ export default class ManagerMock {
       })
     }
 
-    async updateConfig(serviceId, environmentName, data) {
+    async updateConfig(serviceName, environmentName, data) {
       return new Promise((resolve, reject) => {
         resolve(true)
       })
     }
 
-    async getConfigs(serviceId, env) {
+    async getConfigs(serviceName, env) {
       return new Promise((resolve, reject) => {
         resolve({
           "name": "env6",
@@ -24,7 +24,7 @@ export default class ManagerMock {
       })
     }
 
-    async getConfig(serviceId, env) {
+    async getConfig(serviceName, env) {
       return new Promise((resolve, reject) => {
         resolve({})
       })

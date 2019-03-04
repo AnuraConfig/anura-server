@@ -5,7 +5,7 @@ import convertText from "./convertText"
 const typeDic = {
     "JSON": convertJSON,
     "YAML": convertYAML,
-    "Text": convertText
+    "TEXT": convertText
 }
 
 // return false if the text value can't be parse according to the type
@@ -14,7 +14,7 @@ function isValid(text, type) {
     if (typeDic[upperType])
         return typeDic[upperType].isValid(text)
     else
-        throw new Error("No such type")
+        throw new Error(`No such type ${type}`)
 }
 
 function getObject(text, type) {
@@ -25,4 +25,4 @@ function getObject(text, type) {
         throw new Error("No such type")
 }
 
-export default { isValid, getObject,  typeDic }
+export default { isValid, getObject, typeDic }
