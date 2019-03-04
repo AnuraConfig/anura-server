@@ -28,6 +28,7 @@
     "js-yaml": "^3.12.1",
     "mongoose": "^5.4.2",
     "path": "^0.12.7",
+    "query-string": "^6.3.0",
     "react": "^16.6.3",
     "react-ace": "^6.3.2",
     "react-apollo": "^2.3.2",
