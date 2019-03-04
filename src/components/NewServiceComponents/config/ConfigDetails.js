@@ -59,7 +59,7 @@ class ConfigDetails extends React.Component {
                         }
                     </ConfigSettingsContext.Consumer>
                     {this.props.cancelable &&
-                        <Button onClick={this.cancel}
+                        <Button onClick={this.props.cancel}
                             variant="outlined" color="secondary" className={classes.button}>
                             Cancel
                         </Button>}
