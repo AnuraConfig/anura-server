@@ -16,7 +16,7 @@ import '../Common/braceImport'
 import VersionTab from './VersionTab'
 
 const UPDATE_CONFIG = gql`
-mutation updateConfig($serviceName:ID!,$environmentName:String!,$data:String!,$type:String!){
+mutation updateConfig($serviceName:String!,$environmentName:String!,$data:String!,$type:String!){
     updateConfig(serviceName:$serviceName,environmentName:$environmentName,data:$data,type:$type){
     success,
     error
