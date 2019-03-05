@@ -47,20 +47,22 @@ export default class MongoManager {
         environment.configs.push(newConfig._id)
         return environment.save()
     }
-    async getService(serviceName, raw) {
+    async getService(serviceName, raw, lastConfig) {
         this._log(`get service, serviceName:${serviceName}`)
+        const options = lastConfig ? { limit: 1, sort: { version: -1 } } : {}
         const service = await Service
-            .find({
+            .findOne({
                 name: serviceName
             })
             .populate({
                 path: 'environments',
                 populate: {
-                    path: 'configs'
+                    path: 'configs',
+                    options
                 }
             })
             .exec()
-        return service
+        return this._processService(service, raw)
     }
 
     async getConfigs(serviceName, env, raw) {
@@ -116,6 +118,16 @@ export default class MongoManager {
         this.logger.log({ message: `Mongo Manger: ${message} `, level })
     }
 
+    _processService(service, raw) {
+        service.environments = service.environments.map(env => this._processEnvironment(env, raw))
+        return service
+    }
+
+    _processEnvironment(environment, raw) {
+        environment.configs = this._prosesConfigs(environment.configs, raw).map(config => this._processConfig(config))
+        return environment
+    }
+
     async _createEnvironment({ name, config }) {
         let newConfig = await this._createConfig(config)
         let environment = new Environment({
@@ -149,7 +161,7 @@ export default class MongoManager {
             })
             .exec()
     }
-    _processConfig(config) {
+    _processConfig(config, raw) {
         delete config.__v
         delete config._id
         return config
