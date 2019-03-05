@@ -7,7 +7,6 @@ import Divider from '@material-ui/core/Divider';
 import { SelectFileContext } from '../../Context/Contexts'
 // icons
 import Apps from '@material-ui/icons/Apps';
-import FileCopyOutlined from '@material-ui/icons/FileCopyOutlined';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 
