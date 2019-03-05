@@ -46,7 +46,7 @@ export default class FileSystemManager {
         const deprecatedEnv = environments
             .filter(oldEnv => !updatedService.environments.find(newEnv => oldEnv.name === newEnv.name))
         for (let env of deprecatedEnv) {
-            rimraf.sync(path.join(serviceDirectory,env.name))
+            rimraf.sync(path.join(serviceDirectory, env.name))
         }
     }
 
@@ -77,7 +77,7 @@ export default class FileSystemManager {
     getConfig(serviceName, env, raw) {
         this._log(`get configs serviceName:${serviceName}, environmentName:${env}`)
         const dir = path.join(this.location, serviceName, env)
-        const maxVersion = this._getMaxVersion(...fs.readdirSync(dir))
+        const maxVersion = this._getMaxVersion(fs.readdirSync(dir))
         return Object.assign(
             { version: maxVersion },
             this._createConfigObject(dir, getFileName(filesConst.CONFIG_PREFIX + maxVersion), raw)
@@ -161,7 +161,7 @@ export default class FileSystemManager {
             .map(envName => this.getConfigs(serviceName, envName, raw, lastConfig))
     }
     _getMaxVersion(configs) {
-        return Math.max(configs
+        return Math.max(...configs
             .map(getConfigVersion)
             .filter(i => !isNaN(i)))
     }
