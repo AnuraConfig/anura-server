@@ -3,6 +3,7 @@ import services from './Query/servicesResolver';
 import { getConfigs, latestConfig } from './Query/configResolver';
 import newService from './Mutation/newServiceResolver';
 import updateConfig from './Mutation/updateConfigResolver';
+import updateService from './Mutation/updateServiceResolver'
 
 const resolveFunctions = {
     Query: {
@@ -13,7 +14,8 @@ const resolveFunctions = {
     },
     Mutation: {
         newService,
-        updateConfig
+        updateConfig,
+        updateService
     }
 }
 export default resolveFunctions
