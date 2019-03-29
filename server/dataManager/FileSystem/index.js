@@ -67,7 +67,7 @@ export default class FileSystemManager {
             .map(filename => this._createConfigObject(dir, filename, raw))
         if (lastConfig) {
             const maxVersion = Math.max(...configs.map(i => i.version))
-            configs = configs.filter(i => i.version == maxVersion)
+            configs = configs.filter(i => parseInt(i.version) === maxVersion)
         }
         const envInfo = this._parseFile(dir, getFileName(filesConst.INFO_FILE))
         envInfo.configs = configs
