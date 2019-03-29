@@ -9,6 +9,7 @@ import { getStateManager } from '../../stateManager/socket'
 export default class MongoManager {
     constructor(connectionString = configManager.config.MONGO_STORE, customLogger = logger,
         stateManager = getStateManager(), callback = () => { }) {
+        this._log("NOT ALL FEATURE WORK IN THIS VERSION READ MORE IN THE DOCS", "warnning")
         this.logger = customLogger
         this._log("initialize")
         this.connectionString = connectionString
@@ -33,6 +34,11 @@ export default class MongoManager {
         return service.save()
     }
 
+    async updateService(updatedService, originalName) {
+        this._log(`update service, serviceName:${originalName}`)
+    }
+
+
     async updateConfig(serviceName, environmentName, data, type = "TEXT") {
         this._log(`update config, serviceName:${serviceName}, environmentName:${environmentName}`)
         validConfigType(data, type, this._log)
@@ -46,6 +52,24 @@ export default class MongoManager {
         newConfig = await newConfig.save()
         environment.configs.push(newConfig._id)
         return environment.save()
+    }
+
+    async getService(serviceName, raw, lastConfig) {
+        this._log(`get service, serviceName:${serviceName}`)
+        const options = lastConfig ? { limit: 1, sort: { version: -1 } } : {}
+        const service = await Service
+            .findOne({
+                name: serviceName
+            })
+            .populate({
+                path: 'environments',
+                populate: {
+                    path: 'configs',
+                    options
+                }
+            })
+            .exec()
+        return this._processService(service, raw)
     }
 
     async getConfigs(serviceName, env, raw) {
@@ -101,6 +125,16 @@ export default class MongoManager {
         this.logger.log({ message: `Mongo Manger: ${message} `, level })
     }
 
+    _processService(service, raw) {
+        service.environments = service.environments.map(env => this._processEnvironment(env, raw))
+        return service
+    }
+
+    _processEnvironment(environment, raw) {
+        environment.configs = this._prosesConfigs(environment.configs, raw).map(config => this._processConfig(config))
+        return environment
+    }
+
     async _createEnvironment({ name, config }) {
         let newConfig = await this._createConfig(config)
         let environment = new Environment({
@@ -134,7 +168,7 @@ export default class MongoManager {
             })
             .exec()
     }
-    _processConfig(config) {
+    _processConfig(config, raw) {
         delete config.__v
         delete config._id
         return config

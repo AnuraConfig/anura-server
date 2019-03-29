@@ -10,7 +10,7 @@ const allServicesTestCase = {
     id: 'Full service list',
     query: `
       query {
-        service {
+        services {
             name
             description
             environments {
@@ -34,7 +34,7 @@ const allServicesTestCase = {
     // Expected result
     expected: {
         data: {
-            service: [{
+            services: [{
                     "name": "name6",
                     "description": "desc6",
                     "environments": [{

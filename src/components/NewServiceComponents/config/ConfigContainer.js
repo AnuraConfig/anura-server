@@ -37,7 +37,7 @@ export default class ConfigContainer extends Component {
         return (
             <Grid container spacing={24}>
                 <Grid item xs={12} sm={4}>
-                    <ConfigDetails cancel={this.props.cancelConfigEdit} cancelable={this.props.cancelable}
+                    <ConfigDetails cancel={this.props.cancel} cancelable={this.props.cancelable}
                         editedID={editedID} config={config} addConfigCallback={this.addConfigCallback} />
                 </Grid>
                 <Grid item xs={12} sm={8}>

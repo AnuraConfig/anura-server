@@ -11,6 +11,7 @@ import FinishConfigList from '../components/NewServiceComponents/config/FinishCo
 import CompleteStep from '../components/NewServiceComponents/CompleteStep'
 import { toast } from 'react-toastify';
 import { withRouter } from 'react-router-dom'
+import STEPS from '../utils/StepsEnum'
 
 const styles = theme => ({
     root: {
@@ -22,11 +23,7 @@ const styles = theme => ({
         margin: '0 auto'
     }
 })
-const STEPS = {
-    serviceDetails: 0,
-    configDetails: 1,
-    completeStep: 2
-}
+
 
 const ADD_SERVICE = gql`
 mutation AddService($service:InputService!){
@@ -36,15 +33,45 @@ mutation AddService($service:InputService!){
   }
 }
 `
+const UPDATE_SERVICE = gql`
+mutation UpdateService($service:InputService!, $originalName:String!){
+  updateService(service:$service, originalName:$originalName){
+    success,
+    error
+  }
+}`
+
+
+function mapEnvironments(environments) {
+    return environments.map(env => ({
+        name: env.name,
+        type: env.configs[0].type,
+        configFile: env.configs[0].data
+    }))
+}
 
 class NewServicePage extends React.Component {
-    state = {
-        service: {},
-        serviceComplete: false,
-        currentConfig: {},
-        configs: [],
-        step: STEPS.serviceDetails,
+    constructor(props) {
+        super(props)
+        const stateFromProps = this.stateFromProps(props)
+        this.state = Object.assign({
+            service: {},
+            serviceComplete: false,
+            currentConfig: {},
+            configs: [],
+            step: STEPS.serviceDetails,
+        }, stateFromProps)
     }
+
+    stateFromProps(props) {
+        const { service, step } = props
+        if (!service)
+            return {}
+        delete service.__typename
+        const configs = mapEnvironments(service.environments)
+        return { step, service, configs, serviceComplete: true }
+    }
+
     editConfig = (key) => {
         this.setState(p => ({
             editedID: key,
@@ -69,7 +96,7 @@ class NewServicePage extends React.Component {
         })
     }
     cancelConfigEdit = () => {
-        return { currentConfig: {}, step: STEPS.completeStep, editedID: undefined }
+        this.setState({ currentConfig: {}, step: STEPS.completeStep, editedID: undefined })
     }
     addEnvironment = () => {
         this.setState({
@@ -88,17 +115,22 @@ class NewServicePage extends React.Component {
         }
     }
     mutationRendering = (data, error) => {
-        if (data && data.newService && data.newService.success) {
-            toast.success("service added")
+        const key = this.props.service ? "updateService" : "newService"
+        if (data && data[key] && data[key].success) {
+            toast.success(`service ${this.props.service ? "updated" : "added"}`)
             this.props.history.push('/')
         }
         if (error) {
-            toast.error(data.newService.error)
+            if (data)
+                toast.error(data[key].error)
+            else
+                toast.error(error.message)
         }
     }
     render() {
         const { step, service, currentConfig, configs, editedID } = this.state
         const { classes } = this.props
+        const isNew = !this.props.service
         return (<div className={classes.root}>
             <Grid container spacing={24}>
                 <Grid item xs={12} sm={3}>
@@ -115,17 +147,19 @@ class NewServicePage extends React.Component {
                 </Grid>
                 <Grid item xs={12} sm={9}>
                     {step === STEPS.configDetails && <ConfigContainer editedID={editedID}
-                        cancel={this.props.cancelConfigEdit} cancelable={configs.length !== 0}
+                        cancel={this.cancelConfigEdit} cancelable={configs.length !== 0}
                         config={currentConfig} addConfigCallback={this.addConfigCallback} />}
                     {step === STEPS.completeStep &&
-                        <Mutation mutation={ADD_SERVICE}>
-                            {(addService, { data, error }) => {
+                        <Mutation mutation={isNew ? ADD_SERVICE : UPDATE_SERVICE}>
+                            {(action, { data, error }) => {
                                 this.mutationRendering(data, error)
                                 return (
                                     <CompleteStep addEnvironment={this.addEnvironment}
                                         complete={() => {
                                             const variables = { service: Object.assign({}, service, this.getConfigs()) }
-                                            addService({ variables })
+                                            if (!isNew)
+                                                variables.originalName = this.props.service.name
+                                            action({ variables })
                                         }} />
                                 )
                             }}

@@ -23,7 +23,7 @@ describe("Mongo data manager", function () {
             await this.dataManager.createService(newService)
         });
 
-        dataManagerRequestTests()
+        //dataManagerRequestTests()
 
         afterEach(async function () {
             await Service.deleteMany({})

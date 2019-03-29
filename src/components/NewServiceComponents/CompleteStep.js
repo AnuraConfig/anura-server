@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { buttonStyle as styles } from './styles'
 import PropTypes from 'prop-types';
 
-class ConfigContainer extends Component {
+class CompleteStep extends Component {
     render() {
         const { classes } = this.props
         return (
@@ -37,8 +37,8 @@ class ConfigContainer extends Component {
 }
 
 
-ConfigContainer.propTypes = {
+CompleteStep.propTypes = {
     classes: PropTypes.object,
 };
 
-export default withStyles(styles)(ConfigContainer);
+export default withStyles(styles)(CompleteStep);

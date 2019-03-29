@@ -1,5 +1,6 @@
 import fs from 'fs'
 import path from 'path'
+import rimraf from "rimraf"
 import * as filesConst from '../../constants/filesConst'
 import configManager from '../../constants/configs'
 import { getFileName, getNameFromFile, getConfigVersion } from './helperFunctions'
@@ -25,6 +26,30 @@ export default class FileSystemManager {
         environments.forEach(this._createEnv.bind(this, serviceDirectory))
     }
 
+    getService(serviceName, raw, lastConfig) {
+        this._log(`get service, serviceName:${serviceName}`)
+        const dir = path.join(this.location, serviceName)
+        const environments = this._getAllEnvironments(dir, serviceName, raw, lastConfig)
+        const serviceInfo = this._parseFile(dir, getFileName(filesConst.INFO_FILE))
+        serviceInfo.environments = environments
+        return serviceInfo
+    }
+
+    updateService(updatedService, originalName) {
+        this._log(`update service, serviceName:${originalName}`)
+        const { name } = updatedService
+        const serviceDirectory = path.join(this.location, name)
+        if (name !== originalName)
+            fs.renameSync(path.join(this.location, originalName), serviceDirectory)
+        const environments = this._getAllEnvironments(serviceDirectory, name, false, true)
+        this._updateEnvironments(updatedService.environments, environments, serviceDirectory)
+        const deprecatedEnv = environments
+            .filter(oldEnv => !updatedService.environments.find(newEnv => oldEnv.name === newEnv.name))
+        for (let env of deprecatedEnv) {
+            rimraf.sync(path.join(serviceDirectory, env.name))
+        }
+    }
+
     updateConfig(serviceName, environmentName, data, type = "TEXT") {
         this._log(`update config, serviceName:${serviceName}, environmentName:${environmentName}`)
         const dir = path.join(this.location, serviceName, environmentName)
@@ -34,12 +59,16 @@ export default class FileSystemManager {
         this.stateManager.emitChange(serviceName, environmentName)
     }
 
-    getConfigs(serviceName, env, raw) {
+    getConfigs(serviceName, env, raw, lastConfig) {
         this._log(`get configs serviceName:${serviceName}, environmentName:${env}`)
         const dir = path.join(this.location, serviceName, env)
-        const configs = fs.readdirSync(dir)
+        let configs = fs.readdirSync(dir)
             .filter(i => i !== filesConst.INFO_FILE)
             .map(filename => this._createConfigObject(dir, filename, raw))
+        if (lastConfig) {
+            const maxVersion = Math.max(...configs.map(i => i.version))
+            configs = configs.filter(i => parseInt(i.version) === maxVersion)
+        }
         const envInfo = this._parseFile(dir, getFileName(filesConst.INFO_FILE))
         envInfo.configs = configs
         return envInfo
@@ -48,9 +77,7 @@ export default class FileSystemManager {
     getConfig(serviceName, env, raw) {
         this._log(`get configs serviceName:${serviceName}, environmentName:${env}`)
         const dir = path.join(this.location, serviceName, env)
-        const maxVersion = Math.max(...fs.readdirSync(dir)
-            .map(getConfigVersion)
-            .filter(i => !isNaN(i)))
+        const maxVersion = this._getMaxVersion(fs.readdirSync(dir))
         return Object.assign(
             { version: maxVersion },
             this._createConfigObject(dir, getFileName(filesConst.CONFIG_PREFIX + maxVersion), raw)
@@ -71,7 +98,19 @@ export default class FileSystemManager {
     _log = (message, level = "info") => {
         this.logger.log({ message: `File System Manger: ${message} `, level })
     }
-
+    _updateEnvironments(newEnvironments, oldEnvironments, serviceDirectory) {
+        for (let environment of newEnvironments) {
+            const oldEnv = oldEnvironments.find(i => i.name === environment.name)
+            if (!oldEnv) {
+                this._createEnv(serviceDirectory, environment)
+            } else {
+                if (oldEnv.configs[0].data !== environment.config.data) {
+                    rimraf.sync(path.join(serviceDirectory, environment.name))
+                    this._createEnv(serviceDirectory, environment)
+                }
+            }
+        }
+    }
     _createDir(dir) {
         if (!fs.existsSync(dir)) {
             this._log(`create directory, ${dir}`)
@@ -115,6 +154,16 @@ export default class FileSystemManager {
         const infoFile = path.format({ dir, base })
         const data = fs.readFileSync(infoFile, "utf8")
         return JSON.parse(data)
+    }
+    _getAllEnvironments(dir, serviceName, raw = false, lastConfig = false) {
+        return fs.readdirSync(dir)
+            .filter(i => i !== filesConst.INFO_FILE)
+            .map(envName => this.getConfigs(serviceName, envName, raw, lastConfig))
+    }
+    _getMaxVersion(configs) {
+        return Math.max(...configs
+            .map(getConfigVersion)
+            .filter(i => !isNaN(i)))
     }
     _readInfos(source) {
         const isDirectory = source => fs.lstatSync(source).isDirectory()

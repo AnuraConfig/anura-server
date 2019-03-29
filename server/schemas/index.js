@@ -49,7 +49,8 @@ type WebHook {
 }
 
 type Query {
-    service: [Service]
+    services: [Service]
+    service(serviceName: String, lastConfig: Boolean): Service
     latestConfig(serviceName: String, environment: String, raw: Boolean): Config
     getConfigs(serviceName: String, environment: String, raw: Boolean): Environment
 }
@@ -57,6 +58,7 @@ type Query {
 type Mutation {
     newService(service:InputService!): BasicResponse!
     updateConfig(serviceName: String!, environmentName: String!, data: String!, type:String): BasicResponse!
+    updateService(service:InputService!, originalName:String!): BasicResponse!
 }
 
 type BasicResponse {
