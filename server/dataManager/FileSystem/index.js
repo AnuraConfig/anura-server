@@ -40,7 +40,7 @@ export default class FileSystemManager {
         const { name } = updatedService
         const serviceDirectory = path.join(this.location, name)
         if (name !== originalName)
-            fs.renameSync(path.join(this.location, serviceDirectory), serviceDirectory)
+            fs.renameSync(path.join(this.location, originalName), serviceDirectory)
         const environments = this._getAllEnvironments(serviceDirectory, name, false, true)
         this._updateEnvironments(updatedService.environments, environments, serviceDirectory)
         const deprecatedEnv = environments
