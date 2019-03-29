@@ -1,4 +1,8 @@
 import chai from "chai"
+import _ from "lodash"
+import newService from "../mocks/newService"
+import { newEnvironment } from "../mocks/testObject"
+
 const { expect, should } = chai
 should()
 
@@ -59,5 +63,22 @@ export default function dataManagerRequestTests() {
         const newConfigReturn = configs.configs.find(i => i.version === 1)
         expect(newConfigReturn.data).to.equal(newConfig)
     })
-
+    it("should add new env to service", async function () {
+        const copyService = _.cloneDeep(newService)
+        copyService.environments.push(newEnvironment)
+        this.dataManager.updateService(copyService, newService.name)
+        await this.dataManager.getConfig("TestService", "newEnv")
+    })
+    it("should change service name", async function () {
+        const copyService = _.cloneDeep(newService)
+        copyService.name = "new name"
+        this.dataManager.updateService(copyService, newService.name)
+        await this.dataManager.getService("new name")
+    })
+    it("should remove env from service", async function () {
+        const copyService = _.cloneDeep(newService)
+        copyService.environments.push(newEnvironment)
+        this.dataManager.updateService(copyService, newService.name)
+        await this.dataManager.getConfig("TestService", "newEnv")
+    })
 }
