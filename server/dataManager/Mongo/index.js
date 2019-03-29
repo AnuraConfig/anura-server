@@ -9,6 +9,7 @@ import { getStateManager } from '../../stateManager/socket'
 export default class MongoManager {
     constructor(connectionString = configManager.config.MONGO_STORE, customLogger = logger,
         stateManager = getStateManager(), callback = () => { }) {
+        this._log("NOT ALL FEATURE WORK IN THIS VERSION READ MORE IN THE DOCS", "warnning")
         this.logger = customLogger
         this._log("initialize")
         this.connectionString = connectionString
@@ -33,6 +34,11 @@ export default class MongoManager {
         return service.save()
     }
 
+    async updateService(updatedService, originalName) {
+        this._log(`update service, serviceName:${originalName}`)
+    }
+
+
     async updateConfig(serviceName, environmentName, data, type = "TEXT") {
         this._log(`update config, serviceName:${serviceName}, environmentName:${environmentName}`)
         validConfigType(data, type, this._log)
@@ -47,6 +53,7 @@ export default class MongoManager {
         environment.configs.push(newConfig._id)
         return environment.save()
     }
+
     async getService(serviceName, raw, lastConfig) {
         this._log(`get service, serviceName:${serviceName}`)
         const options = lastConfig ? { limit: 1, sort: { version: -1 } } : {}
