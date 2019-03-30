@@ -9,12 +9,13 @@ function defaultCallback() { }
 
 export default class MongoManager extends DataConnectorsAbstract {
 
-    constructor(logger, connectionString = configManager.config.MONGO_STORE, callback = defaultCallback) {
+    constructor({ connectionString = configManager.config.MONGO_STORE, log, callback = defaultCallback }) {
         super()
-        this._log("NOT ALL FEATURE WORK IN THIS VERSION READ MORE IN THE DOCS", "warnning")
+        this.log = log
+        this.log("NOT ALL FEATURE WORK IN THIS VERSION READ MORE IN THE DOCS", "warnning")
         this.connectionString = connectionString
         mongoose.connect(this.connectionString, { useNewUrlParser: true }, () => callback())
-        mongoose.connection.on('error', (e) => this._log('connection error: ' + e))
+        mongoose.connection.on('error', (e) => this.log('connection error: ' + e))
     }
     static getName = () => "Mongo"
 
@@ -38,7 +39,7 @@ export default class MongoManager extends DataConnectorsAbstract {
 
 
     async updateConfig(serviceName, environmentName, data, type = "TEXT") {
-        validConfigType(data, type, this._log)
+        validConfigType(data, type, this.log)
         const service = await this._findService(serviceName, environmentName)
         let environment = await Environment.findById(service.environments[0].id).exec()
         let newConfig = new Config({
@@ -95,7 +96,7 @@ export default class MongoManager extends DataConnectorsAbstract {
     }
 
     async getAllEnv() {
-        this._log(`get all environment  `)
+        this.log(`get all environment  `)
         return Service.find({})
             .populate({
                 path: 'environments',
@@ -136,7 +137,7 @@ export default class MongoManager extends DataConnectorsAbstract {
     }
 
     async _createConfig({ data, type, key }) {
-        validConfigType(data, type, this._log)
+        validConfigType(data, type, this.log)
         let config = new Config({
             type,
             data: data,

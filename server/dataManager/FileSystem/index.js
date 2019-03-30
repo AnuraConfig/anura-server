@@ -10,8 +10,9 @@ import DataConnectorsAbstract from '../common/DataConnectorsAbstract'
 
 export default class FileSystemManager extends DataConnectorsAbstract {
 
-    constructor(logger, location = configManager.config.STORE_LOCATION) {
+    constructor({location = configManager.config.STORE_LOCATION, log}) {
         super()
+        this.log = log
         this.location = path.join(location, filesConst.BASE)
         this._createDir(this.location)
     }
@@ -101,14 +102,14 @@ export default class FileSystemManager extends DataConnectorsAbstract {
     }
     _createDir(dir) {
         if (!fs.existsSync(dir)) {
-            this._log(`create directory, ${dir}`)
+            this.log(`create directory, ${dir}`)
             fs.mkdirSync(dir)
         }
     }
 
     _validateUpdateConfig(dir, data, type) {
-        if (!fs.existsSync(dir)) logAndThrow(`no such service or environment in service list`, this._log)
-        validConfigType(data, type, this._log)
+        if (!fs.existsSync(dir)) logAndThrow(`no such service or environment in service list`, this.log)
+        validConfigType(data, type, this.log)
     }
 
     _createInfoFile(item, dir) {
@@ -123,7 +124,7 @@ export default class FileSystemManager extends DataConnectorsAbstract {
     }
     _createEnv(serviceDir, { name, config }) {
         const envDir = path.join(serviceDir, name)
-        validConfigType(config.data, config.type, this._log)
+        validConfigType(config.data, config.type, this.log)
         this._createDir(envDir)
         this._createInfoFile({ name, lastUpdate: new Date() }, envDir)
         this._createConfigFile(envDir, config.data, config.type, 0)

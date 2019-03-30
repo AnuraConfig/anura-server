@@ -6,10 +6,10 @@ import { getStateManager } from '../stateManager/socket'
 
 export default class DataManagerWrapper {
     constructor(connector, customLogger = logger, stateManager = getStateManager()) {
-        this.connector = new connector()
-        this.connectorName = connector.getName()
         this.logger = customLogger
+        this.connectorName = connector.getName()
         this.stateManager = stateManager
+        this.connector = new connector({ log: this._log })
         this._log("initialize")
     }
     async createService({ name, description, environments }) {
