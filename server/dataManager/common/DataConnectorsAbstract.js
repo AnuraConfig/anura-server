@@ -1,7 +1,7 @@
 
 
 
-class DataConnectorsAbstract {
+export default class DataConnectorsAbstract {
     async createService({ name, description, environments }) {
         throw new Error("Not Implement")
     }
@@ -23,4 +23,5 @@ class DataConnectorsAbstract {
     async getAllEnv() {
         throw new Error("Not Implement")
     }
+
 }
