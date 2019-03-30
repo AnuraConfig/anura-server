@@ -1,7 +1,6 @@
 import logger from '../utils/logger'
 import { getStateManager } from '../stateManager/socket'
 
-
 //this.stateManager.emitChange(serviceName, environmentName)
 
 export default class DataManagerWrapper {
@@ -17,24 +16,24 @@ export default class DataManagerWrapper {
         return this.connector.createService({ name, description, environments })
     }
     async updateService(updatedService, originalName) {
-        this._log(`get service, serviceName:${serviceName}`)
+        this._log(`update service, serviceName:${originalName}`)
         return this.connector.updateService(updatedService, originalName)
     }
     async updateConfig(serviceName, environmentName, data, type = "TEXT") {
-        this._log(`update service, serviceName:${originalName}`)
+        this._log(`update config, serviceName:${serviceName}, environmentName:${environmentName}`)
         return this.connector.updateConfig(serviceName, environmentName, data, type)
     }
     async getService(serviceName, raw, lastConfig) {
-        this._log(`update config, serviceName:${serviceName}, environmentName:${environmentName}`)
+        this._log(`get service, serviceName:${serviceName}`)
         return this.connector.getService(serviceName, raw, lastConfig)
-    }
-    async getConfigs(serviceName, env, raw) {
-        this._log(`get configs serviceName:${serviceName}, environmentName:${env}`)
-        return this.connector.getConfigs(serviceName, env, raw)
     }
     async getConfig(serviceName, env, raw) {
         this._log(`get configs serviceName:${serviceName}, environmentName:${env}`)
         return this.connector.getConfig(serviceName, env, raw)
+    }
+    async getConfigs(serviceName, env, raw) {
+        this._log(`get configs serviceName:${serviceName}, environmentName:${env}`)
+        return this.connector.getConfigs(serviceName, env, raw)
     }
     async getAllEnv() {
         this._log(`get all environment`)
