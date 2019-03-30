@@ -6,7 +6,7 @@ import configConvertor from '../../configConvertor'
 import { validConfigType } from '../common/validation'
 import { getStateManager } from '../../stateManager/socket'
 
-export default class MongoManager {
+export default class MongoManager extends DataConnectorsAbstract {
     constructor(connectionString = configManager.config.MONGO_STORE, customLogger = logger,
         stateManager = getStateManager(), callback = () => { }) {
         this._log("NOT ALL FEATURE WORK IN THIS VERSION READ MORE IN THE DOCS", "warnning")

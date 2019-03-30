@@ -9,7 +9,7 @@ import configConvertor from '../../configConvertor'
 import { validConfigType, logAndThrow } from '../common/validation'
 import logger from '../../utils/logger'
 
-export default class FileSystemManager {
+export default class FileSystemManager extends DataConnectorsAbstract {
     constructor(location = configManager.config.STORE_LOCATION, customLogger = logger, stateManager = getStateManager()) {
         this.logger = customLogger
         this._log("initialize")
