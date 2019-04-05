@@ -10,9 +10,8 @@ import DataConnectorsAbstract from '../common/DataConnectorsAbstract'
 
 export default class FileSystemManager extends DataConnectorsAbstract {
 
-    constructor({location = configManager.config.STORE_LOCATION, log}) {
-        super()
-        this.log = log
+    constructor({ location = configManager.config.STORE_LOCATION, log, stateManager }) {
+        super(log, stateManager)
         this.location = path.join(location, filesConst.BASE)
         this._createDir(this.location)
     }
@@ -39,7 +38,7 @@ export default class FileSystemManager extends DataConnectorsAbstract {
         if (name !== originalName)
             fs.renameSync(path.join(this.location, originalName), serviceDirectory)
         const environments = this._getAllEnvironments(serviceDirectory, name, false, true)
-        this._updateEnvironments(updatedService.environments, environments, serviceDirectory)
+        this._updateEnvironments(updatedService.environments, environments, serviceDirectory, emitChange)
         const deprecatedEnv = environments
             .filter(oldEnv => !updatedService.environments.find(newEnv => oldEnv.name === newEnv.name))
         for (let env of deprecatedEnv) {

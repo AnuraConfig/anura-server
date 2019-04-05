@@ -7,21 +7,21 @@ export default class DataManagerWrapper {
     constructor(connector, customLogger = logger, stateManager = getStateManager()) {
         this.logger = customLogger
         this.connectorName = connector.getName()
-        this.stateManager = stateManager
-        this.connector = new connector({ log: this._log })
+        this.connector = new connector({ log: this._log, stateManager })
         this._log("initialize")
     }
     async createService({ name, description, environments }) {
         this._log(`create service ${name}`)
-        return this.connector.createService({ name, description, environments })
+        this.connector.createService({ name, description, environments })
     }
     async updateService(updatedService, originalName) {
         this._log(`update service, serviceName:${originalName}`)
-        return this.connector.updateService(updatedService, originalName)
+        this.connector.updateService(updatedService, originalName, (env) => this.stateManager.emitChange(updatedService.name, env))
     }
     async updateConfig(serviceName, environmentName, data, type = "TEXT") {
         this._log(`update config, serviceName:${serviceName}, environmentName:${environmentName}`)
-        return this.connector.updateConfig(serviceName, environmentName, data, type)
+        this.connector.updateConfig(serviceName, environmentName, data, type)
+        this.stateManager.emitChange(serviceName, environmentName)
     }
     async getService(serviceName, raw, lastConfig) {
         this._log(`get service, serviceName:${serviceName}`)

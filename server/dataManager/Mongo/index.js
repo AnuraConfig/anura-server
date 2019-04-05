@@ -10,9 +10,8 @@ function defaultCallback() { }
 export default class MongoManager extends DataConnectorsAbstract {
 
     constructor({ connectionString = configManager.config.MONGO_STORE, log, callback = defaultCallback }) {
-        super()
-        this.log = log
-        this.log("NOT ALL FEATURE WORK IN THIS VERSION READ MORE IN THE DOCS", "warnning")
+        super(log, stateManager)
+        this.log("NOT ALL FEATURE WORK IN THIS VERSION READ MORE IN THE DOCS", "warning")
         this.connectionString = connectionString
         mongoose.connect(this.connectionString, { useNewUrlParser: true }, () => callback())
         mongoose.connection.on('error', (e) => this.log('connection error: ' + e))

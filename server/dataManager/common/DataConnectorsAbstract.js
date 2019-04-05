@@ -2,10 +2,14 @@
 
 
 export default class DataConnectorsAbstract {
+    constructor(log, stateManager) {
+        this.log = log
+        this.stateManager = stateManager
+    }
     async createService({ name, description, environments }) {
         throw new Error("Not Implement")
     }
-    async updateService(updatedService, originalName) {
+    async updateService(updatedService, originalName, changeService) {
         throw new Error("Not Implement")
     }
     async updateConfig(serviceName, environmentName, data, type = "TEXT") {
