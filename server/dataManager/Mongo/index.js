@@ -1,25 +1,24 @@
 import mongoose from 'mongoose';
 import { Service, Environment, Config } from './schemas';
 import configManager from '../../constants/configs'
-import logger from '../../utils/logger'
 import configConvertor from '../../configConvertor'
 import { validConfigType } from '../common/validation'
-import { getStateManager } from '../../stateManager/socket'
+import DataConnectorsAbstract from '../common/DataConnectorsAbstract'
 
-export default class MongoManager {
-    constructor(connectionString = configManager.config.MONGO_STORE, customLogger = logger,
-        stateManager = getStateManager(), callback = () => { }) {
-        this._log("NOT ALL FEATURE WORK IN THIS VERSION READ MORE IN THE DOCS", "warnning")
-        this.logger = customLogger
-        this._log("initialize")
+function defaultCallback() { }
+
+export default class MongoManager extends DataConnectorsAbstract {
+
+    constructor({ connectionString = configManager.config.MONGO_STORE, log, callback = defaultCallback }) {
+        super(log, stateManager)
+        this.log("NOT ALL FEATURE WORK IN THIS VERSION READ MORE IN THE DOCS", "warning")
         this.connectionString = connectionString
-        this.stateManager = stateManager
         mongoose.connect(this.connectionString, { useNewUrlParser: true }, () => callback())
-        mongoose.connection.on('error', (e) => this._log('connection error: ' + e))
+        mongoose.connection.on('error', (e) => this.log('connection error: ' + e))
     }
+    static getName = () => "Mongo"
 
     async createService({ name, description, environments }) {
-        this._log(`create service ${name}`)
         let promises = []
         for (let environment of environments) {
             promises.push(this._createEnvironment(environment))
@@ -35,13 +34,11 @@ export default class MongoManager {
     }
 
     async updateService(updatedService, originalName) {
-        this._log(`update service, serviceName:${originalName}`)
     }
 
 
     async updateConfig(serviceName, environmentName, data, type = "TEXT") {
-        this._log(`update config, serviceName:${serviceName}, environmentName:${environmentName}`)
-        validConfigType(data, type, this._log)
+        validConfigType(data, type, this.log)
         const service = await this._findService(serviceName, environmentName)
         let environment = await Environment.findById(service.environments[0].id).exec()
         let newConfig = new Config({
@@ -55,7 +52,6 @@ export default class MongoManager {
     }
 
     async getService(serviceName, raw, lastConfig) {
-        this._log(`get service, serviceName:${serviceName}`)
         const options = lastConfig ? { limit: 1, sort: { version: -1 } } : {}
         const service = await Service
             .findOne({
@@ -73,7 +69,6 @@ export default class MongoManager {
     }
 
     async getConfigs(serviceName, env, raw) {
-        this._log(`get configs serviceName:${serviceName}, environmentName:${env}`)
         const service = await Service
             .find({
                 name: serviceName
@@ -95,13 +90,12 @@ export default class MongoManager {
     }
 
     async getConfig(serviceName, env, raw) {
-        this._log(`get configs serviceName:${serviceName}, environmentName:${env}`)
         const allConfigs = await this.getConfigs(serviceName, env, raw)
         return this._processConfig(allConfigs.configs.sort(item => item.version).slice(-1)[0])
     }
 
     async getAllEnv() {
-        this._log(`get all environment  `)
+        this.log(`get all environment  `)
         return Service.find({})
             .populate({
                 path: 'environments',
@@ -121,10 +115,6 @@ export default class MongoManager {
         })
         return configs
     }
-    _log = (message, level = "info") => {
-        this.logger.log({ message: `Mongo Manger: ${message} `, level })
-    }
-
     _processService(service, raw) {
         service.environments = service.environments.map(env => this._processEnvironment(env, raw))
         return service
@@ -146,7 +136,7 @@ export default class MongoManager {
     }
 
     async _createConfig({ data, type, key }) {
-        validConfigType(data, type, this._log)
+        validConfigType(data, type, this.log)
         let config = new Config({
             type,
             data: data,

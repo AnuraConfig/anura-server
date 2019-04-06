@@ -4,9 +4,8 @@ import fs from "fs"
 import rimraf from "rimraf"
 import FileSystemManager from "../../../../server/dataManager/FileSystem";
 import dataManagerRequestTests from "./common/dataManagerRequestTests"
+import { logMock } from "./mocks/generalMocks"
 import newService from "./mocks/newService"
-import { StateMangerMock } from "./mocks/stateManger"
-
 
 const expect = chai.expect
 
@@ -15,7 +14,7 @@ describe("FileSystem data manager ", function () {
         beforeEach(function () {
             this.filePath = path.join(__dirname, `./mocks/temps_configs_${Math.random()}`) //reduce the probability of conflict 
             fs.mkdirSync(this.filePath)
-            this.dataManager = new FileSystemManager(this.filePath, { log: () => { } }, StateMangerMock)
+            this.dataManager = new FileSystemManager({ location: this.filePath, log: logMock })
             this.dataManager.createService(newService)
         });
 
