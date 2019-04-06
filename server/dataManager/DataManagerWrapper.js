@@ -16,12 +16,11 @@ export default class DataManagerWrapper {
     }
     async updateService(updatedService, originalName) {
         this._log(`update service, serviceName:${originalName}`)
-        this.connector.updateService(updatedService, originalName, (env) => this.stateManager.emitChange(updatedService.name, env))
+        this.connector.updateService(updatedService, originalName)
     }
     async updateConfig(serviceName, environmentName, data, type = "TEXT") {
         this._log(`update config, serviceName:${serviceName}, environmentName:${environmentName}`)
         this.connector.updateConfig(serviceName, environmentName, data, type)
-        this.stateManager.emitChange(serviceName, environmentName)
     }
     async getService(serviceName, raw, lastConfig) {
         this._log(`get service, serviceName:${serviceName}`)

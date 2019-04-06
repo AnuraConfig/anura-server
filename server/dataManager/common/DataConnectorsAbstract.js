@@ -9,7 +9,7 @@ export default class DataConnectorsAbstract {
     async createService({ name, description, environments }) {
         throw new Error("Not Implement")
     }
-    async updateService(updatedService, originalName, changeService) {
+    async updateService(updatedService, originalName) {
         throw new Error("Not Implement")
     }
     async updateConfig(serviceName, environmentName, data, type = "TEXT") {
