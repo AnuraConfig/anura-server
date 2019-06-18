@@ -1,26 +1,15 @@
 import FileSystem from './FileSystem'
-import MongoManager from './Mongo'
+//import MongoManager from './Mongo'
 import DataManagerWrapper from './DataManagerWrapper'
-import configManager from '../constants/configs'
-import * as managerTypes from '../constants/managerTypes'
+import loadDataManagerPlugins from '../pluginLoader/dataManager'
 
 class DataManager {
     constructor() {
         this.manager = undefined
     }
     initializeDataManager = () => {
-        this.manager = new DataManagerWrapper(this._getDataConnector())
+        this.manager = new DataManagerWrapper(loadDataManagerPlugins()[0])
         return this.manager
-    }
-    _getDataConnector = () => {
-        switch (configManager.config.DATA_MANAGER.toUpperCase()) {
-            case (managerTypes.FILE_SYSTEM):
-                return FileSystem
-            case (managerTypes.MONGO):
-                return MongoManager
-            default:
-                return FileSystem
-        }
     }
 }
 

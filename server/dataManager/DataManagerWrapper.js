@@ -1,5 +1,6 @@
 import logger from '../utils/logger'
 import { getStateManager } from '../stateManager/socket'
+import configManager from '../constants/configs'
 
 //this.stateManager.emitChange(serviceName, environmentName)
 
@@ -7,7 +8,7 @@ export default class DataManagerWrapper {
     constructor(connector, customLogger = logger, stateManager = getStateManager()) {
         this.logger = customLogger
         this.connectorName = connector.getName()
-        this.connector = new connector({ log: this._log, stateManager })
+        this.connector = new connector({location: configManager.config.STORE_LOCATION, log: this._log, stateManager })
         this._log("initialize")
     }
     async createService({ name, description, environments }) {

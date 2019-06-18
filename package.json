@@ -35,12 +35,10 @@
     "react-dom": "^16.6.3",
     "react-router-dom": "^4.3.1",
     "react-toastify": "^4.5.1",
-    "rimraf": "^2.6.3",
     "socket.io": "^2.2.0",
     "socket.io-redis": "^5.2.0",
     "uuid": "^3.3.2",
-    "winston": "^3.2.1",
-    "yaml": "^1.2.0"
+    "winston": "^3.2.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
