@@ -1,4 +1,3 @@
-import FileSystem from './FileSystem'
 //import MongoManager from './Mongo'
 import DataManagerWrapper from './DataManagerWrapper'
 import loadDataManagerPlugins from '../pluginLoader/dataManager'
