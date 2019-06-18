@@ -1,3 +1,8 @@
+PLUGINS:
+   DATA_MANAGER:
+      -  R:\projects\Anura\plugins\anura-filesystem
+
+
 ## data manager to use
 DATA_MANAGER: 'FILE_SYSTEM'
 
