@@ -8,7 +8,7 @@ export default class DataManagerWrapper {
     constructor(connector, customLogger = logger, stateManager = getStateManager()) {
         this.logger = customLogger
         this.connectorName = connector.getName()
-        this.connector = new connector({location: configManager.config.DATA_MANAGER_CONFIG, log: this._log, stateManager })
+        this.connector = new connector({config: configManager.config.DATA_MANAGER_CONFIG, log: this._log, stateManager })
         this._log("initialize")
     }
     async createService({ name, description, environments }) {
