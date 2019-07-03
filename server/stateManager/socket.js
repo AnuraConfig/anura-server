@@ -11,9 +11,10 @@ class StateManager {
     }
     startUp() {
         this.logger.log({ message: "StateManager: Initialize ", level: "info" })
+        const logger = this.logger
         this.io.on('connection', function (socket) {
             const { serviceName, environment } = socket.request._query;
-            this.logger.log({ message: `StateManager: connect serviceName:${serviceName}, environment:${environment}`, level: "info" })
+            logger.log({ message: `StateManager: connect serviceName:${serviceName}, environment:${environment}`, level: "info" })
             const roomName = getRoomName(serviceName, environment)
             socket.join(roomName)
         });
