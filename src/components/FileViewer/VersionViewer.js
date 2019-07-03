@@ -77,7 +77,7 @@ class VersionViewer extends React.PureComponent {
         this.props.refetch()
     }
     mutationRendering = (data, error) => {
-        if (!data) return
+        if (!data || !this.state.edit) return
         if (data.updateConfig.success) {
             toast.success("update config")
             this.saveEdit()
