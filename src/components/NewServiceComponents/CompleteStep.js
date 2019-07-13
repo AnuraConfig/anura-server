@@ -9,7 +9,7 @@ class CompleteStep extends Component {
     render() {
         const { classes } = this.props
         return (
-            <Grid container spacing={24} className={classes.container}>
+            <Grid container spacing={8} className={classes.container}>
                 <Grid item xs={12} sm={6} className={classes.container}>
                     <Button variant="contained"
                         color="primary"

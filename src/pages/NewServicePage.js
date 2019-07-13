@@ -132,7 +132,7 @@ class NewServicePage extends React.Component {
         const { classes } = this.props
         const isNew = !this.props.service
         return (<div className={classes.root}>
-            <Grid container spacing={24}>
+            <Grid container spacing={8}>
                 <Grid item xs={12} sm={3}>
                     {this.state.serviceComplete ?
                         <React.Fragment>
