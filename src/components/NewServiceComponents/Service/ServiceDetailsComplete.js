@@ -18,7 +18,7 @@ class ServiceDetailsComplete extends React.Component {
                 <IconButton aria-label="Edit" className={classes.editButton} onClick={this.props.editService}>
                     <Edit fontSize="small" />
                 </IconButton>
-                <Typography className={classes.title} variant="headline" color="inherit" >
+                <Typography className={classes.title} variant="h3" color="inherit" >
                     {service.name}
                 </Typography>
                 <Typography className={classNames(classes.title, classes.description)} variant="subtitle1" color="inherit" paragraph>
