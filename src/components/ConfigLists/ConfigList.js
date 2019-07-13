@@ -55,9 +55,8 @@ class ConfigList extends React.Component {
                         </Typography>)
                         return (<List
                             className={classes.gridItem}
-                            component="nav"
-                            subheader={<ListSubheader className={classes.subheader} component="div">Your Services</ListSubheader>}
-                        >
+                            component="nav">
+                            <ListSubheader className={classes.subheader} component="div">Your Services</ListSubheader>
                             <AddItemListItem onClick={() => this.props.history.push('new-service')} text={"Add New Service"} />
                             <SearchContext.Consumer>
                                 {({ text }) => {

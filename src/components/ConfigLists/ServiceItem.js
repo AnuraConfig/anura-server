@@ -46,7 +46,7 @@ class ServiceItem extends React.Component {
                             <ListItemIcon>
                                 <Apps />
                             </ListItemIcon>
-                            <ListItemText inset primary={generateTitle(searchText, name)} secondary={generateTitle(searchText, description)} />
+                            <ListItemText  primary={generateTitle(searchText, name)} secondary={generateTitle(searchText, description)} />
                             {this.state.open ? <ExpandLess /> : <ExpandMore />}
                         </ListItem>
                         <EnvList open={this.state.open}

@@ -30,8 +30,8 @@ class EnvList extends React.Component {
                 unmountOnExit>
                 <List component="div"
                     className={classes.nested}
-                    disablePadding
-                    subheader={<ListSubheader component="div">Environments</ListSubheader>}>
+                    disablePadding>
+                    <ListSubheader component="div">Environments</ListSubheader>
                     <AddItemListItem
                         onClick={() => this.props.history.push(`new-environment?serviceName=${ServiceName}`)}
                         text={"Add New Environment"} />
@@ -43,7 +43,7 @@ class EnvList extends React.Component {
                                 <ListItemIcon>
                                     <Description />
                                 </ListItemIcon>
-                                <ListItemText inset primary={name} />
+                                <ListItemText  primary={name} />
                             </ListItem>))
                     }
                 </List>

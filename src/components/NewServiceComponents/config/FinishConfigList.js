@@ -32,7 +32,7 @@ class FinishConfigList extends React.Component {
                                         <Edit />
                                     </IconButton>
                                 </ListItemSecondaryAction>}
-                                <ListItemText inset primary={name} />
+                                <ListItemText  primary={name} />
                             </ListItem>))
                     }
                 </List>
