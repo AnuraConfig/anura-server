@@ -7,18 +7,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import VersionViewer from "./VersionViewer"
 import Loading from '../Common/Loading';
-
-const query = gql`
- query Env($serviceName: String, $envName: String){
-	getConfigs(serviceName: $serviceName, environment: $envName, raw: true){
-    name
-    configs {
-      data
-      type
-      version
-    }
-  }
-}`
+import { GET_CONFIGS } from '../../Constant/GqlQueries'
 
 const styles = theme => ({
   title: {
@@ -40,7 +29,7 @@ class FileViewer extends Component {
       <SelectFileContext.Consumer >
         {({ selectedService, selectedEnvironment }) => (
           <div className={"file_viewer " + this.getClassName(selectedService, selectedEnvironment)}>
-            {(selectedService && selectedEnvironment) && <Query query={query} variables={{ serviceName: selectedService, envName: selectedEnvironment }}>
+            {(selectedService && selectedEnvironment) && <Query query={GET_CONFIGS} variables={{ serviceName: selectedService, envName: selectedEnvironment }}>
               {({ loading, error, data, refetch }) => {
                 if (loading) return <Loading />
                 if (error) return (<Typography className={classes.title} variant="h6" color="inherit" noWrap>

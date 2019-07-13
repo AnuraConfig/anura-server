@@ -1,33 +1,12 @@
 import React from "react";
 import { withStyles } from '@material-ui/core/styles';
 import { Query } from "react-apollo";
-import gql from "graphql-tag";
 import queryString from "query-string"
 import NewServicePage from './NewServicePage'
 import { withRouter } from 'react-router-dom'
 import Loading from '../components/Common/Loading';
 import STEPS from '../utils/StepsEnum'
-
-const query = gql`
-query getService($serviceName: String){
-  service(serviceName: $serviceName, lastConfig: true){
-    name
-    description 
-    environments{
-      name
-      configs{
-        data
-        version
-        type
-        webHook{
-          url
-          method
-        }
-      }
-    }
-  }
-}`
-
+import {GET_SERVICE} from '../Constant/GqlQueries'
 
 const styles = theme => ({
     root: {
