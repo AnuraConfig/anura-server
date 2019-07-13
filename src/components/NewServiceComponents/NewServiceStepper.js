@@ -10,14 +10,14 @@ const styles = theme => ({
         margin: "1vh 0"
     },
     button: {
-        marginRight: theme.spacing.unit,
+        marginRight: theme.spacing(),
     },
     completed: {
         display: 'inline-block',
     },
     instructions: {
-        marginTop: theme.spacing.unit,
-        marginBottom: theme.spacing.unit,
+        marginTop: theme.spacing(),
+        marginBottom: theme.spacing(),
     },
 });
 
@@ -41,7 +41,7 @@ class NewServiceStepper extends React.Component {
                                     {label}
                                 </StepButton>
                             </Step>
-                        ); 
+                        );
                     })}
                 </Stepper>
             </div>

@@ -22,14 +22,14 @@ export const JsonEditorStyle = theme => ({
 export const DetailsWindow = theme => ({
     root,
     textField: {
-        marginLeft: theme.spacing.unit * 2,
-        marginRight: theme.spacing.unit * 2,
+        marginLeft: theme.spacing(2),
+        marginRight: theme.spacing(2),
     },
     nameField: {
         width: "70%"
     },
     title: {
-        margin: theme.spacing.unit * 2,
+        margin: theme.spacing(2),
         marginBottom: "0px"
     },
     requestType: {
@@ -49,17 +49,17 @@ export const DetailsWindow = theme => ({
 export const DetailsWindowComplete = theme => ({
     root,
     title: {
-        margin: theme.spacing.unit * 2,
+        margin: theme.spacing(2),
         marginBottom: "0px"
     },
     noWebHookTitle: {
-        margin: theme.spacing.unit * 2,
-        marginTop: theme.spacing.unit
+        margin: theme.spacing(2),
+        marginTop: theme.spacing(2)
     },
     webHookContainer: {
         overflowX: "auto",
         display: "flex",
-        margin: theme.spacing.unit * 2
+        margin: theme.spacing(2),
     },
     description: {
         wordBreak: "break-word",
@@ -70,7 +70,7 @@ export const DetailsWindowComplete = theme => ({
         marginTop: "13px"
     },
     chip: {
-        margin: theme.spacing.unit,
+        margin: theme.spacing(2)
     },
     editButton: {
         width: "45px",

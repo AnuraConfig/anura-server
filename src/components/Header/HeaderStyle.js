@@ -9,19 +9,19 @@ export default function (theme) {
             flexGrow: 1,
         },
         menuButton: {
-            color: '#fff',                        
+            color: '#fff',
             marginLeft: -12,
             marginRight: 20,
         },
         title: {
-            color: '#fff',            
+            color: '#fff',
             display: 'none',
             [theme.breakpoints.up('sm')]: {
                 display: 'block',
             },
         },
         search: {
-            color: '#fff',            
+            color: '#fff',
             position: 'relative',
             borderRadius: theme.shape.borderRadius,
             backgroundColor: fade(theme.palette.common.white, 0.15),
@@ -31,13 +31,13 @@ export default function (theme) {
             marginLeft: 0,
             width: '100%',
             [theme.breakpoints.up('sm')]: {
-                marginLeft: theme.spacing.unit,
+                marginLeft: theme.spacing(1),
                 width: 'auto',
             },
         },
         searchIcon: {
-            width: theme.spacing.unit * 9,
-            color: '#fff',                        
+            width: theme.spacing(9),
+            color: '#fff',
             height: '100%',
             position: 'absolute',
             pointerEvents: 'none',
@@ -50,10 +50,10 @@ export default function (theme) {
             width: '100%',
         },
         inputInput: {
-            paddingTop: theme.spacing.unit,
-            paddingRight: theme.spacing.unit,
-            paddingBottom: theme.spacing.unit,
-            paddingLeft: theme.spacing.unit * 10,
+            paddingTop: theme.spacing(1),
+            paddingRight: theme.spacing(1),
+            paddingBottom: theme.spacing(1),
+            paddingLeft: theme.spacing(10),
             transition: theme.transitions.create('width'),
             width: '100%',
             [theme.breakpoints.up('sm')]: {
