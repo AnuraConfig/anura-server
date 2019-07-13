@@ -11,7 +11,7 @@ import CompleteStep from '../components/NewServiceComponents/CompleteStep'
 import { toast } from 'react-toastify';
 import { withRouter } from 'react-router-dom'
 import STEPS from '../utils/StepsEnum'
-import { ADD_SERVICE, UPDATE_SERVICE } from '../../Constant/GqlQueries'
+import { ADD_SERVICE, UPDATE_SERVICE } from '../Constant/GqlQueries'
 
 const styles = theme => ({
     root: {
