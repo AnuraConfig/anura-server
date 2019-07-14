@@ -27,12 +27,12 @@ class FinishConfigList extends React.Component {
                                 <ListItemIcon>
                                     <Description />
                                 </ListItemIcon>
+                                <ListItemText  primary={name} />
                                 {this.props.isUpdate && <ListItemSecondaryAction>
                                     <IconButton aria-label="Edit" onClick={() => this.props.editConfig(key)}>
                                         <Edit />
                                     </IconButton>
                                 </ListItemSecondaryAction>}
-                                <ListItemText  primary={name} />
                             </ListItem>))
                     }
                 </List>
