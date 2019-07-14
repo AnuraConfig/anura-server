@@ -9,12 +9,20 @@ import { getMaxVersion, getMaxVersionIndex } from './VersionHelpers'
 import { ConfigSettingsContext } from '../../Context/Contexts'
 import EditActions from './EditActions'
 import { Mutation } from "react-apollo"
+import gql from "graphql-tag";
 import { toast } from 'react-toastify'
 import { VersionViewer as styles } from './styles'
 import '../Common/braceImport'
 import VersionTab from './VersionTab'
-import { UPDATE_CONFIG } from '../../Constant/GqlQueries'
 
+const UPDATE_CONFIG = gql`
+mutation updateConfig($serviceName:String!,$environmentName:String!,$data:String!,$type:String!){
+    updateConfig(serviceName:$serviceName,environmentName:$environmentName,data:$data,type:$type){
+    success,
+    error
+  }
+}
+`
 class VersionViewer extends React.PureComponent {
     constructor(props) {
         super(props)

@@ -13,7 +13,7 @@ import { withRouter } from 'react-router-dom'
 
 const styles = theme => ({
     nested: {
-        paddingLeft: theme.spacing(4),
+        paddingLeft: theme.spacing.unit * 4,
     },
 });
 
@@ -30,8 +30,8 @@ class EnvList extends React.Component {
                 unmountOnExit>
                 <List component="div"
                     className={classes.nested}
-                    disablePadding>
-                    <ListSubheader component="div">Environments</ListSubheader>
+                    disablePadding
+                    subheader={<ListSubheader component="div">Environments</ListSubheader>}>
                     <AddItemListItem
                         onClick={() => this.props.history.push(`new-environment?serviceName=${ServiceName}`)}
                         text={"Add New Environment"} />
@@ -43,7 +43,7 @@ class EnvList extends React.Component {
                                 <ListItemIcon>
                                     <Description />
                                 </ListItemIcon>
-                                <ListItemText  primary={name} />
+                                <ListItemText inset primary={name} />
                             </ListItem>))
                     }
                 </List>

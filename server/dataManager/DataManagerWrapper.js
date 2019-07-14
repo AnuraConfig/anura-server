@@ -17,10 +17,6 @@ export default class DataManagerWrapper {
         await this.connector.createService({ name, description, environments })
         await this.stateManager.emitChange(name, environments)
     }
-    async deleteService(serviceName) {
-        this._log(`delete service, serviceName:${serviceName}`)
-        await this.connector.deleteService(serviceName)
-    }
     async updateService(updatedService, originalName) {
         this._log(`update service, serviceName:${originalName}`)
         await this.connector.updateService(updatedService, originalName)

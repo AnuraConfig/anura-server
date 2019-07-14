@@ -33,7 +33,7 @@ class AddItemListItem extends Component {
                     <ListItemIcon classes={{ root: classes.listItemIcon }}>
                         <AddBox />
                     </ListItemIcon>
-                    <ListItemText  primary={text} classes={{ primary: classes.listItemText }} />
+                    <ListItemText inset primary={text} classes={{ primary: classes.listItemText }} />
                 </ListItem>
                 <Divider />
             </div>

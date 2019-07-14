@@ -30,9 +30,9 @@ class ServiceItem extends React.Component {
         open: false
     };
 
-    handleClick = (clickFile, selectedService) => {
+    handleClick = (clickFile) => {
         this.setState(state => ({ open: !state.open }));
-        clickFile(selectedService, "")
+        clickFile("", "")
     };
 
     render() {
@@ -42,11 +42,11 @@ class ServiceItem extends React.Component {
             <SelectFileContext.Consumer>
                 {({ clickFile, selectedService, selectedEnvironment }) => (
                     <div>
-                        <ListItem button onClick={() => this.handleClick(clickFile, name)}>
+                        <ListItem button onClick={() => this.handleClick(clickFile)}>
                             <ListItemIcon>
                                 <Apps />
                             </ListItemIcon>
-                            <ListItemText primary={generateTitle(searchText, name)} secondary={generateTitle(searchText, description)} />
+                            <ListItemText inset primary={generateTitle(searchText, name)} secondary={generateTitle(searchText, description)} />
                             {this.state.open ? <ExpandLess /> : <ExpandMore />}
                         </ListItem>
                         <EnvList open={this.state.open}
