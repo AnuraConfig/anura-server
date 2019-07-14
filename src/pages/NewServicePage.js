@@ -2,7 +2,6 @@ import React from "react";
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import { Mutation } from "react-apollo";
-import gql from "graphql-tag";
 import NewServiceStepper from '../components/NewServiceComponents/NewServiceStepper'
 import ServiceDetails from '../components/NewServiceComponents/Service/ServiceDetails'
 import ServiceDetailsComplete from '../components/NewServiceComponents/Service/ServiceDetailsComplete'
@@ -12,6 +11,7 @@ import CompleteStep from '../components/NewServiceComponents/CompleteStep'
 import { toast } from 'react-toastify';
 import { withRouter } from 'react-router-dom'
 import STEPS from '../utils/StepsEnum'
+import { ADD_SERVICE, UPDATE_SERVICE } from '../Constant/GqlQueries'
 
 const styles = theme => ({
     root: {
@@ -24,22 +24,6 @@ const styles = theme => ({
     }
 })
 
-
-const ADD_SERVICE = gql`
-mutation AddService($service:InputService!){
-  newService(service:$service){
-    success,
-    error
-  }
-}
-`
-const UPDATE_SERVICE = gql`
-mutation UpdateService($service:InputService!, $originalName:String!){
-  updateService(service:$service, originalName:$originalName){
-    success,
-    error
-  }
-}`
 
 
 function mapEnvironments(environments) {
@@ -132,7 +116,7 @@ class NewServicePage extends React.Component {
         const { classes } = this.props
         const isNew = !this.props.service
         return (<div className={classes.root}>
-            <Grid container spacing={24}>
+            <Grid container spacing={8}>
                 <Grid item xs={12} sm={3}>
                     {this.state.serviceComplete ?
                         <React.Fragment>
