@@ -1,6 +1,5 @@
 import React from 'react';
 import { Query } from "react-apollo";
-import gql from "graphql-tag";
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import ListSubheader from '@material-ui/core/ListSubheader';
@@ -13,17 +12,7 @@ import AddItemListItem from './AddItemListItem';
 import { withRouter } from 'react-router-dom'
 import LoadingError from "../Common/LoadingError";
 import Loading from '../Common/Loading';
-
-const query = gql`
-{
-  services  {
-    name
-    description 
-    environments {
-      name
-    }
-  }
-}`
+import { GET_SERVICE_LIST } from '../../Constant/GqlQueries'
 
 const styles = theme => ({
     gridItem: {
@@ -47,7 +36,7 @@ class ConfigList extends React.Component {
         const { classes } = this.props;
         return (
             <div className="config_list">
-                <Query query={query} fetchPolicy={'cache-and-network'}>
+                <Query query={GET_SERVICE_LIST} fetchPolicy={'cache-and-network'}>
                     {({ loading, error, data }) => {
                         if (loading) return <Loading />
                         if (error) return (<Typography className={classes.title} variant="h6" color="inherit" noWrap>
@@ -55,9 +44,8 @@ class ConfigList extends React.Component {
                         </Typography>)
                         return (<List
                             className={classes.gridItem}
-                            component="nav"
-                            subheader={<ListSubheader className={classes.subheader} component="div">Your Services</ListSubheader>}
-                        >
+                            component="nav">
+                            <ListSubheader className={classes.subheader} component="div">Your Services</ListSubheader>
                             <AddItemListItem onClick={() => this.props.history.push('new-service')} text={"Add New Service"} />
                             <SearchContext.Consumer>
                                 {({ text }) => {
