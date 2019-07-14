@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Query } from "react-apollo";
-import gql from "graphql-tag";
 import { SelectFileContext } from '../../Context/Contexts'
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
