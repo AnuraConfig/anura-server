@@ -79,3 +79,12 @@ query getGlobalVariable {
   getGlobalVariable
 }
 `
+
+export const UPDATE_GLOBAL_VARIABLE = gql`
+mutation UpdateGlobalVariable($globalVariable:String!){
+  updateGlobalVariable(globalVariable:$globalVariable){
+    success
+    error
+  }
+}
+`
