@@ -5,6 +5,7 @@ import newService from './Mutation/newServiceResolver'
 import updateConfig from './Mutation/updateConfigResolver'
 import updateService from './Mutation/updateServiceResolver'
 import deleteService from './Mutation/deleteServiceResolver'
+import updateGlobalVariable from './Mutation/updateGlobalVariable'
 
 const resolveFunctions = {
     Query: {
@@ -17,7 +18,8 @@ const resolveFunctions = {
         newService,
         deleteService,
         updateConfig,
-        updateService
+        updateService,
+        updateGlobalVariable
     }
 }
 export default resolveFunctions
