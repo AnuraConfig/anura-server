@@ -31,6 +31,16 @@ export default class DataManagerWrapper {
         await this.connector.updateConfig(serviceName, environmentName, data, type)
         await this.stateManager.emitChange(serviceName, environmentName)
     }
+    async updateGlobalVariable(globalVars) { //todo: change update global var to update only the relevant configs 
+        this._log(`update global variable`)
+        await this.connector.saveGlobalVariable(JSON.parse(globalVars))
+        const services = await this.connector.getAllEnv()
+        services.forEach(({ name, environments }) => {
+            environments.forEach((environments) => {
+                this.stateManager.emitChange(name, environments.name)
+            })
+        })
+    }
     async getService(serviceName, raw, lastConfig) {
         this._log(`get service, serviceName:${serviceName}`)
         return this.connector.getService(serviceName, raw, lastConfig)
@@ -39,9 +49,9 @@ export default class DataManagerWrapper {
         this._log(`get configs serviceName:${serviceName}, environmentName:${env}`)
         return this.connector.getConfig(serviceName, env, raw)
     }
-    async getConfigs(serviceName, env, raw) {
+    async getConfigs(serviceName, env, raw, lastConfig = false) {
         this._log(`get configs serviceName:${serviceName}, environmentName:${env}`)
-        return this.connector.getConfigs(serviceName, env, raw)
+        return this.connector.getConfigs(serviceName, env, raw, lastConfig)
     }
     async getAllEnv() {
         this._log(`get all environment`)
