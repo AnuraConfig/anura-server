@@ -73,3 +73,9 @@ mutation UpdateService($service:InputService!, $originalName:String!){
     error
   }
 }`
+
+export const GET_GLOBAL_VAR = gql`
+query getGlobalVariable {
+  getGlobalVariable
+}
+`
