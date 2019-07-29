@@ -41,6 +41,10 @@ export default class DataManagerWrapper {
             })
         })
     }
+    async getGlobalVariable() {
+        this._log(`get global variable`)
+        return JSON.stringify(await this.connector.getGlobalVariable())
+    }
     async getService(serviceName, raw, lastConfig) {
         this._log(`get service, serviceName:${serviceName}`)
         return this.connector.getService(serviceName, raw, lastConfig)
