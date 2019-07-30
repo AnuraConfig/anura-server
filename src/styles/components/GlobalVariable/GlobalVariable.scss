@@ -1,0 +1,14 @@
+.global-config-table {
+  width: 100vw;
+  height: 100vh;
+  padding-top: 30px;
+}
+
+.config-table {
+  width: 80%;
+  min-width: 800px;
+  margin: auto;
+  max-height: 80vh;
+  overflow-y: auto;
+  padding: 10px;
+}
