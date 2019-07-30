@@ -1,12 +1,13 @@
-import React, { Component } from 'react';
-import Header from './components/Header/Header';
+import React, { Component } from 'react'
+import Header from './components/Header/Header'
 import SettingsDialog from './components/Common/SettingsDialog'
-import MainPage from './pages/MainPage';
-import NewServicePage from './pages/NewServicePage';
+import MainPage from './pages/MainPage'
+import GlobalVariable from './pages/GlobalConfig'
+import NewServicePage from './pages/NewServicePage'
 import NewEnvironmentsPage from './pages/NewEnvironmentsPage'
 import { ToastContainer } from 'react-toastify';
-import { HashRouter as Router, Route, Switch } from "react-router-dom";
-import 'react-toastify/dist/ReactToastify.css';
+import { HashRouter as Router, Route, Switch } from "react-router-dom"
+import 'react-toastify/dist/ReactToastify.css'
 import "./styles/index.scss";
 import './App.css'
 
@@ -21,6 +22,7 @@ class App extends Component {
               <Route path="/" exact component={MainPage} />
               <Route path="/new-service" component={NewServicePage} />
               <Route path="/new-environment" component={NewEnvironmentsPage} />
+              <Route path="/global-variable" component={GlobalVariable} />
             </Switch>
             <SettingsDialog />
           </div>
