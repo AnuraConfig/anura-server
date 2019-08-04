@@ -60,6 +60,7 @@ type Mutation {
     newService(service:InputService!): BasicResponse!
     deleteService(serviceName: String!): BasicResponse!
     updateGlobalVariable(globalVariable: String!): BasicResponse!
+    updateGlobalSingleVariable(key: String!, value: String!): BasicResponse!
     updateConfig(serviceName: String!, environmentName: String!, data: String!, type:String): BasicResponse!
     updateService(service:InputService!, originalName:String!): BasicResponse!
 }
