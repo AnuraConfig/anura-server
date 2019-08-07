@@ -9,10 +9,20 @@
   justify-content: space-between;
   align-items: center;
 
+  &__left {
+    height: 4rem;
+    display: flex;
+  }
+
   &__title {
     color: $white-color;
     font-size: 2.4rem;
     margin-left: 1vw;
+    outline: 0px;
+  }
+
+  &__title:focus {
+    border-bottom: solid;
   }
 
   &__logo {
@@ -30,4 +40,28 @@
       }
     }
   }
+}
+
+.header-menu {
+  display: flex;
+  width: 300px;
+  justify-content: space-around;
+  margin-top: 10px;
+  margin-left: 100px;
+}
+
+.header-item {
+  color: #fff;
+  cursor: pointer;
+  padding: 4px 8px;
+  font-size: 20px;
+}
+
+.header-item:hover,
+.header-item:focus {
+  border: solid 0.5px #fff;
+  outline: 0px;
+  height: fit-content;
+  width: fit-content;
+  border-radius: 8px;
 }
