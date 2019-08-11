@@ -39,7 +39,6 @@ class GlobalVariable extends Component {
 
   handleUpdate = (cache, res) => {
     const data = res ? res.data.updateGlobalVariable : {}
-    console.log("data", data)
     if (data.error) toast.error("Failed to save Global-Config")
     if (data.success) {
       toast.success("Saved Global Config")

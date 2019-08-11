@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import logger from '../utils/logger'
 import { getStateManager } from '../stateManager/socket'
 import configManager from '../constants/configs'
@@ -34,12 +35,13 @@ export default class DataManagerWrapper {
     async updateGlobalVariable(globalVars) { //todo: change update global var to update only the relevant configs 
         this._log(`update global variable`)
         await this.connector.saveGlobalVariable(JSON.parse(globalVars))
-        const services = await this.connector.getAllEnv()
-        services.forEach(({ name, environments }) => {
-            environments.forEach((environments) => {
-                this.stateManager.emitChange(name, environments.name)
-            })
-        })
+        this._update_all_services()
+    }
+    async updateGlobalSingleVariable(key, value) {
+        this._log(`update global single variable, key:${key} value:${value}`)
+        const globalVariable = _.cloneDeep(await this.connector.getGlobalVariable())
+        await this.connector.saveGlobalVariable(Object.assign(globalVariable, { [key]: value }))
+        this._update_all_services()
     }
     async getGlobalVariable() {
         this._log(`get global variable`)
@@ -63,5 +65,13 @@ export default class DataManagerWrapper {
     }
     _log = (message, level = "info") => {
         this.logger.log({ message: `${this.connectorName} Manger: ${message} `, level })
+    }
+    _update_all_services = async () => {
+        const services = await this.connector.getAllEnv()
+        services.forEach(({ name, environments }) => {
+            environments.forEach((environments) => {
+                this.stateManager.emitChange(name, environments.name)
+            })
+        })
     }
 }

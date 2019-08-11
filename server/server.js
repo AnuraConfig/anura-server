@@ -14,12 +14,15 @@ import dataManager from './dataManager/index'
 import devArguments from './devArguments'
 import path from 'path'
 import logger from './utils/logger'
+import dataMangerRouter from './routes/api'
+
+const dataSources = () => dataManager.manager
 
 const server = new ApolloServer({
   typeDefs,
   resolvers,
   cors: true,
-  dataSources: () => dataManager.manager
+  dataSources
 })
 
 const app = express()
@@ -33,6 +36,7 @@ app.use(express.static(path.join(__dirname, '../build')))
 app.use(cors())
 app.use(bodyParser.json())
 app.use('/stats', stats)
+app.use('/api', dataMangerRouter(dataSources))
 
 //is alive 
 app.get('/meaningOfLife', (req, res) => {
