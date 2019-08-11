@@ -1,6 +1,6 @@
 PLUGINS:
    DATA_MANAGER:
-      -  anura-filesystem
+      -  D:\projects\anura\anura-filesystem  
 
 
 ## data manager to use
