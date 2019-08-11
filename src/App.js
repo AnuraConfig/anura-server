@@ -5,6 +5,7 @@ import MainPage from './pages/MainPage'
 import GlobalVariable from './pages/GlobalConfig'
 import NewServicePage from './pages/NewServicePage'
 import NewEnvironmentsPage from './pages/NewEnvironmentsPage'
+import WorkInProgress from './pages/general/WorkInProgress'
 import { ToastContainer } from 'react-toastify';
 import { HashRouter as Router, Route, Switch } from "react-router-dom"
 import 'react-toastify/dist/ReactToastify.css'
@@ -23,8 +24,10 @@ class App extends Component {
               <Route path="/new-service" component={NewServicePage} />
               <Route path="/new-environment" component={NewEnvironmentsPage} />
               <Route path="/global-variable" component={GlobalVariable} />
+              <Route path="/status" component={WorkInProgress} />
+              <Route path="/docs" component={WorkInProgress} />
             </Switch>
-            <SettingsDialog />
+            <SettingsDialog />  
           </div>
         </Router>
         <ToastContainer position={"bottom-left"} />
