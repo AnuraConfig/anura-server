@@ -1,10 +1,12 @@
 import React from 'react'
 import MaterialTable from 'material-table'
+import tableIcons from './MaterialIcons'
 
 export default function GlobalConfigTable({ columns, data, isSaved, updateData, isLoading }) {
   return (
     <div className="config-table">
       <MaterialTable
+        icons={tableIcons}
         isLoading={isLoading}
         title="Global Configs"
         columns={columns}
