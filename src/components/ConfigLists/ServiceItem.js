@@ -14,7 +14,7 @@ const HIGHLIGHT_STYLE = { backgroundColor: "yellow" }
 
 
 function generateTitle(heightLightText, text) {
-    if (!heightLightText) return text
+    if (!heightLightText || !text) return text
     let splitText = text.split(new RegExp(`(${heightLightText})`, 'gi'))
     if (splitText.length === 1) return text
     return (<div>

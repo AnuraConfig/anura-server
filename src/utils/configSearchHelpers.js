@@ -4,7 +4,7 @@ const DESCRIPTION_MULTIPLAYER = 1;
 export function configFilter(text) {
     return function ({ name, description }) {
         if (!text) return true
-        return (name.indexOf(text) !== -1 || description.indexOf(text) !== -1)
+        return (name.indexOf(text) !== -1 || (description || "").indexOf(text) !== -1)
     }
 }
 
