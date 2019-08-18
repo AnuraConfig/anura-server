@@ -9,6 +9,7 @@ if (!fs.existsSync(logDir)) {
 export default {
     STORE_LOCATION: path.join(__dirname, '../'),
     LOG: {
-        LOG_FILE: path.join(__dirname, '../log/logs.log')
+        LOG_FILE: path.join(__dirname, '../log/logs.log'),
+        ERROR_LOG_FILE: path.join(__dirname, '../log/error.log'),
     }
 }

@@ -1,3 +1,10 @@
+import logger from '../../utils/logger'
+
 export default function (root, args, ctx, info) {
-    return ctx.dataSources.getService(args.serviceName, args.raw, args.lastConfig)
+    try {
+        return ctx.dataSources.getService(args.serviceName, args.raw, args.lastConfig)
+    } catch (e) {
+        logger.log({ level: "error", message: e.message })
+        throw e
+    }
 }
