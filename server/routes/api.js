@@ -44,7 +44,7 @@ export default (getDataManager) => {
 
 
   router.post('/new-service', (req, res) => {
-    const Service = req.body
+    const service = req.body
     getDataManager().createService(service)
       .then(() => res.send({ success: true }))
       .catch(sendError(res))
@@ -52,7 +52,7 @@ export default (getDataManager) => {
 
   router.post('/update-all-global-variable', (req, res) => {
     const newGlobalVariable = req.body
-    getDataManager().updateGlobalVariable(globalVariable)
+    getDataManager().updateGlobalVariable(newGlobalVariable)
       .then(() => res.send({ success: true }))
       .catch(sendError(res))
   })

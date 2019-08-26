@@ -1,3 +1,10 @@
+import logger from '../../utils/logger'
+
 export default function (root, args, ctx, info) {
-    return ctx.dataSources.getAllEnv()
+    try {
+        return ctx.dataSources.getAllEnv()
+    } catch (e) {
+        logger.log({ level: "error", message: e.message })
+        throw e
+    }
 }
