@@ -1,6 +1,6 @@
 PLUGINS:
    DATA_MANAGER:
-      -  D:\projects\anura\anura-filesystem  
+      -  anura-filesystem  
 
 
 ## data manager to use
@@ -12,7 +12,7 @@ DATA_MANAGER_CONFIG:
    MONGO_STORE: 'mongodb://localhost:27017/test'
    #==========================
    ##FileSystem DataManager Options
-   STORE_LOCATION: "C:/"
+   STORE_LOCATION: "./"
 
 #where anura will save the file
 #STORE_LOCATION: default to your base folder (where this config is)
@@ -27,6 +27,8 @@ LOG:
 #   ERROR_LOG_FILE:
 
 PUB_SUB:
-  #TYPE: "redis"
-  #HOST: "redis://localhost:6379"
-  TYPE: "none"
+  TYPE: "REDIS"
+  HOST: 
+    host: 192.168.188.1
+    port: 6379
+  #TYPE: "none"
