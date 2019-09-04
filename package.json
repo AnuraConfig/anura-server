@@ -49,6 +49,7 @@
     "babel-preset-stage-0": "^6.24.1",
     "body-parser": "^1.18.3",
     "chai": "^4.2.0",
+    "concurrently": "^4.1.2",
     "mocha": "^5.2.0",
     "node-sass": "^4.11.0",
     "nodemon": "^1.18.9",
@@ -56,7 +57,8 @@
     "react-scripts": "^2.1.5"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "concurrently \"npm run start-client\" \"npm run start-server\"",
+    "start-client": "react-scripts start",
     "build-client": "react-scripts build",
     "test": "mocha --timeout 20000 --require babel-register --require babel-polyfill --recursive ./test --exit  ",
     "test-watch": "mocha --timeout 60000 --require babel-register --require babel-polyfill --recursive ./test --watch",
