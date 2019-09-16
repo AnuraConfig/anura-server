@@ -1,1 +1,1 @@
-export const REDIS = "REDIS";
+export const REDIS = "redis"
