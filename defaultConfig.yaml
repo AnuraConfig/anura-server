@@ -27,8 +27,8 @@ LOG:
 #   ERROR_LOG_FILE:
 
 PUB_SUB:
-  TYPE: "REDIS"
-  HOST: 
-    host: 192.168.188.1
-    port: 6379
+  TYPE: "redis"
+  host: 127.0.0.1
+  port: 6379
+  auth_pass: "test"
   #TYPE: "none"
