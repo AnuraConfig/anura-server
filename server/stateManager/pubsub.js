@@ -1,11 +1,13 @@
-import configManager from '../constants/configs';
-import * as pubsubTypes from '../constants/pubsubTypes';
-import redisAdaptor from 'socket.io-redis';
+import configManager from '../constants/configs'
+import * as pubsubTypes from '../constants/pubsubTypes'
+import initializeRedisAdapter from './redisAdapter'
+
 
 export function initializePubsub(io) {
-    switch(configManager.config.PUB_SUB.TYPE) {
-        case(pubsubTypes.REDIS):
-            io.adapter(redisAdaptor(configManager.config.PUB_SUB.HOST))
+    if (!configManager.config.PUB_SUB.TYPE) return
+    switch (configManager.config.PUB_SUB.TYPE.toLowerCase()) {
+        case (pubsubTypes.REDIS):
+            initializeRedisAdapter(io, configManager.config.PUB_SUB)
             break
         default:
             break
