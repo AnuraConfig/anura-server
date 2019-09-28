@@ -1,6 +1,6 @@
-import React from 'react'
-import MaterialTable from 'material-table'
-import tableIcons from './MaterialIcons'
+import React from 'react';
+import MaterialTable from 'material-table';
+import tableIcons from './MaterialIcons';
 
 export default function GlobalConfigTable({ columns, data, isSaved, updateData, isLoading }) {
   return (
@@ -12,22 +12,22 @@ export default function GlobalConfigTable({ columns, data, isSaved, updateData, 
         columns={columns}
         data={data}
         options={{
-          rowStyle: isSaved
+          rowStyle: isSaved,
         }}
         editable={{
-          onRowAdd: async (row) => {
-            updateData([...data, { ...row, count: "UnKnown" }])
+          onRowAdd: async row => {
+            updateData([...data, { ...row, count: 'UnKnown' }]);
           },
           onRowUpdate: async (row, { tableData: { id } }) => {
-            const newData = [...data]
-            newData[id] = row
-            updateData(newData)
+            const newData = [...data];
+            newData[id] = row;
+            updateData(newData);
           },
           onRowDelete: async ({ tableData: { id } }) => {
-            const newData = [...data]
-            newData[id].splice(id, 1)
-            updateData(newData)
-          }
+            const newData = [...data];
+            newData[id].splice(id, 1);
+            updateData(newData);
+          },
         }}
       />
     </div>
