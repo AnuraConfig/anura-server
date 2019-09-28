@@ -8,13 +8,13 @@ export default class ConfigContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      configFile: (props.config ? props.config.configFile : undefined) || INIT_CONFIG,
+      configFile: (props.config ? props.config.configFile : undefined) || INIT_CONFIG
     };
   }
 
   updateConfig = config => {
     this.setState({
-      configFile: config,
+      configFile: config
     });
   };
 
@@ -22,7 +22,7 @@ export default class ConfigContainer extends Component {
     // no config error
     this.props.addConfigCallback({
       ...config,
-      configFile: this.state.configFile,
+      configFile: this.state.configFile
     });
     this.setState({ configFile: {} });
   };

@@ -3,22 +3,22 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
 export default function(theme) {
   return {
     root: {
-      width: '100%',
+      width: '100%'
     },
     grow: {
-      flexGrow: 1,
+      flexGrow: 1
     },
     menuButton: {
       color: '#fff',
       marginLeft: -12,
-      marginRight: 20,
+      marginRight: 20
     },
     title: {
       color: '#fff',
       display: 'none',
       [theme.breakpoints.up('sm')]: {
-        display: 'block',
-      },
+        display: 'block'
+      }
     },
     search: {
       color: '#fff',
@@ -26,14 +26,14 @@ export default function(theme) {
       borderRadius: theme.shape.borderRadius,
       backgroundColor: fade(theme.palette.common.white, 0.15),
       '&:hover': {
-        backgroundColor: fade(theme.palette.common.white, 0.25),
+        backgroundColor: fade(theme.palette.common.white, 0.25)
       },
       marginLeft: 0,
       width: '100%',
       [theme.breakpoints.up('sm')]: {
         marginLeft: theme.spacing(1),
-        width: 'auto',
-      },
+        width: 'auto'
+      }
     },
     searchIcon: {
       width: theme.spacing(9),
@@ -43,11 +43,11 @@ export default function(theme) {
       pointerEvents: 'none',
       display: 'flex',
       alignItems: 'center',
-      justifyContent: 'center',
+      justifyContent: 'center'
     },
     inputRoot: {
       color: 'inherit',
-      width: '100%',
+      width: '100%'
     },
     inputInput: {
       paddingTop: theme.spacing(1),
@@ -59,9 +59,9 @@ export default function(theme) {
       [theme.breakpoints.up('sm')]: {
         width: 120,
         '&:focus': {
-          width: 200,
-        },
-      },
-    },
+          width: 200
+        }
+      }
+    }
   };
 }

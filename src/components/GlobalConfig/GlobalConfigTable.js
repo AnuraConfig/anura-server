@@ -12,7 +12,7 @@ export default function GlobalConfigTable({ columns, data, isSaved, updateData, 
         columns={columns}
         data={data}
         options={{
-          rowStyle: isSaved,
+          rowStyle: isSaved
         }}
         editable={{
           onRowAdd: async row => {
@@ -27,7 +27,7 @@ export default function GlobalConfigTable({ columns, data, isSaved, updateData, 
             const newData = [...data];
             newData[id].splice(id, 1);
             updateData(newData);
-          },
+          }
         }}
       />
     </div>

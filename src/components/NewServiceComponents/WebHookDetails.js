@@ -43,7 +43,7 @@ class WebHookDetails extends React.Component {
 }
 
 WebHookDetails.propTypes = {
-  classes: PropTypes.object,
+  classes: PropTypes.object
 };
 
 export default withStyles(styles)(WebHookDetails);

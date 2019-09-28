@@ -40,7 +40,7 @@ class CompleteStep extends Component {
 }
 
 CompleteStep.propTypes = {
-  classes: PropTypes.object,
+  classes: PropTypes.object
 };
 
 export default withStyles(styles)(CompleteStep);

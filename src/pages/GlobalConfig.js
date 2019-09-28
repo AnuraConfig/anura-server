@@ -10,13 +10,13 @@ import '../styles/components/GlobalVariable/GlobalVariable.scss';
 const columns = [
   { title: 'Key', field: 'key' },
   { title: 'Value', field: 'value' },
-  { title: 'Reference Count', field: 'count', editable: 'never' },
+  { title: 'Reference Count', field: 'count', editable: 'never' }
 ];
 
 const styles = () => ({
   saveButton: {
-    marginLeft: '10%',
-  },
+    marginLeft: '10%'
+  }
 });
 
 class GlobalVariable extends Component {
@@ -28,7 +28,7 @@ class GlobalVariable extends Component {
     return Object.entries(JSON.parse(data.getGlobalVariable)).map(([key, value]) => ({
       key,
       value,
-      count: 'UnKnown',
+      count: 'UnKnown'
     }));
   };
 

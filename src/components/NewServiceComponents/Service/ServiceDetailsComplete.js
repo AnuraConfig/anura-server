@@ -59,7 +59,7 @@ class ServiceDetailsComplete extends React.Component {
 }
 
 ServiceDetailsComplete.propTypes = {
-  classes: PropTypes.object,
+  classes: PropTypes.object
 };
 
 export default withStyles(styles)(ServiceDetailsComplete);

@@ -21,15 +21,15 @@ const styles = theme => ({
     flexDirection: 'column',
     justifyContent: 'space-between',
     width: '90%',
-    margin: '0 auto',
-  },
+    margin: '0 auto'
+  }
 });
 
 function mapEnvironments(environments) {
   return environments.map(env => ({
     name: env.name,
     type: env.configs[0].type,
-    configFile: env.configs[0].data,
+    configFile: env.configs[0].data
   }));
 }
 
@@ -43,7 +43,7 @@ class NewServicePage extends React.Component {
       currentConfig: {},
       configs: [],
       step: STEPS.serviceDetails,
-      ...stateFromProps,
+      ...stateFromProps
     };
   }
 
@@ -59,7 +59,7 @@ class NewServicePage extends React.Component {
     this.setState(p => ({
       editedID: key,
       currentConfig: p.configs[key],
-      step: STEPS.configDetails,
+      step: STEPS.configDetails
     }));
   };
 
@@ -86,7 +86,7 @@ class NewServicePage extends React.Component {
 
   addEnvironment = () => {
     this.setState({
-      step: STEPS.configDetails,
+      step: STEPS.configDetails
     });
   };
 
@@ -96,9 +96,9 @@ class NewServicePage extends React.Component {
         name: i.name,
         config: {
           data: i.configFile,
-          type: i.type,
-        },
-      })),
+          type: i.type
+        }
+      }))
     };
   };
 
@@ -156,7 +156,7 @@ class NewServicePage extends React.Component {
                       addEnvironment={this.addEnvironment}
                       complete={() => {
                         const variables = {
-                          service: { ...service, ...this.getConfigs() },
+                          service: { ...service, ...this.getConfigs() }
                         };
                         if (!isNew) variables.originalName = this.props.service.name;
                         action({ variables });

@@ -11,17 +11,17 @@ import App from './App';
 import ContextProvider from './Context/ContextProvider';
 
 const client = new ApolloClient({
-  uri: '/graphql',
+  uri: '/graphql'
 });
 
 const theme = createMuiTheme({
   palette: {
     primary: green,
-    secondary: pink,
+    secondary: pink
   },
   typography: {
-    useNextVariants: true,
-  },
+    useNextVariants: true
+  }
 });
 ReactDOM.render(
   <MuiThemeProvider theme={theme}>
@@ -31,7 +31,7 @@ ReactDOM.render(
       </ContextProvider>
     </ApolloProvider>
   </MuiThemeProvider>,
-  document.getElementById('root'),
+  document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change

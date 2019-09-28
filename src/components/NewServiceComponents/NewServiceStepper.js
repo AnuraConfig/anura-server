@@ -7,18 +7,18 @@ import StepButton from '@material-ui/core/StepButton';
 
 const styles = theme => ({
   root: {
-    margin: '1vh 0',
+    margin: '1vh 0'
   },
   button: {
-    marginRight: theme.spacing(),
+    marginRight: theme.spacing()
   },
   completed: {
-    display: 'inline-block',
+    display: 'inline-block'
   },
   instructions: {
     marginTop: theme.spacing(),
-    marginBottom: theme.spacing(),
-  },
+    marginBottom: theme.spacing()
+  }
 });
 
 function getSteps() {
@@ -47,7 +47,7 @@ class NewServiceStepper extends React.Component {
 }
 
 NewServiceStepper.propTypes = {
-  classes: PropTypes.object,
+  classes: PropTypes.object
 };
 
 export default withStyles(styles)(NewServiceStepper);

@@ -13,8 +13,8 @@ import AddItemListItem from './AddItemListItem';
 
 const styles = theme => ({
   nested: {
-    paddingLeft: theme.spacing(4),
-  },
+    paddingLeft: theme.spacing(4)
+  }
 });
 
 class EnvList extends React.Component {
@@ -52,7 +52,7 @@ class EnvList extends React.Component {
 }
 
 EnvList.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
 export default withRouter(withStyles(styles)(EnvList));

@@ -11,7 +11,7 @@ const updateApolloCache = (selectedService, clickFile) => (cache, result) => {
     const { services } = cache.readQuery({ query: GET_SERVICE_LIST });
     cache.writeQuery({
       query: GET_SERVICE_LIST,
-      data: { services: services.filter(s => s.name !== selectedService) },
+      data: { services: services.filter(s => s.name !== selectedService) }
     });
     toast.success('service deleted');
     clickFile('', '');

@@ -10,15 +10,15 @@ const styles = theme => ({
   listItem: {
     backgroundColor: theme.palette.primary.main,
     '&:hover': {
-      backgroundColor: 'rgba(0, 0, 0, 0.35)',
-    },
+      backgroundColor: 'rgba(0, 0, 0, 0.35)'
+    }
   },
   listItemIcon: {
-    color: theme.palette.secondary.contrastText,
+    color: theme.palette.secondary.contrastText
   },
   listItemText: {
-    color: theme.palette.secondary.contrastText,
-  },
+    color: theme.palette.secondary.contrastText
+  }
 });
 
 class AddItemListItem extends Component {

@@ -13,13 +13,13 @@ class ServiceDetails extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      ...props.service,
+      ...props.service
     };
   }
 
   handleChange = name => event => {
     this.setState({
-      [name]: event.target.value,
+      [name]: event.target.value
     });
   };
 
@@ -29,7 +29,7 @@ class ServiceDetails extends React.Component {
 
   webHookUpdate = value => {
     this.setState({
-      webHook: value,
+      webHook: value
     });
   };
 
@@ -78,7 +78,7 @@ class ServiceDetails extends React.Component {
 }
 
 ServiceDetails.propTypes = {
-  classes: PropTypes.object,
+  classes: PropTypes.object
 };
 
 export default withStyles(styles)(ServiceDetails);

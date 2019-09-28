@@ -15,16 +15,16 @@ export default (selectedService, selectedEnvironment) =>
       marginTop: '2.5%',
       top: '15%',
       transition: '1s',
-      left: getPosition(selectedService, selectedEnvironment),
+      left: getPosition(selectedService, selectedEnvironment)
     },
     title: {
-      fontSize: 14,
+      fontSize: 14
     },
     pos: {
-      marginBottom: 12,
+      marginBottom: 12
     },
     actions: {
       position: 'absolute',
-      bottom: 0,
-    },
+      bottom: 0
+    }
   });

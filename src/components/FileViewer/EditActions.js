@@ -15,7 +15,7 @@ class EditActions extends Component {
       envName,
       toggleMenu,
       changeSettings,
-      type,
+      type
     } = this.props;
     return (
       <div>
@@ -46,7 +46,7 @@ class EditActions extends Component {
               serviceName,
               environmentName: envName,
               data: changeData,
-              type,
+              type
             };
             updateConfig({ variables });
           }}

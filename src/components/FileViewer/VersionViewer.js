@@ -25,7 +25,7 @@ class VersionViewer extends React.PureComponent {
       maxVersion,
       value,
       changeData: props.configs[value].data,
-      type: props.configs[value].type,
+      type: props.configs[value].type
     };
   }
 
@@ -38,7 +38,7 @@ class VersionViewer extends React.PureComponent {
         value,
         edit: false,
         changeData: this.props.configs[value].data,
-        type: this.props.configs[value].type,
+        type: this.props.configs[value].type
       });
     }
   }
@@ -46,20 +46,20 @@ class VersionViewer extends React.PureComponent {
   handleChange = (event, value) => {
     this.setState({
       value,
-      changeData: this.props.configs[value].data,
+      changeData: this.props.configs[value].data
     });
   };
 
   setEditMode = index => {
     this.setState({
       edit: true,
-      changeData: this.props.configs[index].data,
+      changeData: this.props.configs[index].data
     });
   };
 
   cancelUpdate = () => {
     this.setState({
-      edit: false,
+      edit: false
     });
   };
 
@@ -145,7 +145,7 @@ class VersionViewer extends React.PureComponent {
 }
 
 VersionViewer.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(VersionViewer);

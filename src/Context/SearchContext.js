@@ -3,7 +3,7 @@ import { SearchContext } from './Contexts';
 
 export default class SearchContextProvider extends Component {
   state = {
-    searchText: '',
+    searchText: ''
   };
 
   changeText = text => this.setState({ searchText: text });
@@ -11,7 +11,7 @@ export default class SearchContextProvider extends Component {
   render() {
     const value = {
       text: this.state.searchText,
-      changeText: this.changeText,
+      changeText: this.changeText
     };
     return <SearchContext.Provider value={value}>{this.props.children}</SearchContext.Provider>;
   }

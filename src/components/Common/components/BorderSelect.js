@@ -13,9 +13,9 @@ const styles = theme => ({
   formControl: {
     marginTop: '2vh',
     marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2),
+    marginRight: theme.spacing(2)
   },
-  root: {},
+  root: {}
 });
 
 function transformOptions(options) {
@@ -27,12 +27,12 @@ function transformOptions(options) {
 
 class BorderSelect extends React.Component {
   state = {
-    labelWidth: 0,
+    labelWidth: 0
   };
 
   componentDidMount() {
     this.setState({
-      labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth,
+      labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth
     });
   }
 
@@ -72,7 +72,7 @@ BorderSelect.propTypes = {
   value: PropTypes.any,
   name: PropTypes.string.isRequired,
   options: PropTypes.array.isRequired,
-  handleChange: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired
 };
 
 export default withStyles(styles)(BorderSelect);

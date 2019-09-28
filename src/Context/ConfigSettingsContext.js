@@ -4,9 +4,9 @@ import { ConfigSettingsContext } from './Contexts';
 export default class ConfigSettingsContextProvider extends Component {
   state = {
     settings: {
-      type: 'JSON',
+      type: 'JSON'
     },
-    open: false,
+    open: false
   };
 
   changeSettings = data => {
@@ -21,7 +21,7 @@ export default class ConfigSettingsContextProvider extends Component {
     const value = {
       ...this.state,
       changeSettings: this.changeSettings,
-      toggleMenu: this.toggleMenu,
+      toggleMenu: this.toggleMenu
     };
     return (
       <ConfigSettingsContext.Provider value={value}>

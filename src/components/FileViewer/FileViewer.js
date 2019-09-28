@@ -10,8 +10,8 @@ import { GET_CONFIGS } from '../../Constant/GqlQueries';
 
 const styles = theme => ({
   title: {
-    padding: '30px',
-  },
+    padding: '30px'
+  }
 });
 
 class FileViewer extends Component {
@@ -60,7 +60,7 @@ class FileViewer extends Component {
 }
 
 FileViewer.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(FileViewer);

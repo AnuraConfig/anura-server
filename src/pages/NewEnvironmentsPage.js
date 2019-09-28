@@ -15,8 +15,8 @@ const styles = theme => ({
     flexDirection: 'column',
     justifyContent: 'space-between',
     width: '90%',
-    margin: '0 auto',
-  },
+    margin: '0 auto'
+  }
 });
 
 class NewEnvironmentsPage extends React.Component {

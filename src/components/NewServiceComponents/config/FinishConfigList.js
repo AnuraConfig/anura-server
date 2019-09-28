@@ -45,7 +45,7 @@ class FinishConfigList extends React.Component {
 }
 
 FinishConfigList.propTypes = {
-  classes: PropTypes.object,
+  classes: PropTypes.object
 };
 
 export default withStyles(styles)(FinishConfigList);

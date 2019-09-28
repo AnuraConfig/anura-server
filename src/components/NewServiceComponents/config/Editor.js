@@ -39,7 +39,7 @@ class Editor extends React.Component {
 }
 
 Editor.propTypes = {
-  classes: PropTypes.object,
+  classes: PropTypes.object
 };
 
 export default withStyles(styles)(Editor);

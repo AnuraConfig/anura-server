@@ -14,13 +14,13 @@ class ConfigDetails extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      ...props.config,
+      ...props.config
     };
   }
 
   handleChange = name => event => {
     this.setState({
-      [name]: event.target.value,
+      [name]: event.target.value
     });
   };
 
@@ -30,7 +30,7 @@ class ConfigDetails extends React.Component {
 
   webHookUpdate = value => {
     this.setState({
-      webHook: value,
+      webHook: value
     });
   };
 
@@ -81,7 +81,7 @@ class ConfigDetails extends React.Component {
 }
 
 ConfigDetails.propTypes = {
-  classes: PropTypes.object,
+  classes: PropTypes.object
 };
 
 export default withStyles(styles)(ConfigDetails);

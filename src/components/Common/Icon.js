@@ -5,7 +5,7 @@ export const Icon = WrappedCompnent => {
     constructor(props) {
       super(props);
       this.state = {
-        hover: false,
+        hover: false
       };
     }
 

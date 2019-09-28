@@ -31,7 +31,7 @@ function generateTitle(heightLightText, text) {
 
 class ServiceItem extends React.Component {
   state = {
-    open: false,
+    open: false
   };
 
   handleClick = (clickFile, selectedService) => {

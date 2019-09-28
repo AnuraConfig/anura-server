@@ -16,19 +16,19 @@ import { GET_SERVICE_LIST } from '../../Constant/GqlQueries';
 
 const styles = theme => ({
   gridItem: {
-    margin: '5px 50px',
+    margin: '5px 50px'
   },
   title: {
-    padding: '30px',
+    padding: '30px'
   },
   container: {
     maxHeight: '75vh',
-    overflowY: 'auto',
+    overflowY: 'auto'
   },
   subheader: {
     backgroundColor: '#fff',
-    zIndex: 100,
-  },
+    zIndex: 100
+  }
 });
 
 class ConfigList extends React.Component {
@@ -74,7 +74,7 @@ class ConfigList extends React.Component {
 }
 
 ConfigList.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
 export default withRouter(withStyles(styles)(ConfigList));
