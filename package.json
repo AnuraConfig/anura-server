@@ -55,7 +55,7 @@
     "node-sass": "^7.0.0",
     "nodemon": "^1.18.9",
     "nyc": "^13.3.0",
-    "react-scripts": "^2.1.5"
+    "react-scripts": "^5.0.1"
   },
   "scripts": {
     "start": "concurrently \"npm run start-client\" \"npm run start-server\"",
